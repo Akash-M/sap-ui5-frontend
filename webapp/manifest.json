@@ -59,6 +59,35 @@
 				}
 			}
 		},
+		"routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "BikeRentalApp.view",
+                "controlId": "BikeRentalApp",
+                "controlAggregation": "pages",
+                "transition": "slide"
+            },
+            "routes": [{
+                "pattern": "",
+                "name": "appLogin",
+                "target": "login"
+            }, {
+            	"pattern": "dashboard",
+                "name": "dashboard",
+                "target": "dashboard"
+            }],
+            "targets": {
+                "login": {
+                "viewName": "login",
+                "viewLevel": 1
+                },
+                "dashboard": {
+                "viewName": "dashboard",
+                "viewLevel": 1	
+                }
+            }
+        },
 		"resources": {
 			"css": [{
 				"uri": "css/style.css"

@@ -22,6 +22,13 @@ sap.ui.define([
 
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
+			
+			// enable hash-based routing 
+			// call the init function of the parent
+            UIComponent.prototype.init.apply(this, arguments);
+
+            // create the views based on the url/hash
+            this.getRouter().initialize();
 		}
 	});
 });
