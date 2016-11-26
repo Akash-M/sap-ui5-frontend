@@ -3,7 +3,7 @@ sap.ui.define([
 ], function(Controller) {
 	"use strict";
 
-	return Controller.extend("BikeRentalApp.controller.View1", {
+	return Controller.extend("BikeRentalApp.controller.login", {
 
 	});
 });

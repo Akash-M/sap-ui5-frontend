@@ -1,0 +1,19 @@
+<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="BikeRentalApp.controller.login" displayBlock="true">
+	<App>
+		<pages>
+			<Page title="{i18n>title}">
+				<content>
+				<VBox width="100%" direction="Column" id="__vbox1">
+				    <items>
+				        <Input width="100%" id="usernameid" name="Username" placeholder="Username" required="true"/>
+				        <Input width="100%" id="passwordid" required="true" placeholder="Password" type="Password" tooltip="Password should be 8 characters long"/>
+				        <Button xmlns="sap.m" text="Login" width="100px" id="loginbuttonid" type="Accept"/>
+				    </items>
+				</VBox>
+				</content>
+			<headerContent>
+			</headerContent>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

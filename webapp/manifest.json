@@ -15,7 +15,6 @@
 			"version": "1.40.12"
 		}
 	},
-
 	"sap.ui": {
 		"_version": "1.1.0",
 		"technology": "UI5",
@@ -28,21 +27,16 @@
 			"tablet@2": ""
 		},
 		"deviceTypes": {
-			"desktop": true,
-			"tablet": true,
+			"desktop": false,
+			"tablet": false,
 			"phone": true
 		},
-		"supportedThemes": [
-			"sap_hcb",
-			"sap_belize"
-
-		]
+		"supportedThemes": ["sap_hcb", "sap_belize"]
 	},
-
 	"sap.ui5": {
 		"_version": "1.1.0",
 		"rootView": {
-			"viewName": "BikeRentalApp.view.View1",
+			"viewName": "BikeRentalApp.view.login",
 			"type": "XML"
 		},
 		"dependencies": {
