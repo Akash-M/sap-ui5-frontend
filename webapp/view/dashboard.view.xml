@@ -1,9 +1,16 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="BikeRentalApp.controller.dashboard"
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps" xmlns="sap.m" controllerName="BikeRentalApp.controller.dashboard"
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<App>
 		<pages>
 			<Page title="Dashboard">
-				<content></content>
+				<content>
+					<gmaps:Map height="250px" zoom="12" lat="-33.895" lng="151.275">
+        				<gmaps:markers>
+            				<gmaps:Marker lat="-33.895" lng="151.275" info="Bondi Beach" />
+        				</gmaps:markers>
+    				</gmaps:Map>
+					
+				</content>
 			</Page>
 		</pages>
 	</App>

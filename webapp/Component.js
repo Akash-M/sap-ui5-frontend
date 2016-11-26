@@ -29,6 +29,8 @@ sap.ui.define([
 
             // create the views based on the url/hash
             this.getRouter().initialize();
+            
+			sap.ui.getCore().loadLibrary("openui5.googlemaps", "libs/openui5/googlemaps/");
 		}
 	});
 });
