@@ -1,1 +1,25 @@
 /* Enter your custom styles here */
+html * {
+	font-family: Calibri;
+}
+.sapMTCScrl{
+	background-color:#fafafa;
+}
+.customtiles{
+	border: 1px solid #64AC82;
+	border-radius: 0px;
+	background-color: #00517C;
+	box-shadow: 2px 2px 4px #808888;
+}
+.sapMStdTileTitle{
+	color:white;
+}
+.custompage{
+	background-color: white;
+}
+.header{
+	color:green;
+}
+.sapUiIcon{
+	color: white;
+}

@@ -2,32 +2,32 @@
   "TileCollection" : [
     {
       "icon" : "functional-location",
-      "title" : "Find a bike.",
+      "title" : "Find a bike",
       "id" : "searchbike"
     },
     {
       "icon" : "add",
-      "title" : "Rent bike.",
+      "title" : "Rent bike",
       "id" : "rentbike"
     },
     {
       "icon" : "customer-history",
-      "title" : "Show rides history.",
+      "title" : "Show rides history",
       "id" : "customerhistory"
     },
     {
       "icon" : "account",
-      "title" : "User Account.",
+      "title" : "User Account",
       "id" : "useraccount"
     },
     {
       "icon" : "hint",
-      "title" : "Information.",
+      "title" : "Information",
       "id" : "information"
     },
     {
       "icon" : "quality-issue",
-      "title" : "Report Problem.",
+      "title" : "Report Problem",
       "id" : "reportproblem"
     }
   ]
