@@ -1,16 +1,10 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"  xmlns:gmaps="openui5.googlemaps"
-	xmlns="sap.m" controllerName="BikeRentalApp.controller.searchbike"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.searchbike">
 	<App>
 		<pages>
 			<Page title="Search Bike">
-				<content>
-					<!--<gmaps:Map height="250px" zoom="12" lat="-33.895" lng="151.275">
-        				<gmaps:markers>
-            				<gmaps:Marker lat="-33.895" lng="151.275" info="Bondi Beach" />
-        				</gmaps:markers>
-    				</gmaps:Map>-->
-				</content>
+			<content>
+			    <VBox width="100%" direction="Column" id="mapVbox"/>
+			</content>
 			</Page>
 		</pages>
 	</App>
