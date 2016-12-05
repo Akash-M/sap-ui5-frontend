@@ -11,7 +11,8 @@ sap.ui.define([
 		 * @memberOf BikeRentalApp.view.Dashboard
 		 */
 		onInit: function() {
-
+			 var oModel = new sap.ui.model.json.JSONModel("data/tiles.json");
+    		 this.getView().setModel(oModel);
 		},
 
 		/**
@@ -29,62 +30,8 @@ sap.ui.define([
 		 * @memberOf BikeRentalApp.view.Dashboard
 		 */
 		onAfterRendering: function() {
-			jQuery.sap.require('openui5.googlemaps.MapUtils');
-			jQuery.sap.require("sap.ui.core.IconPool");
-			var aNames = sap.ui.core.IconPool.getIconNames();
-			var icon = new sap.ui.core.Icon({
-				src: sap.ui.core.IconPool.getIconURI(aNames[0]),
-				size: "32px",
-				color: "#333333",
-				activeColor: "white",
-				activeBackgroundColor: "#333333",
-				hoverColor: "#eeeeee",
-				hoverBackgroundColor: "#666666",
-				width: "60px"
-			});
 
-			var util = openui5.googlemaps.MapUtils;
-			var id = this.createId("mapVbox");
-
-			var getLocationCallback = function(oPos) {
-
-				var oMarkers = new openui5.googlemaps.Marker({
-					lat: '{lat}',
-					lng: '{lng}',
-					info: '{name}',
-					icon: icon,
-					animation: 0
-				});
-
-				var oMap = new openui5.googlemaps.Map("map1", {
-					lat: oPos.lat,
-					lng: oPos.lng,
-					zoom: 15,
-					markers: {
-						template: oMarkers
-					}
-				});
-
-				var oVBox = new sap.m.VBox("oVBox", {
-					items: [oMap]
-				});
-
-				var vBox = sap.ui.getCore().byId(id);
-				vBox.addItem(oMap);
-
-				return util.objToLatLng(oPos);
-			};
-
-			var updateLocation = function(sLocation) {
-				console.log(sLocation);
-			};
-
-			util.currentPosition()
-				.then(getLocationCallback)
-				.then(util.geocodePosition)
-				.done(updateLocation);
-
-		}
+		},
 
 		/**
 		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
@@ -93,6 +40,11 @@ sap.ui.define([
 		//	onExit: function() {
 		//
 		//	}
+		tilepress: function(oEvent) {
+			var route = oEvent.getSource().getBindingContext().getProperty("id");
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            oRouter.navTo(route);
+		}
 
 	});
 

@@ -1,0 +1,34 @@
+{
+  "TileCollection" : [
+    {
+      "icon" : "functional-location",
+      "title" : "Find a bike.",
+      "id" : "searchbike"
+    },
+    {
+      "icon" : "add",
+      "title" : "Rent bike.",
+      "id" : "rentbike"
+    },
+    {
+      "icon" : "customer-history",
+      "title" : "Show rides history.",
+      "id" : "customerhistory"
+    },
+    {
+      "icon" : "account",
+      "title" : "User Account.",
+      "id" : "useraccount"
+    },
+    {
+      "icon" : "hint",
+      "title" : "Information.",
+      "id" : "information"
+    },
+    {
+      "icon" : "quality-issue",
+      "title" : "Report Problem.",
+      "id" : "reportproblem"
+    }
+  ]
+}

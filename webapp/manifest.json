@@ -76,6 +76,10 @@
             	"pattern": "dashboard",
                 "name": "dashboard",
                 "target": "dashboard"
+            }, {
+            	"pattern": "searchbike",
+                "name": "searchbike",
+                "target": "searchbike"
             }],
             "targets": {
                 "login": {
@@ -85,6 +89,10 @@
                 "dashboard": {
                 "viewName": "dashboard",
                 "viewLevel": 1	
+                },
+                "searchbike": {
+                "viewName": "searchbike",
+                "viewLevel": 1
                 }
             }
         },

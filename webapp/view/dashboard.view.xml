@@ -1,16 +1,17 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.dashboard">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps" xmlns="sap.m"
+	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.dashboard">
 	<App>
 		<pages>
 			<Page title="Dashboard">
 				<content>
-					<!--<gmaps:Map height="250px" zoom="12" lat="-33.895" lng="151.275">
-        				<gmaps:markers>
-            				<gmaps:Marker lat="-33.895" lng="151.275" info="Bondi Beach" />
-        				</gmaps:markers>
-    				</gmaps:Map>-->
-    				<VBox width="100%" direction="Column" id="mapVbox" alignContent="SpaceAround">
-				</VBox>
-					
+					<Page showHeader="false" enableScrolling="true">
+						<TileContainer id="tiles" tiles="{/TileCollection}">
+							<!--<StandardTile icon="sap-icon://{icon}" type="{type}" number="{number}" numberUnit="{numberUnit}" title="{title}" info="{info}"
+								infoState="{infoState}" press="tilepress"/>-->
+							<StandardTile icon="sap-icon://{icon}" type="{type}" number="{number}" numberUnit="{numberUnit}"
+								press="tilepress" title="{title}" info="{info}" infoState="{infoState}"/>
+						</TileContainer>
+					</Page>
 				</content>
 			</Page>
 		</pages>
