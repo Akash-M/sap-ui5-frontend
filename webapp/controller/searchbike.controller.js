@@ -13,22 +13,25 @@ sap.ui.define([
 		//	onInit: function() {
 		//
 		//	},
-
-		/**
-		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-		 * (NOT before the first rendering! onInit() is used for that one!).
-		 * @memberOf BikeRentalApp.view.searchbike
-		 */
-		//	onBeforeRendering: function() {
-		//
-		//	},
+			onBack: function() {
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            	oRouter.navTo("dashboard");
+			},
+			/**
+			 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
+			 * (NOT before the first rendering! onInit() is used for that one!).
+			 * @memberOf BikeRentalApp.view.searchbike
+			 */
+			//	onBeforeRendering: function() {
+			//
+			//	},
 
 		/**
 		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
 		 * This hook is the same one that SAPUI5 controls get after being rendered.
 		 * @memberOf BikeRentalApp.view.searchbike
 		 */
-		onAfterRendering: function() {
+			onAfterRendering: function() {
 			jQuery.sap.require('openui5.googlemaps.MapUtils');
 
 			var util = openui5.googlemaps.MapUtils;

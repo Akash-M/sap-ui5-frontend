@@ -1,7 +1,7 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.searchbike">
 	<App>
 		<pages>
-			<Page title="Search Bike">
+			<Page title="Search Bike" showNavButton="true" navButtonPress="onBack">
 			<content>
 			    <VBox width="100%" direction="Column" id="mapVbox"/>
 			</content>
