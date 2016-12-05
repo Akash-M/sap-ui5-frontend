@@ -3,7 +3,8 @@
 		<pages>
 			<Page title="Search Bike" showNavButton="true" navButtonPress="onBack">
 			<content>
-			    <VBox width="100%" direction="Column" id="mapVbox"/>
+			    <VBox width="100%" direction="ColumnReverse" id="mapVbox" height="100%" wrap="Wrap" fitContainer="true" alignContent="Start" alignItems="Inherit" justifyContent="End" busyIndicatorDelay="100">
+			    </VBox>
 			</content>
 			</Page>
 		</pages>

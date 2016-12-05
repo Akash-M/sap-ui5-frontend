@@ -10,64 +10,57 @@ sap.ui.define([
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 		 * @memberOf BikeRentalApp.view.searchbike
 		 */
-		//	onInit: function() {
+		onInit: function() {
+			var oModel = new sap.ui.model.json.JSONModel("data/stations.json");
+			this.getView().setModel(oModel);
+		},
+		
+		onBack: function() {
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            oRouter.navTo("dashboard");
+		},
+		/**
+		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
+		 * (NOT before the first rendering! onInit() is used for that one!).
+		 * @memberOf BikeRentalApp.view.searchbike
+		 */
+		//	onBeforeRendering: function() {
 		//
 		//	},
-			onBack: function() {
-				var app = new sap.m.App({
-					initialPage: this.createId("searchbikeid")
-				});
-
-				var page = sap.ui.view({
-					id: this.createId("dashboardid"),
-					viewName: "BikeRentalApp.view.dashboard",
-					type: sap.ui.core.mvc.ViewType.XML
-				});
-
-				app.addPage(page);
-				app.placeAt("content", "only");
-			},
-			/**
-			 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-			 * (NOT before the first rendering! onInit() is used for that one!).
-			 * @memberOf BikeRentalApp.view.searchbike
-			 */
-			//	onBeforeRendering: function() {
-			//
-			//	},
 
 		/**
 		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
 		 * This hook is the same one that SAPUI5 controls get after being rendered.
 		 * @memberOf BikeRentalApp.view.searchbike
 		 */
-			onAfterRendering: function() {
+		onAfterRendering: function() {
 			jQuery.sap.require('openui5.googlemaps.MapUtils');
-
 			var util = openui5.googlemaps.MapUtils;
+
 			var id = this.createId("mapVbox");
+			var mapId = this.createId("map");
 
 			var getLocationCallback = function(oPos) {
 
 				var oMarkers = new openui5.googlemaps.Marker({
-					lat: oPos.lat,
+					/*lat: oPos.lat,
 					lng: oPos.lng,
-					info: "Klinikum GrossHardern"
+					info: "Klinikum GrossHardern"*/
+					lat: '{lat}',
+					lng: '{lng}',
+					info: '{info}'
 				});
 
-				console.log(oMarkers);
-
-				var oMap = new openui5.googlemaps.Map("map1", {
+				var oMap = new openui5.googlemaps.Map(mapId, {
 					lat: oPos.lat,
 					lng: oPos.lng,
-					zoom: 15,
-					markers: [oMarkers]
-				});
-
-				console.log(oMap);
-
-				var oVBox = new sap.m.VBox("oVBox", {
-					items: [oMap]
+					height: '500px',
+					zoom: 14,
+					//markers: [oMarkers]
+					markers: {
+						path: "/stations",
+						template: oMarkers
+					}
 				});
 
 				var vBox = sap.ui.getCore().byId(id);
