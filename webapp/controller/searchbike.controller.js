@@ -39,16 +39,22 @@ sap.ui.define([
 
 			var id = this.createId("mapVbox");
 			var mapId = this.createId("map");
+			
+			var oParentRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			
+			var onMarkerClick = function(){
+				var oContext = this.getBindingContext();
+            	oParentRouter.navTo("dashboard", oContext);
+			}
 
 			var getLocationCallback = function(oPos) {
 
 				var oMarkers = new openui5.googlemaps.Marker({
-					/*lat: oPos.lat,
-					lng: oPos.lng,
-					info: "Klinikum GrossHardern"*/
 					lat: '{lat}',
 					lng: '{lng}',
-					info: '{info}'
+					info: '{info}',
+					icon: "libs/openui5/googlemaps/themes/base/img/m1.png",
+					click: onMarkerClick
 				});
 
 				var oMap = new openui5.googlemaps.Map(mapId, {
@@ -56,12 +62,12 @@ sap.ui.define([
 					lng: oPos.lng,
 					height: '500px',
 					zoom: 14,
-					//markers: [oMarkers]
 					markers: {
 						path: "/stations",
 						template: oMarkers
 					}
 				});
+				
 
 				var vBox = sap.ui.getCore().byId(id);
 				vBox.addItem(oMap);
