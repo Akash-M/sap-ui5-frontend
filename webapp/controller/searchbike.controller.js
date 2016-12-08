@@ -44,6 +44,7 @@ sap.ui.define([
 			
 			var onMarkerClick = function(){
 				var oContext = this.getBindingContext();
+				this.infoWindowClose();
             	oParentRouter.navTo("dashboard", oContext);
 			}
 
