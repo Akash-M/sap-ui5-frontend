@@ -6,14 +6,9 @@
       "id" : "searchbike"
     },
     {
-      "icon" : "add",
-      "title" : "Rent bike",
-      "id" : "rentbike"
-    },
-    {
       "icon" : "customer-history",
-      "title" : "Show rides history",
-      "id" : "customerhistory"
+      "title" : "My Rides",
+      "id" : "rentbike"
     },
     {
       "icon" : "account",

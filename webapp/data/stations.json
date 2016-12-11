@@ -1,0 +1,19 @@
+{
+  	"stations" : [
+    {
+      "lat" : 48.108889,
+      "lng" : 11.473611,
+      "info" : "Klinikum Großhadern"
+    },
+    {
+      "lat" : 48.11380639999999,
+      "lng" : 11.4766509,
+      "info" : "Großhadern"
+    },
+    {
+      "lat" : 48.118394,
+      "lng" : 11.488828,
+      "info" : "Haderner Stern"
+    }
+  ]
+}

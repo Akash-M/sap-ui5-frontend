@@ -3,23 +3,38 @@ html * {
 	font-family: Calibri;
 }
 .sapMTCScrl{
-	background-color:#fafafa;
+	background-image: url("../resources/img/bike.png");
+}
+.sapMBarContainer .sapMBarPH{
+	opacity: 0.9;
 }
 .customtiles{
-	border: 1px solid #64AC82;
 	border-radius: 0px;
-	background-color: #00517C;
+	background-color:#fafafa;
+	opacity: 0.9;
 	box-shadow: 2px 2px 4px #808888;
 }
-.sapMStdTileTitle{
-	color:white;
+html.sap-phone .sapMStdTileTitle{
+	font-size:18px !important;
 }
-.custompage{
-	background-color: white;
+.sapMStdTileTitle {
+	font-weight: bold;
+	font:20px;
+    color: #00517C;
+}
+.customtiles p{
+	font-weight: bold;
+    color: #000000;
 }
 .header{
 	color:green;
 }
-.sapUiIcon{
-	color: white;
+.biketypetile{
+	border: 1px solid black;
+}
+.biketypetilecontainer{
+	width:100%;
+}
+.dashboard{
+	width:100%;
 }

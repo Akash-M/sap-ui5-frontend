@@ -18,6 +18,15 @@
         "entryPath": "/test-resources"
       },
       "description": "SAPUI5 Test Resources"
+    },
+    {
+      "path": "/themedesigner",
+      "target": {
+        "type": "application",
+        "name": "themedesigner"
+      },
+      "description": "Route for theme designer"
+
     }
   ],
   "sendWelcomeFileRedirect": true

@@ -80,7 +80,16 @@
             	"pattern": "searchbike",
                 "name": "searchbike",
                 "target": "searchbike"
-            }],
+            }, {
+            	"pattern": "choosebike",
+                "name": "choosebike",
+                "target": "choosebike"
+            }, {
+            	"pattern": "myrides",
+                "name": "myrides",
+                "target": "myrides"
+            }
+            ],
             "targets": {
                 "login": {
                 "viewName": "login",
@@ -92,6 +101,14 @@
                 },
                 "searchbike": {
                 "viewName": "searchbike",
+                "viewLevel": 1
+                },
+                "choosebike": {
+                "viewName": "choosebike",
+                "viewLevel": 1
+                },
+                "myrides": {
+                "viewName": "myrides",
                 "viewLevel": 1
                 }
             }

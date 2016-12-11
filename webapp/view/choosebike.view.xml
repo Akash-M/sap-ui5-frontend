@@ -1,0 +1,20 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" 
+xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.choosebike">
+	<App>
+		<pages>
+			<Page title="Choose bike">
+				<content>
+					<Page showHeader="false" enableScrolling="true">
+						<TileContainer
+							id="container"
+							tiles="{/BikeTypes}"
+							class="biketypetilecontainer">
+							<StandardTile type="{type}" number="{number}" numberUnit="{numberUnit}" 
+							class="customtiles" press="tilepress" title="{title}" info="{info}" infoState="{infoState}"/>
+						 </TileContainer> 
+					</Page>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

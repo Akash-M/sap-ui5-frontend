@@ -1,0 +1,60 @@
+{
+  "BikeTypes" : [
+    {
+      "title" : "DELUXE TOURING BIKE(BLACK)",
+      "id" : "deluxetouringbike_black",
+      "number" : "0",
+      "info" : "Not available currently",
+      "infoState" : "Error"
+    },
+    {
+      "title" : "DELUXE TOURING BIKE(RED)",
+      "id" : "deluxetouringbike_red",
+      "number" : "10",
+      "info" : "Few available",
+      "infoState" : "Warning"
+    },
+    {
+      "title" : "DELUXE TOURING BIKE(SILVER)",
+      "id" : "deluxetouringbike_silver",
+      "number" : "20",
+      "info" : "Available",
+      "infoState" : "Success"
+    },
+    {
+      "title" : "MEN'S OFF ROAD BIKE",
+      "id" : "mensoffroadbike",
+      "number" : "20",
+      "info" : "Available",
+      "infoState" : "Success"
+    },
+    {
+      "title" : "PROFESSIONAL TOURING BIKE(BLACK)",
+      "id" : "professionaltouringbike_black",
+      "number" : "0",
+      "info" : "Not available currently",
+      "infoState" : "Error"
+    },
+    {
+      "title" : "PROFESSIONAL TOURING BIKE(RED)",
+      "id" : "professionaltouringbike_red",
+      "number" : "20",
+      "info" : "Available",
+      "infoState" : "Success"
+    },
+    {
+      "title" : "PROFESSIONAL TOURING BIKE(SILVER)",
+      "id" : "professionaltouringbike_silver",
+      "number" : "10",
+      "info" : "Few available",
+      "infoState" : "Warning"
+    },
+    {
+      "title" : "WOMEN'S OFF ROAD BIKE",
+      "id" : "womensoffroadbike",
+      "number" : "10",
+      "info" : "Few available",
+      "infoState" : "Warning"
+    }
+  ]
+}
