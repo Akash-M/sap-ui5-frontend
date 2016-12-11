@@ -43,6 +43,13 @@ sap.ui.define([
 		tilepress: function(oEvent) {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.navTo("myrides");
+		},
+		
+		
+		toolbarnav: function(oEvent){
+			var route = oEvent.getSource().data("route");
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            oRouter.navTo(route);
 		}
 
 	});

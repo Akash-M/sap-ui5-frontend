@@ -44,6 +44,13 @@ sap.ui.define([
 			var route = oEvent.getSource().getBindingContext().getProperty("id");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.navTo(route);
+		},
+		
+		toolbarnav: function(oEvent){
+			var route = oEvent.getSource().data("route");
+			console.log(route);
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            oRouter.navTo(route);
 		}
 
 	});

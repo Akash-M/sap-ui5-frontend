@@ -1,8 +1,24 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="BikeRentalApp.controller.myrides"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns="sap.m" controllerName="BikeRentalApp.controller.myrides" xmlns:html="http://www.w3.org/1999/xhtml">
 	<App>
 		<pages>
 			<Page title="My Rides">
+				<customHeader>
+					<Toolbar id="navtoolbar">
+						<Button icon="sap-icon://home" press="toolbarnav" app:route="dashboard"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://functional-location" press="toolbarnav" app:route="searchbike"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://customer-history" press="toolbarnav" app:route="myrides" class="currentUrl"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://hint" press="toolbarnav" app:route="information"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://quality-issue" press="toolbarnav" app:route="reportissues"/>
+						<ToolbarSpacer/>					
+						<Button icon="sap-icon://account" press="toolbarnav" app:route="useraccount"/>
+						<ToolbarSpacer/>
+					</Toolbar>
+				</customHeader>
 				<content></content>
 			</Page>
 		</pages>

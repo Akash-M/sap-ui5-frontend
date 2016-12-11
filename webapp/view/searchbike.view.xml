@@ -1,7 +1,24 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.searchbike">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps"  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.searchbike">
 	<App>
 		<pages>
 			<Page title="Search Bike" showNavButton="true" navButtonPress="onBack">
+				<customHeader>
+					<Toolbar id="navtoolbar">
+						<Button icon="sap-icon://home" press="toolbarnav" app:route="dashboard"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://functional-location" press="toolbarnav" app:route="searchbike"  class="currentUrl"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://customer-history" press="toolbarnav" app:route="myrides"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://hint" press="toolbarnav" app:route="information"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://quality-issue" press="toolbarnav" app:route="reportissues"/>
+						<ToolbarSpacer/>					
+						<Button icon="sap-icon://account" press="toolbarnav" app:route="useraccount"/>
+						<ToolbarSpacer/>
+					</Toolbar>
+				</customHeader>
 			<content>
 			    <VBox width="100%" direction="Column" id="mapVbox"/>
 			</content>

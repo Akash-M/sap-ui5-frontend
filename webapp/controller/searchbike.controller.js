@@ -102,6 +102,12 @@ sap.ui.define([
 				.then(util.geocodePosition)
 				.done(updateLocation);
 
+		},
+		
+		toolbarnav: function(oEvent){
+			var route = oEvent.getSource().data("route");
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            oRouter.navTo(route);
 		}
 
 		/**

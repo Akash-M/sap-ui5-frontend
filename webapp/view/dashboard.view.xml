@@ -1,13 +1,29 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps" 
-xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.dashboard">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps" xmlns="sap.m" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.dashboard">
 	<App>
 		<pages>
-			<Page title="Welcome!" class="custompage">
+			<Page title="Welcome!">
+				<customHeader>
+					<Toolbar id="navtoolbar">
+						<Button icon="sap-icon://home" press="toolbarnav" class="currentUrl" app:route="dashboard"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://functional-location" press="toolbarnav" app:route="searchbike"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://customer-history" press="toolbarnav" app:route="myrides"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://hint" press="toolbarnav" app:route="information"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://quality-issue" press="toolbarnav" app:route="reportissues"/>
+						<ToolbarSpacer/>					
+						<Button icon="sap-icon://account" press="toolbarnav" app:route="useraccount"/>
+						<ToolbarSpacer/>
+					</Toolbar>
+				</customHeader>
 				<content>
 					<Page showHeader="false" enableScrolling="true">
 						<TileContainer id="dashboardtiles" tiles="{/TileCollection}" class="dashboard">
-							<StandardTile icon="sap-icon://{icon}" type="{type}" number="{number}" numberUnit="{numberUnit}" 
-							class="customtiles" press="tilepress" title="{title}" info="{info}" infoState="{infoState}"/>
+							<StandardTile icon="sap-icon://{icon}" type="{type}" number="{number}" numberUnit="{numberUnit}" class="customtiles" press="tilepress"
+								title="{title}" info="{info}" infoState="{infoState}"/>
 						</TileContainer>
 					</Page>
 				</content>
