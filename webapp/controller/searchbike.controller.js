@@ -14,10 +14,10 @@ sap.ui.define([
 			var oModel = new sap.ui.model.json.JSONModel("data/stations.json");
 			this.getView().setModel(oModel);
 		},
-		
+
 		onBack: function() {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-            oRouter.navTo("dashboard");
+			oRouter.navTo("dashboard");
 		},
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
@@ -32,28 +32,46 @@ sap.ui.define([
 		 * This hook is the same one that SAPUI5 controls get after being rendered.
 		 * @memberOf BikeRentalApp.view.searchbike
 		 */
-			onAfterRendering: function() {
+		onAfterRendering: function() {
 			jQuery.sap.require('openui5.googlemaps.MapUtils');
 			var util = openui5.googlemaps.MapUtils;
 
 			var id = this.createId("mapVbox");
 			var mapId = this.createId("map");
-			
+
+			var oModel = this.getView().getModel();
+
 			var oParentRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			
-			var onMarkerClick = function(){
-				var oContext = this.getBindingContext();
-				this.infoWindowClose();
-            	oParentRouter.navTo("choosebike", oContext);
+
+			var onMarkerClick = function(oEvent) {
+				var oContext = oEvent.getSource().getBindingContext();
+				var modelProperty = oContext.getModel().getProperty(oContext.sPath);
+				if (modelProperty.info !== "Current Location") {
+					this.infoWindowClose();
+					oParentRouter.navTo("choosebike", oContext);
+				}
+				else {
+					this.removeListeners();
+				}
 			}
 
 			var getLocationCallback = function(oPos) {
+
+				var currentLocation = [{
+					info: "Current Location",
+					lat: oPos.lat,
+					lng: oPos.lng,
+				}];
+
+				var aData = oModel.getProperty("/stations");
+				aData.push.apply(aData, currentLocation);
+				oModel.setProperty("/stations", aData);
 
 				var oMarkers = new openui5.googlemaps.Marker({
 					lat: '{lat}',
 					lng: '{lng}',
 					info: '{info}',
-					icon: "libs/openui5/googlemaps/themes/base/img/m1.png",
+					icon: "{icon}",
 					click: onMarkerClick
 				});
 
@@ -67,7 +85,6 @@ sap.ui.define([
 						template: oMarkers
 					}
 				});
-				
 
 				var vBox = sap.ui.getCore().byId(id);
 				vBox.addItem(oMap);
