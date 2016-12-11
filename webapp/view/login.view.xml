@@ -3,13 +3,22 @@
 		<pages>
 			<Page title="{i18n>title}">
 				<content>
-				<VBox width="100%" direction="Column" id="__vbox1">
+				<!--<VBox width="100%" direction="Column" id="__vbox1">
 				    <items>
 				        <Input width="100%" id="usernameid" name="Username" placeholder="Username" required="true"/>
 				        <Input width="100%" id="passwordid" required="true" placeholder="Password" type="Password" tooltip="Password should be 8 characters long"/>
 				        <Button xmlns="sap.m" text="Login" width="100px" id="loginbuttonid" type="Accept" press="login"/>
 				    </items>
-				</VBox>
+				</VBox>-->
+				
+				<Carousel activePage="__image0" showBusyIndicator="false" busyIndicatorSize="" id="__carousel0">
+				    <pages>
+				    	<Image src="resources/img/carousel1.png" width="100%" height="700px" id="__image1" mode="Background"/>
+				    	<Image src="resources/img/carousel2.png" width="100%" height="700px" id="__image2" mode="Background"/>
+				    	<Image src="resources/img/carousel3.png" width="100%" height="700px" id="__image3" mode="Background"/>
+				    	<Image src="resources/img/carousel4.png" width="100%" height="700px" id="__image4" mode="Background"/>
+				    </pages>
+				</Carousel>
 				</content>
 			<headerContent>
 			</headerContent>
