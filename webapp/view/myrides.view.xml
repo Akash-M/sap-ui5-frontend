@@ -37,8 +37,8 @@
 						</FlexBox>
 						<gmaps:Map id="map1" lat="{/positions/1/lat}" lng="{/positions/1/lng}" zoom="11" zoomControl="true">
 							<gmaps:markers>
-								<gmaps:Marker path="{/start}" lat="{/start/lat}" lng="{/start/lng}" info="{/start/name}"/>
-								<gmaps:Marker path="{/end}" lat="{/end/lat}" lng="{/end/lng}" info="{/end/name}"/>
+								<gmaps:Marker icon="resources/img/map-marker-icon.png" path="{/start}" lat="{/start/lat}" lng="{/start/lng}" info="{/start/name}"/>
+								<gmaps:Marker icon="resources/img/map-marker-icon.png" path="{/end}" lat="{/end/lat}" lng="{/end/lng}" info="{/end/name}"/>
 							</gmaps:markers>
 							<gmaps:polylines>
 								<gmaps:Polyline path="{/positions}" strokeColor="#2980b9"></gmaps:Polyline>

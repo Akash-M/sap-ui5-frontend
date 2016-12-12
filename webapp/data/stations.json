@@ -4,19 +4,19 @@
       "lat" : 48.108889,
       "lng" : 11.473611,
       "info" : "Klinikum Großhadern",
-      "icon" : "libs/openui5/googlemaps/themes/base/img/m1.png"
+      "icon" : "resources/img/map-marker-icon.png"
     },
     {
       "lat" : 48.11380639999999,
       "lng" : 11.4766509,
       "info" : "Großhadern",
-      "icon" : "libs/openui5/googlemaps/themes/base/img/m1.png"
+      "icon" : "resources/img/map-marker-icon.png"
     },
     {
       "lat" : 48.118394,
       "lng" : 11.488828,
       "info" : "Haderner Stern",
-      "icon" : "libs/openui5/googlemaps/themes/base/img/m1.png"
+      "icon" : "resources/img/map-marker-icon.png"
     }
   ]
 }

@@ -40,6 +40,9 @@ sap.ui.define([
 			var mapId = this.createId("map");
 
 			var oModel = this.getView().getModel();
+			
+			var iconUri = sap.ui.core.IconPool.getIconURI("map");
+			console.log(iconUri);
 
 			var oParentRouter = sap.ui.core.UIComponent.getRouterFor(this);
 
@@ -60,7 +63,8 @@ sap.ui.define([
 				var currentLocation = [{
 					info: "Current Location",
 					lat: oPos.lat,
-					lng: oPos.lng
+					lng: oPos.lng,
+					icon: "resources/img/google-currents-icon.png"
 				}];
 
 				var aData = oModel.getProperty("/stations");
@@ -71,7 +75,7 @@ sap.ui.define([
 					lat: '{lat}',
 					lng: '{lng}',
 					info: '{info}',
-					icon: "{icon}",
+					icon: '{icon}',
 					click: onMarkerClick
 				});
 
