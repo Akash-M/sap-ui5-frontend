@@ -1,7 +1,15 @@
-<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="BikeRentalApp.controller.login" displayBlock="true">
+<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns="sap.m" controllerName="BikeRentalApp.controller.login" displayBlock="true">
 	<App id="BikeRentalApp">
 		<pages>
 			<Page title="{i18n>title}">
+				<customHeader>
+					<Toolbar id="navtoolbar">
+						<ToolbarSpacer/>
+						<Button press="nav" app:route="dashboard" text="Register Now!"/>
+						<Button press="nav" app:route="dashboard" text="Login"/>
+					</Toolbar>	
+				</customHeader>
 				<content>
 				<!--<VBox width="100%" direction="Column" id="__vbox1">
 				    <items>

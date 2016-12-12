@@ -12,6 +12,13 @@ sap.ui.define([
 		login: function(){
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("dashboard");
+		},
+		
+		nav: function(oEvent){
+			var route = oEvent.getSource().data("route");
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            oRouter.navTo(route);
 		}
+		
 	});
 });

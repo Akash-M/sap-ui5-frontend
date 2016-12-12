@@ -48,7 +48,6 @@ sap.ui.define([
 		
 		toolbarnav: function(oEvent){
 			var route = oEvent.getSource().data("route");
-			console.log(route);
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.navTo(route);
 		}
