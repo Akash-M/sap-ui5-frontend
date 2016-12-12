@@ -37,3 +37,22 @@ html.sap-phone .sapMStdTileTitle{
 .currentUrl{
 	border-bottom: 5px solid #00517C;
 }
+.btnFlexBox{
+	position: absolute;
+	top: 30px;
+	right:20px;
+	z-index:111;
+}
+.btnFlexBox button.sapMBtn  span.sapMBtnInner{
+	border: 0px;
+	opacity:0.85;
+}
+.playBtn span span.sapMBtnIcon{
+	color:#27ae60;
+}
+.pauseBtn span span.sapMBtnIcon{
+	color:#e67e22;
+}
+.stopBtn span span.sapMBtnIcon{
+	color:#c0392b;
+}

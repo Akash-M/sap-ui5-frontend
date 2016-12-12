@@ -1,0 +1,34 @@
+{
+	"start": {
+		"name": "85748 Garching, Germany",
+		"lat": 48.2732261,
+		"lng": 11.6851891
+	},
+	"end": {
+		"name": "Freimann, 80939 München",
+		"lat": 48.1919794,
+		"lng": 11.6142375
+	},
+	"positions": [{
+		"name": "85748 Garching, Germany",
+		"lat": 48.2732261,
+		"lng": 11.6851891
+	}, {
+		"name": "Garching-Hochbrück, 85748 Garching bei München",
+		"lat": 48.2473909,
+		"lng": 11.631036
+
+	}, {
+		"name": "Fröttmaning, 80939 München",
+		"lat": 48.21184539999999,
+		"lng": 11.6165192
+	}, {
+		"name": "Kieferngarten, 80939 München",
+		"lat": 48.2038472,
+		"lng": 11.6132942
+	}, {
+		"name": "Freimann, 80939 München",
+		"lat": 48.1919794,
+		"lng": 11.6142375
+	}]
+}

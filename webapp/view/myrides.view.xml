@@ -1,5 +1,6 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-	xmlns="sap.m" controllerName="BikeRentalApp.controller.myrides" xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" controllerName="BikeRentalApp.controller.myrides"
+	xmlns:html="http://www.w3.org/1999/xhtml">
 	<App>
 		<pages>
 			<Page title="My Rides">
@@ -14,12 +15,37 @@
 						<Button icon="sap-icon://hint" press="toolbarnav" app:route="information"/>
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://quality-issue" press="toolbarnav" app:route="reportissues"/>
-						<ToolbarSpacer/>					
+						<ToolbarSpacer/>
 						<Button icon="sap-icon://account" press="toolbarnav" app:route="useraccount"/>
 						<ToolbarSpacer/>
 					</Toolbar>
 				</customHeader>
-				<content></content>
+				<content>
+					<VBox>
+						<!--<Toolbar id="currentRideToolbar">
+							<ToolbarSpacer/>						
+							<Button icon="sap-icon://media-play" press="onPlayBtnPress" class="playBtn"/>
+							<Button icon="sap-icon://media-pause" press="onPauseBtnPress" class="pauseBtn"/>
+							<Button icon="sap-icon://stop" press="onStopBtnPress" class="stopBtn"/>
+						</Toolbar>-->
+						<FlexBox direction="RowReverse" alignItems="Start" class="btnFlexBox">
+							<items>
+								<Button icon="sap-icon://stop" press="onStopBtnPress" class="stopBtn"/>
+								<Button icon="sap-icon://media-pause" press="onPauseBtnPress" class="pauseBtn"/>
+								<Button icon="sap-icon://media-play" press="onPlayBtnPress" class="playBtn"/>
+							</items>
+						</FlexBox>
+						<gmaps:Map id="map1" lat="{/positions/1/lat}" lng="{/positions/1/lng}" zoom="11" zoomControl="true">
+							<gmaps:markers>
+								<gmaps:Marker path="{/start}" lat="{/start/lat}" lng="{/start/lng}" info="{/start/name}"/>
+								<gmaps:Marker path="{/end}" lat="{/end/lat}" lng="{/end/lng}" info="{/end/name}"/>
+							</gmaps:markers>
+							<gmaps:polylines>
+								<gmaps:Polyline path="{/positions}" strokeColor="#2980b9"></gmaps:Polyline>
+							</gmaps:polylines>
+						</gmaps:Map>
+					</VBox>
+				</content>
 			</Page>
 		</pages>
 	</App>

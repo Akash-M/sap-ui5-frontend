@@ -60,7 +60,7 @@ sap.ui.define([
 				var currentLocation = [{
 					info: "Current Location",
 					lat: oPos.lat,
-					lng: oPos.lng,
+					lng: oPos.lng
 				}];
 
 				var aData = oModel.getProperty("/stations");
@@ -78,7 +78,7 @@ sap.ui.define([
 				var oMap = new openui5.googlemaps.Map(mapId, {
 					lat: oPos.lat,
 					lng: oPos.lng,
-					height: '500px',
+					height: ($(document).height())*0.9 + "px",
 					zoom: 14,
 					markers: {
 						path: "/stations",
