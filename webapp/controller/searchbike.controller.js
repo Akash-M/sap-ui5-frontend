@@ -14,11 +14,20 @@ sap.ui.define([
 			var oModel = new sap.ui.model.json.JSONModel("data/stations.json");
 			this.getView().setModel(oModel);
 		},
+		
+		getControllerView: function(){
+			return this.getView();
+		},
+		
 
 		onBack: function() {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("dashboard");
 		},
+		
+		
+		
+		
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
 		 * (NOT before the first rendering! onInit() is used for that one!).
@@ -40,20 +49,16 @@ sap.ui.define([
 			var mapId = this.createId("map");
 
 			var oModel = this.getView().getModel();
-			
-			var iconUri = sap.ui.core.IconPool.getIconURI("map");
-			console.log(iconUri);
 
 			var oParentRouter = sap.ui.core.UIComponent.getRouterFor(this);
-
+			
 			var onMarkerClick = function(oEvent) {
 				var oContext = oEvent.getSource().getBindingContext();
 				var modelProperty = oContext.getModel().getProperty(oContext.sPath);
 				if (modelProperty.info !== "Current Location") {
 					this.infoWindowClose();
 					oParentRouter.navTo("choosebike", oContext);
-				}
-				else {
+				} else {
 					this.removeListeners();
 				}
 			}
@@ -66,7 +71,7 @@ sap.ui.define([
 					lng: oPos.lng,
 					icon: "resources/img/google-currents-icon.png"
 				}];
-
+				
 				var aData = oModel.getProperty("/stations");
 				aData.push.apply(aData, currentLocation);
 				oModel.setProperty("/stations", aData);
@@ -82,7 +87,7 @@ sap.ui.define([
 				var oMap = new openui5.googlemaps.Map(mapId, {
 					lat: oPos.lat,
 					lng: oPos.lng,
-					height: ($(document).height())*0.9 + "px",
+					height: ($(document).height()) * 0.9 + "px",
 					zoom: 14,
 					markers: {
 						path: "/stations",
@@ -98,7 +103,9 @@ sap.ui.define([
 			};
 
 			var updateLocation = function(sLocation) {
-				console.log(sLocation);
+				/*var aData = oModel.getProperty("/stations");
+				oModel.setProperty("/stations/"+aData.length+"/info", sLocation);
+				console.log(oModel);*/
 			};
 
 			util.currentPosition()
@@ -107,11 +114,11 @@ sap.ui.define([
 				.done(updateLocation);
 
 		},
-		
-		toolbarnav: function(oEvent){
+
+		toolbarnav: function(oEvent) {
 			var route = oEvent.getSource().data("route");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-            oRouter.navTo(route);
+			oRouter.navTo(route);
 		}
 
 		/**
