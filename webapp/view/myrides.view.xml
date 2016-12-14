@@ -28,11 +28,12 @@
 							<Button icon="sap-icon://media-pause" press="onPauseBtnPress" class="pauseBtn"/>
 							<Button icon="sap-icon://stop" press="onStopBtnPress" class="stopBtn"/>
 						</Toolbar>-->
-						<FlexBox direction="RowReverse" alignItems="Start" class="btnFlexBox">
+						<FlexBox id="btnsFlexContainer" direction="RowReverse" alignItems="Start" class="btnFlexBox">
 							<items>
-								<Button icon="sap-icon://stop" press="onStopBtnPress" class="stopBtn"/>
-								<Button icon="sap-icon://media-pause" press="onPauseBtnPress" class="pauseBtn"/>
-								<Button icon="sap-icon://media-play" press="onPlayBtnPress" class="playBtn"/>
+								<!--<Button id="ridebtn"/>-->
+								<Button icon="sap-icon://stop" id="stopbtn" press="onStopBtnPress" class="stopBtn" enabled="false" lite="true"/>
+								<Button icon="sap-icon://media-pause" id="pausebtn" press="onPauseBtnPress" class="pauseBtn" enabled="false"/>
+								<Button icon="sap-icon://media-play" id="playBtn" press="onPlayBtnPress" class="playBtn"/>
 							</items>
 						</FlexBox>
 						<gmaps:Map id="map1" lat="{/pastrides/0/start/lat}" lng="{/pastrides/0/start/lng}" zoom="11" zoomControl="true">

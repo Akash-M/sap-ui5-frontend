@@ -13,6 +13,10 @@ sap.ui.define([
 		onInit: function() {
 			var oModel = new sap.ui.model.json.JSONModel("data/mockLocations.json");
 			this.getView().setModel(oModel);
+			window.bikingState = undefined;
+			window.startTime = undefined;
+			window.stopTime = undefined;
+			window.resumeTime = undefined;
 		},
 
 		updatePosition: function(position) {
@@ -20,29 +24,105 @@ sap.ui.define([
 			oModel.setProperty("/current/lat", position.coords.latitude);
 			oModel.setProperty("/current/lng", position.coords.longitude);
 			oModel.setProperty("/current/info", "Current");
-			console.log(oModel);
 		},
 
 		watchPostion: function() {
 			if (navigator.geolocation) {
-				console.log(this);
 				var watchID = navigator.geolocation.watchPosition(this.updatePosition.bind(this));
-				console.log(watchID);
 			} else {
-				console.log("Error: This version of application does not support geolocation");
+				var dialog = new sap.m.Dialog({
+					title: 'Error',
+					type: 'Message',
+					state: 'Error',
+					content: new sap.m.Text({
+						text: 'The geolocation on your device is either disabled or not support'
+					}),
+					beginButton: new sap.m.Button({
+						text: 'Ok',
+						press: function() {
+							dialog.close();
+						}
+					}),
+					afterClose: function() {
+						dialog.destroy();
+					}
+				});
+				this.getView().addDependent(dialog);
+				dialog.open();
 			}
 		},
 
-		onPlayBtnPress: function() {
-			console.log("Riding....");
+		onPlayBtnPress: function(oEvent) {
+			var stopbtn = sap.ui.getCore().byId(this.createId("stopbtn"));
+			var pausebtn = sap.ui.getCore().byId(this.createId("pausebtn"));
+			var playbtn = sap.ui.getCore().byId(this.createId("playBtn"));
+			if (window.bikingState === undefined) {
+				var dialog = new sap.m.Dialog({
+					title: 'Confirm Message',
+					type: 'Message',
+					content: [new sap.m.Text({
+						text: 'It is recommended to set the accuracy of the GPS to high.  Once you click ok the timer will start.',
+						wrapping: true,
+						maxLines: 8
+					}), new sap.m.Text({
+						text: 'Your ride details and location will be tracked and stored. Are you sure you want to continue ?',
+						wrapping: true,
+						maxLines: 8
+					})],
+					beginButton: new sap.m.Button({
+						text: 'Ok',
+						press: function() {
+							playbtn.setEnabled(false);
+							stopbtn.setEnabled(true);
+							pausebtn.setEnabled(true);
+							window.startTime = new Date().toISOString();
+							window.bikingState = "Riding";
+							dialog.close();
+						}
+					}),
+					endButton: new sap.m.Button({
+						text: 'Close',
+						press: function() {
+							dialog.close();
+						}
+					}),
+					afterClose: function() {
+						dialog.destroy();
+					}
+				});
+				var vBox = new sap.m.VBox({
+					items: [dialog]
+				});
+				this.getView().addDependent(vBox);
+				dialog.open();
+			} else if (window.bikingState === "Paused") {
+				playbtn.setEnabled(false);
+				stopbtn.setEnabled(true);
+				pausebtn.setEnabled(true);
+				window.resumeTime = new Date().toISOString();
+				window.bikingState = "Riding";
+			}
+
 		},
-		
+
 		onPauseBtnPress: function() {
-			console.log("Pausing....");
+			var stopbtn = sap.ui.getCore().byId(this.createId("stopbtn"));
+			var pausebtn = sap.ui.getCore().byId(this.createId("pausebtn"));
+			var playbtn = sap.ui.getCore().byId(this.createId("playBtn"));
+			playbtn.setEnabled(true);
+			stopbtn.setEnabled(false);
+			pausebtn.setEnabled(false);
+			window.pauseTime = new Date().toISOString();
+			window.bikingState = "Paused";
 		},
-		
+
 		onStopBtnPress: function() {
-			console.log("Stoping....");
+			window.stopTime = new Date().toISOString();
+			var gmap = sap.ui.getCore().byId(this.createId("map1"));
+			var btnContainer = sap.ui.getCore().byId(this.createId("btnsFlexContainer"));
+			btnContainer.destroy();
+			gmap.destroy();
+			window.bikingState = "Stop";
 		},
 
 		/**

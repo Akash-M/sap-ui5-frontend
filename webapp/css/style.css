@@ -56,3 +56,17 @@ html.sap-phone .sapMStdTileTitle{
 .stopBtn span span.sapMBtnIcon{
 	color:#c0392b;
 }
+/*.playBtnNew{
+	icon: "sap-icon://media-play",
+	color:#27ae60;
+}
+.pauseBtnNew{
+	icon: "sap-icon://media-pause",
+}
+.stopBtnNew{
+	icon: "sap-icon://stop",
+}*/
+
+.sap-tablet .sapMDialog, .sap-desktop .sapMDialog {
+    min-width: 15rem;
+}
