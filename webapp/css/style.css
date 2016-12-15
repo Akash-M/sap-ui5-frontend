@@ -1,61 +1,79 @@
 /* Enter your custom styles here */
+
 html * {
-	font-family: Calibri;
+    font-family: Calibri;
 }
-.sapMTCScrl{
-	background-image: url("../resources/img/bike.png");
+
+.sapMTCScrl {
+    background-image: url("../resources/img/bike.png");
 }
-.sapMBarContainer .sapMBarPH{
-	opacity: 0.9;
+
+.sapMBarContainer .sapMBarPH {
+    opacity: 0.9;
 }
-.customtiles{
-	border-radius: 0px;
-	background-color:#fafafa;
-	opacity: 0.9;
-	box-shadow: 2px 2px 4px #808888;
+
+.customtiles {
+    border-radius: 0px;
+    background-color: #fafafa;
+    opacity: 0.9;
+    box-shadow: 2px 2px 4px #808888;
 }
-html.sap-phone .sapMStdTileTitle{
-	font-size:18px !important;
+
+html.sap-phone .sapMStdTileTitle {
+    font-size: 18px !important;
 }
+
 .sapMStdTileTitle {
-	font-weight: bold;
-	font:20px;
+    font-weight: bold;
+    font: 20px;
     color: #00517C;
 }
-.header{
-	color:green;
+
+.header {
+    color: green;
 }
-.biketypetile{
-	border: 1px solid black;
+
+.biketypetile {
+    border: 1px solid black;
 }
-.biketypetilecontainer{
-	width:100%;
+
+.biketypetilecontainer {
+    width: 100%;
 }
-.dashboard{
-	width:100%;
+
+.dashboard {
+    width: 100%;
 }
-.currentUrl{
-	border-bottom: 5px solid #00517C;
+
+.currentUrl {
+    border-bottom: 5px solid #00517C;
 }
-.btnFlexBox{
-	position: absolute;
-	top: 30px;
-	right:20px;
-	z-index:111;
+
+.btnFlexBox {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    z-index: 111;
 }
-.btnFlexBox button.sapMBtn  span.sapMBtnInner{
-	border: 0px;
-	opacity:0.85;
+
+.btnFlexBox button.sapMBtn span.sapMBtnInner {
+    border: 0px;
+    opacity: 0.85;
 }
-.playBtn span span.sapMBtnIcon{
-	color:#27ae60;
+
+.playBtn span span.sapMBtnIcon {
+    color: #27ae60;
 }
-.pauseBtn span span.sapMBtnIcon{
-	color:#e67e22;
+
+.pauseBtn span span.sapMBtnIcon {
+    color: #e67e22;
 }
-.stopBtn span span.sapMBtnIcon{
-	color:#c0392b;
+
+.stopBtn span span.sapMBtnIcon {
+    color: #c0392b;
 }
+
+
 /*.playBtnNew{
 	icon: "sap-icon://media-play",
 	color:#27ae60;
@@ -67,6 +85,7 @@ html.sap-phone .sapMStdTileTitle{
 	icon: "sap-icon://stop",
 }*/
 
-.sap-tablet .sapMDialog, .sap-desktop .sapMDialog {
+.sap-tablet .sapMDialog,
+.sap-desktop .sapMDialog {
     min-width: 15rem;
 }

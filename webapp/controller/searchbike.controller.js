@@ -69,8 +69,10 @@ sap.ui.define([
 					info: "Current Location",
 					lat: oPos.lat,
 					lng: oPos.lng,
-					icon: "resources/img/google-currents-icon.png"
+					icon: "resources/img/point-16.png"
 				}];
+				
+				
 				
 				var aData = oModel.getProperty("/stations");
 				aData.push.apply(aData, currentLocation);
@@ -88,15 +90,26 @@ sap.ui.define([
 					lat: oPos.lat,
 					lng: oPos.lng,
 					height: ($(document).height()) * 0.9 + "px",
-					zoom: 14,
+					zoom: 10,
 					markers: {
 						path: "/stations",
 						template: oMarkers
 					}
 				});
+				
+				console.log(oMap);
 
 				var vBox = sap.ui.getCore().byId(id);
 				vBox.addItem(oMap);
+				/*var currentLocationMarker = new openui5.googlemaps.Marker({
+					info: "Current Location",
+					lat: oPos.lat,
+					lng: oPos.lng,
+					icon: "resources/img/current_work.png"
+				});
+				
+				currentLocationMarker.setMap(oMap.createMap());
+				currentLocationMarker.setMarker();*/
 
 				return util.objToLatLng(oPos);
 

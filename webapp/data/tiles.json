@@ -8,7 +8,7 @@
     {
       "icon" : "customer-history",
       "title" : "My Rides",
-      "id" : "rentbike"
+      "id" : "myrides"
     },
     {
       "icon" : "account",
@@ -23,7 +23,7 @@
     {
       "icon" : "quality-issue",
       "title" : "Report Problem",
-      "id" : "reportproblem"
+      "id" : "reportissues"
     }
   ]
 }
