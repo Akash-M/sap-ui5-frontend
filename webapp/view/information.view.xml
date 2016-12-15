@@ -1,0 +1,42 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:gmaps="openui5.googlemaps" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.information">
+	<App>
+		<pages>
+			<Page title="Information">
+				<customHeader>
+					<Toolbar id="navtoolbar">
+						<Button icon="sap-icon://home" press="toolbarnav" app:route="dashboard"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://functional-location" press="toolbarnav" app:route="searchbike"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://customer-history" press="toolbarnav" app:route="myrides"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://hint" press="toolbarnav" class="currentUrl" app:route="information"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://quality-issue" press="toolbarnav" app:route="reportissues"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://account" press="toolbarnav" app:route="useraccount"/>
+						<ToolbarSpacer/>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<Table noDataText="Drop column list items here and columns in the area above" id="__informationtable">
+						<items>
+							<ColumnListItem id="__item0" type="Navigation" press="showinfo">
+								<cells>
+									<Text text="View detailed information about all the bikes here" id="__text0"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+						<columns>
+							<Column id="__column0">
+								<header>
+									<Label text="INFORMATION" id="__informationlabel"/>
+								</header>
+							</Column>
+						</columns>
+					</Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

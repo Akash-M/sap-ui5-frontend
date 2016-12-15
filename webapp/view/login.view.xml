@@ -7,7 +7,7 @@
 					<Toolbar id="navtoolbar">
 						<ToolbarSpacer/>
 						<Button press="nav" app:route="dashboard" text="Register Now!"/>
-						<Button press="nav" app:route="dashboard" text="Login"/>
+						<Button press="login" app:route="dashboard" text="Login"/>
 					</Toolbar>	
 				</customHeader>
 				<content>

@@ -88,6 +88,10 @@
             	"pattern": "myrides",
                 "name": "myrides",
                 "target": "myrides"
+            }, {
+            	"pattern": "information",
+                "name": "information",
+                "target": "information"
             }
             ],
             "targets": {
@@ -109,6 +113,10 @@
                 },
                 "myrides": {
                 "viewName": "myrides",
+                "viewLevel": 1
+                },
+                "information": {
+                "viewName": "information",
                 "viewLevel": 1
                 }
             }
