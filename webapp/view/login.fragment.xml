@@ -1,0 +1,10 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Popover title="{Name}" placement="Bottom" showHeader="false">
+		
+		<VBox>
+			<TextArea placeholder="Username"></TextArea>
+			<TextArea placeholder="Password"></TextArea>
+			<Button text="Login"></Button>
+		</VBox>
+	</Popover>
+</core:FragmentDefinition>

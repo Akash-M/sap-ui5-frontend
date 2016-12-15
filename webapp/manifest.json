@@ -92,6 +92,10 @@
             	"pattern": "information",
                 "name": "information",
                 "target": "information"
+            }, {
+            	"pattern": "tariff",
+                "name": "tariff",
+                "target": "tariff"
             }
             ],
             "targets": {
@@ -117,6 +121,10 @@
                 },
                 "information": {
                 "viewName": "information",
+                "viewLevel": 1
+                },
+                "tariff": {
+                "viewName": "tariff",
                 "viewLevel": 1
                 }
             }

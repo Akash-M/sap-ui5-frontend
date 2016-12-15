@@ -35,7 +35,7 @@ sap.ui.define([
 					type: 'Message',
 					state: 'Error',
 					content: new sap.m.Text({
-						text: 'The geolocation on your device is either disabled or not support'
+						text: 'The geolocation on your device is either disabled or not supported.'
 					}),
 					beginButton: new sap.m.Button({
 						text: 'Ok',

@@ -51,7 +51,7 @@
 							<headerToolbar>
 								<Toolbar>
 									<content>
-										<Title text="Paste Rides" level="H2"/>
+										<Title text="My Rides" level="H2"/>
 										<ToolbarSpacer/>
 									</content>
 								</Toolbar>

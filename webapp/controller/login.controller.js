@@ -10,37 +10,39 @@ sap.ui.define([
 		},
 
 		login: function(oEvent) {
-			var oLoginBtn = new sap.m.Button("Login", {
-				text: "Login",
-				press: function() {
-					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-					oRouter.navTo("dashboard");
-				}
-			});
-			var oCancelBtn = new sap.m.Button("Cancel", {
-				text: "Cancel",
-				press: function(){
-					sap.ui.getCore().byId("LoginDialog").close();
-				}
-			});
-
-			var oDialog = new sap.m.Dialog("LoginDialog", {
-				title: "Login",
-				modal: true,
-				contentWidth: "1em",
-				buttons: [oLoginBtn, oCancelBtn],
-				content: [
-					new sap.m.Input({
-						placeholder: "Username",
-						id: "username"
+			var that = this;
+			var dialog = new sap.m.Dialog({
+					title: 'Login',
+					type: 'Message',
+					content: [new sap.m.Input({
+						placeholder: 'Username'
+					}), new sap.m.Input({
+						placeholder: 'Password',
+						type:'Password'
+					})],
+					beginButton: new sap.m.Button({
+						text: 'Login',
+						press: function() {
+							var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
+							oRouter.navTo("dashboard");
+						}
 					}),
-					new sap.m.Input({
-						placeholder: "Password",
-						id: "password"
-					})
-				]
-			});
-			sap.ui.getCore().byId("LoginDialog").open();   
+					endButton: new sap.m.Button({
+						text: 'Cancel',
+						press: function() {
+							dialog.close();
+						}
+					}),
+					afterClose: function() {
+						dialog.destroy();
+					}
+				});
+				var vBox = new sap.m.VBox({
+					items: [dialog]
+				});
+				this.getView().addDependent(vBox);
+				dialog.open();
+			
 		},
 
 		nav: function(oEvent) {

@@ -5,20 +5,13 @@
 			<Page title="{i18n>title}">
 				<customHeader>
 					<Toolbar id="navtoolbar">
+						<Button press="nav" app:route="tariff" text="Tariff"/>
 						<ToolbarSpacer/>
-						<Button press="nav" app:route="dashboard" text="Register Now!"/>
+						<Button press="nav" app:route="dashboard" text="Register Here"/>
 						<Button press="login" app:route="dashboard" text="Login"/>
 					</Toolbar>	
 				</customHeader>
 				<content>
-				<!--<VBox width="100%" direction="Column" id="__vbox1">
-				    <items>
-				        <Input width="100%" id="usernameid" name="Username" placeholder="Username" required="true"/>
-				        <Input width="100%" id="passwordid" required="true" placeholder="Password" type="Password" tooltip="Password should be 8 characters long"/>
-				        <Button xmlns="sap.m" text="Login" width="100px" id="loginbuttonid" type="Accept" press="login"/>
-				    </items>
-				</VBox>-->
-				
 				<Carousel activePage="__image0" showBusyIndicator="false" busyIndicatorSize="" id="__carousel0">
 				    <pages>
 				    	<Image src="resources/img/carousel1.png" width="100%" height="700px" id="__image1" mode="Background"/>

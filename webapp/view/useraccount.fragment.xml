@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Popover title="{Name}" placement="Bottom" showHeader="false">
+		<List>
+			<StandardListItem type="Active" press="handleListItemPress" title="edit profile"/>
+			<StandardListItem type="Active" press="toolbarnav" title="logout" app:route="useraccount"/>
+		</List>
+	</Popover>
+</core:FragmentDefinition>

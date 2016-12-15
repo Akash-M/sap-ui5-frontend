@@ -22,7 +22,7 @@
 				<content>
 					<Page showHeader="false" enableScrolling="true">
 						<TileContainer id="container" tiles="{/BikeTypes}" class="biketypetilecontainer">
-							<StandardTile type="{type}" number="{number}" numberUnit="{numberUnit}" class="customtiles" press="tilepress" title="{title}" info="{info}" infoState="{infoState}"/>
+							<StandardTile type="{type}" number="{number}" app:bikecount="{number}" numberUnit="{numberUnit}" class="customtiles" press="tilepress" title="{title}" info="{info}" infoState="{infoState}"/>
 						 </TileContainer> 
 					
 					</Page>

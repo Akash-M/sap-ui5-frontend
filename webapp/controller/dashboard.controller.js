@@ -11,8 +11,8 @@ sap.ui.define([
 		 * @memberOf BikeRentalApp.view.Dashboard
 		 */
 		onInit: function() {
-			 var oModel = new sap.ui.model.json.JSONModel("data/tiles.json");
-    		 this.getView().setModel(oModel);
+			var oModel = new sap.ui.model.json.JSONModel("data/tiles.json");
+			this.getView().setModel(oModel);
 		},
 
 		/**
@@ -43,13 +43,31 @@ sap.ui.define([
 		tilepress: function(oEvent) {
 			var route = oEvent.getSource().getBindingContext().getProperty("id");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-            oRouter.navTo(route);
+			oRouter.navTo(route);
 		},
-		
-		toolbarnav: function(oEvent){
+
+		toolbarnav: function(oEvent) {
 			var route = oEvent.getSource().data("route");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-            oRouter.navTo(route);
+			oRouter.navTo(route);
+		},
+
+		handlepopoverpress: function(oEvent) {
+			if(this._oPopover) {
+				this._oPopover.destroy();
+			}
+			
+			// create popover
+			if (!this._oPopover) {
+				this._oPopover = sap.ui.xmlfragment("BikeRentalApp.view.useraccount", this);
+				this.getView().addDependent(this._oPopover);
+			}
+
+			// delay because addDependent will do a async rerendering and the actionSheet will immediately close without it.
+			var oButton = oEvent.getSource();
+			jQuery.sap.delayedCall(0, this, function() {
+				this._oPopover.openBy(oButton);
+			});
 		}
 
 	});
