@@ -11,8 +11,18 @@
 		"title": "{{appTitle}}",
 		"description": "{{appDescription}}",
 		"sourceTemplate": {
-			"id": "ui5template.basicSAPUI5ApplicationProject",
-			"version": "1.40.12"
+			"id": "servicecatalog.connectivityComponent",
+			"version": "0.0.0"
+		},
+		"dataSources": {
+			"ZWS16_T1_BIKE_RENTAL_SRV": {
+				"uri": "/AbapConnection/sap/opu/odata/sap/ZWS16_T1_BIKE_RENTAL_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/ZWS16_T1_BIKE_RENTAL_SRV/metadata.xml"
+				}
+			}
 		}
 	},
 	"sap.ui": {
@@ -57,6 +67,16 @@
 				"settings": {
 					"bundleName": "BikeRentalApp.i18n.i18n"
 				}
+			},
+			"": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneTime",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "ZWS16_T1_BIKE_RENTAL_SRV",
+				"preload": true
 			}
 		},
 		"routing": {
@@ -103,7 +123,7 @@
 			}],
 			"targets": {
 				"login": {
-					"viewName": "login",
+					"viewName": "searchbike",
 					"viewLevel": 1
 				},
 				"dashboard": {

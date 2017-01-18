@@ -26,7 +26,14 @@
         "name": "themedesigner"
       },
       "description": "Route for theme designer"
-
+    },
+    {
+      "path": "/AbapConnection",
+      "target": {
+        "type": "destination",
+        "name": "AbapConnection"
+      },
+      "description": "AbapConnection"
     }
   ],
   "sendWelcomeFileRedirect": true
