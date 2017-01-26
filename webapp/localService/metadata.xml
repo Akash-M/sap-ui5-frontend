@@ -1,0 +1,28 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZWS16_T1_BIKE_RENTAL_SRV" xml:lang="en" sap:schema-version="1">
+            <EntityType Name="ZWS16T1BIKESTN" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BikeStationId"/>
+                </Key>
+                <Property Name="BikeStationId" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Bike station id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Longitude" Type="Edm.Decimal" Nullable="false" Precision="9" Scale="6" sap:unicode="false" sap:label="Longitude" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Latitude" Type="Edm.Decimal" Nullable="false" Precision="9" Scale="6" sap:unicode="false" sap:label="Latitude" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Capacity" Type="Edm.Byte" Nullable="false" sap:unicode="false" sap:label="Bike Capacity" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Station Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Address" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Station Address" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityContainer Name="ZWS16_T1_BIKE_RENTAL_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZWS16T1BIKESTNSet" EntityType="ZWS16_T1_BIKE_RENTAL_SRV.ZWS16T1BIKESTN" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+            </EntityContainer>
+            <atom:link
+                xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./$metadata"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./$metadata"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>

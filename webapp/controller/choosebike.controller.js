@@ -11,8 +11,24 @@ sap.ui.define([
 		 * @memberOf BikeRentalApp.view.choosebike
 		 */
 		onInit: function() {
-			var oModel = new sap.ui.model.json.JSONModel("data/biketypes.json");
-			this.getView().setModel(oModel);
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.getRoute("choosebike").attachPatternMatched(this._onObjectMatched, this);
+			//var oModel = new sap.ui.model.json.JSONModel("data/biketypes.json");
+			//this.getView().setModel(oModel);
+
+		},
+
+		_onObjectMatched: function(oEvent) {
+			this.getView().bindElement({
+				path: "/" + oEvent.getParameter("arguments").stationPath
+			});
+		},
+
+		_handleRouteMatched: function(oEvent) {
+			//var view = this.getView();
+			//console.log(oEvent.getParameters("arguments"));
+			//view.setBindingContext(evt.getParameter("ctx"));
+
 		},
 
 		/**
@@ -44,7 +60,7 @@ sap.ui.define([
 
 			var bikecount = oEvent.getSource().data("bikecount");
 			var that = this;
-			
+
 			if (bikecount > 0) {
 				var dialog = new sap.m.Dialog({
 					title: 'Confirm your booking',

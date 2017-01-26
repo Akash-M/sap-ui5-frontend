@@ -10,24 +10,46 @@ sap.ui.define([
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 		 * @memberOf BikeRentalApp.view.searchbike
 		 */
+
 		onInit: function() {
-			var oModel = new sap.ui.model.json.JSONModel("data/stations.json");
-			this.getView().setModel(oModel);
+			//var oModel = new sap.ui.model.json.JSONModel("data/stations.json");
+			//this.getView().setModel(oModel);
+			//var serviceURL = "/sap/opu/odata/sap/ZWS16_T1_BIKE_RENTAL_SRV";
+			/*var serviceRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			var servicePath = serviceRouter;*/
+			//var oModel = new sap.ui.model.odata.v2.ODataModel(serviceURL, false, "DEV-707", "Lucy_0556");
+			//this.getView().setModel(oStationsModel);
+			//console.log(this.getView().getModel());
 		},
-		
-		getControllerView: function(){
+
+		getDefaultModel: function() {
+			return this.getView().getModel();
+		},
+
+		getControllerView: function() {
 			return this.getView();
 		},
-		
 
 		onBack: function() {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("dashboard");
 		},
-		
-		
-		
-		
+
+		/*onMarkerClick: function(oEvent) {
+			var oContext = oEvent.getSource().getBindingContext();
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			console.log(oContext.getPath());
+			var modelProperty = oContext.getModel().getProperty(oContext.sPath);
+			if (modelProperty.info !== "Current Location") {
+				this.infoWindowClose();
+				oRouter.navTo("choosebike", {
+					sPath: oContext.getPath()
+				});
+			} else {
+				this.removeListeners();
+			}
+		},*/
+
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
 		 * (NOT before the first rendering! onInit() is used for that one!).
@@ -42,6 +64,7 @@ sap.ui.define([
 		 * @memberOf BikeRentalApp.view.searchbike
 		 */
 		onAfterRendering: function() {
+
 			jQuery.sap.require('openui5.googlemaps.MapUtils');
 			var util = openui5.googlemaps.MapUtils;
 
@@ -49,15 +72,20 @@ sap.ui.define([
 			var mapId = this.createId("map");
 
 			var oModel = this.getView().getModel();
+			console.log(oModel);
 
 			var oParentRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			
+
 			var onMarkerClick = function(oEvent) {
 				var oContext = oEvent.getSource().getBindingContext();
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				console.log(oContext.getPath().substr(1));
 				var modelProperty = oContext.getModel().getProperty(oContext.sPath);
 				if (modelProperty.info !== "Current Location") {
 					this.infoWindowClose();
-					oParentRouter.navTo("choosebike", oContext);
+					oParentRouter.navTo("choosebike", {
+						stationPath: oContext.getPath().substr(1)
+					});
 				} else {
 					this.removeListeners();
 				}
@@ -68,21 +96,21 @@ sap.ui.define([
 				var currentLocation = [{
 					info: "Current Location",
 					lat: oPos.lat,
-					lng: oPos.lng,
-					icon: "resources/img/point-16.png"
+					lng: oPos.lng
+						//icon: "/resources/img/point-16.png"
 				}];
-				
-				
-				
-				var aData = oModel.getProperty("/stations");
+
+				/*var aData = oModel.getProperty("/ZWS16T1BIKESTNSet");
+				console.log(aData);
 				aData.push.apply(aData, currentLocation);
-				oModel.setProperty("/stations", aData);
+				oModel.setProperty("/stations", aData);*/
+				//console.log(oModel);
 
 				var oMarkers = new openui5.googlemaps.Marker({
-					lat: '{lat}',
-					lng: '{lng}',
-					info: '{info}',
-					icon: '{icon}',
+					lat: '{Latitude}',
+					lng: '{Longitude}',
+					info: '{Name}',
+					icon: "resources/img/map-marker-icon.png",
 					click: onMarkerClick
 				});
 
@@ -90,17 +118,18 @@ sap.ui.define([
 					lat: oPos.lat,
 					lng: oPos.lng,
 					height: ($(document).height()) * 0.9 + "px",
-					zoom: 10,
+					zoom: 12,
 					markers: {
-						path: "/stations",
+						path: "/BikeStationSet",
 						template: oMarkers
 					}
 				});
-				
-				console.log(oMap);
+
+				//console.log(oMap);
 
 				var vBox = sap.ui.getCore().byId(id);
 				vBox.addItem(oMap);
+				oMap.setBindingContext(oModel);
 				/*var currentLocationMarker = new openui5.googlemaps.Marker({
 					info: "Current Location",
 					lat: oPos.lat,
@@ -110,6 +139,7 @@ sap.ui.define([
 				
 				currentLocationMarker.setMap(oMap.createMap());
 				currentLocationMarker.setMarker();*/
+				console.log(oMap);
 
 				return util.objToLatLng(oPos);
 

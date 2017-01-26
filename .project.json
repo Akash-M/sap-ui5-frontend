@@ -18,6 +18,11 @@
       "templateId": "ui5template.basicSAPUI5ApplicationComponent",
       "templateVersion": "1.4.0",
       "dateTimeStamp": "Wed, 14 Dec 2016 19:32:47 GMT"
+    },
+    {
+      "templateId": "servicecatalog.connectivityComponent",
+      "templateVersion": "0.0.0",
+      "dateTimeStamp": "Wed, 18 Jan 2017 16:54:13 GMT"
     }
   ],
   "codeCheckingTriggers": {
@@ -45,6 +50,14 @@
       "accelerometer": {},
       "compass": {},
       "bFacade": false
-    }
+    },
+    "backendDestination": "BikeRentalApp"
+  },
+  "mockpreview": {
+    "mockUri": "/AbapConnection/sap/opu/odata/SAP/ZWS16_T1_RENTAL_BIKE_ODATA_SRV",
+    "metadataFilePath": "",
+    "loadJSONFiles": true,
+    "loadCustomRequests": false,
+    "mockRequestsFilePath": ""
   }
 }

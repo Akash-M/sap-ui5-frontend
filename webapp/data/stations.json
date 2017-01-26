@@ -1,44 +1,44 @@
 {
 	"stations": [{
-		"lat": 48.108889,
-		"lng": 11.473611,
-		"info": "Klinikum Großhadern",
+		"Latitude": 48.108889,
+		"Longitude": 11.473611,
+		"Name": "Klinikum Großhadern",
 		"icon": "resources/img/map-marker-icon.png"
 	}, {
-		"lat": 48.11380639999999,
-		"lng": 11.4766509,
-		"info": "Großhadern",
+		"Latitude": 48.11380639999999,
+		"Longitude": 11.4766509,
+		"Name": "Großhadern",
 		"icon": "resources/img/map-marker-icon.png"
 	}, {
-		"lat": 48.118394,
-		"lng": 11.488828,
-		"info": "Haderner Stern",
+		"Latitude": 48.118394,
+		"Longitude": 11.488828,
+		"Name": "Haderner Stern",
 		"icon": "resources/img/map-marker-icon.png"
 	}, {
 		"name": "85748 Garching, Germany",
-		"lat": 48.2732261,
-		"lng": 11.6851891,
+		"Latitude": 48.2732261,
+		"Longitude": 11.6851891,
 		"icon": "resources/img/map-marker-icon.png"
 	}, {
 		"name": "Garching-Hochbrück, 85748 Garching bei München",
-		"lat": 48.2473909,
-		"lng": 11.631036,
+		"Latitude": 48.2473909,
+		"Longitude": 11.631036,
 		"icon": "resources/img/map-marker-icon.png"
 
 	}, {
 		"name": "Fröttmaning, 80939 München",
-		"lat": 48.21184539999999,
-		"lng": 11.6165192,
+		"Latitude": 48.21184539999999,
+		"Longitude": 11.6165192,
 		"icon": "resources/img/map-marker-icon.png"
 	}, {
 		"name": "Kieferngarten, 80939 München",
-		"lat": 48.2038472,
-		"lng": 11.6132942,
+		"Latitude": 48.2038472,
+		"Longitude": 11.6132942,
 		"icon": "resources/img/map-marker-icon.png"
 	}, {
 		"name": "Freimann, 80939 München",
-		"lat": 48.1919794,
-		"lng": 11.6142375,
+		"Latitude": 48.1919794,
+		"Longitude": 11.6142375,
 		"icon": "resources/img/map-marker-icon.png"
 	}]
 }

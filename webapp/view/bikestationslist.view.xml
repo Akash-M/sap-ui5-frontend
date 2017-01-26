@@ -1,0 +1,21 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:gmaps="openui5.googlemaps" controllerName="BikeRentalApp.controller.bikestationslist">
+	<App>
+		<pages>
+			<Page title="Bike Station List">
+				<content>
+					<gmaps:Map height="250px" zoom="12"  lat="{/ZWS16T1BIKESTNSet/0/Latitude}" lng="{/ZWS16T1BIKESTNSet/0/Longitude}" markers="{/ZWS16T1BIKESTNSet}">
+						<gmaps:markers>
+							<gmaps:Marker lat="{Latitude}" lng="{Longitude}" info="{Name}"/>
+						</gmaps:markers>
+					</gmaps:Map>
+					<List noDataText="Drop list items here" id="__list0" items="{/ZWS16T1BIKESTNSet}">
+						<items>
+							<StandardListItem type="Navigation" title="{BikeStationId}" description="{Name}" icon="sap-icon://picture" id="__item0"/>
+						</items>
+					</List>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

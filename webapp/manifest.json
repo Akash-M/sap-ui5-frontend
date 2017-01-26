@@ -15,12 +15,21 @@
 			"version": "0.0.0"
 		},
 		"dataSources": {
+<<<<<<< HEAD
+			"ZWS16_T1_RENTAL_BIKE_ODATA_SRV": {
+				"uri": "/AbapConnection/sap/opu/odata/SAP/ZWS16_T1_RENTAL_BIKE_ODATA_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/ZWS16_T1_RENTAL_BIKE_ODATA_SRV/metadata.xml"
+=======
 			"ZWS16_T1_BIKE_RENTAL_SRV": {
 				"uri": "/AbapConnection/sap/opu/odata/sap/ZWS16_T1_BIKE_RENTAL_SRV/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0",
 					"localUri": "localService/ZWS16_T1_BIKE_RENTAL_SRV/metadata.xml"
+>>>>>>> branch 'master' of https://github.com/Akash-M/sap-abap-frontend.git
 				}
 			}
 		}
@@ -72,10 +81,17 @@
 				"type": "sap.ui.model.odata.v2.ODataModel",
 				"settings": {
 					"defaultOperationMode": "Server",
+<<<<<<< HEAD
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "ZWS16_T1_RENTAL_BIKE_ODATA_SRV",
+=======
 					"defaultBindingMode": "OneTime",
 					"defaultCountMode": "Request"
 				},
 				"dataSource": "ZWS16_T1_BIKE_RENTAL_SRV",
+>>>>>>> branch 'master' of https://github.com/Akash-M/sap-abap-frontend.git
 				"preload": true
 			}
 		},
@@ -101,7 +117,7 @@
 				"name": "searchbike",
 				"target": "searchbike"
 			}, {
-				"pattern": "choosebike",
+				"pattern": "choosebike/{stationPath}",
 				"name": "choosebike",
 				"target": "choosebike"
 			}, {
