@@ -93,6 +93,10 @@
 				"name": "appLogin",
 				"target": "login"
 			}, {
+				"pattern": "registration",
+				"name": "registration",
+				"target": "registration"
+			},{
 				"pattern": "dashboard",
 				"name": "dashboard",
 				"target": "dashboard"
@@ -123,7 +127,11 @@
 			}],
 			"targets": {
 				"login": {
-					"viewName": "searchbike",
+					"viewName": "login",
+					"viewLevel": 1
+				},
+				"registration": {
+					"viewName": "registration",
 					"viewLevel": 1
 				},
 				"dashboard": {

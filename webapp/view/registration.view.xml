@@ -1,0 +1,21 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="BikeRentalApp.controller.registration">
+	<App>
+		<pages>
+			<Page title="Registration">
+				<content>
+					<VBox width="100%" direction="Column" id="__vbox0">
+						<items>
+							<HBox>
+								<items>
+									<Label text="Label" width="100%" id="__label0"/>
+									<Input width="100%" id="__input0"/>
+								</items>
+							</HBox>
+						</items>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

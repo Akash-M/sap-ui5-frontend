@@ -13,16 +13,19 @@ sap.ui.define([
 		onInit: function() {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.getRoute("choosebike").attachPatternMatched(this._onObjectMatched, this);
+
 			//var oModel = new sap.ui.model.json.JSONModel("data/biketypes.json");
 			//this.getView().setModel(oModel);
 
 		},
 
 		_onObjectMatched: function(oEvent) {
-			this.getView().bindElement({
-				path: "/" + oEvent.getParameter("arguments").stationPath,
-				model: "BikeTypes"
-			});
+			var stationPath = oEvent.getParameter("arguments").stationPath;
+			var oModel = this.getView().getModel();
+			var oFilter = new sap.ui.model.Filter("BikeStationId", sap.ui.model.FilterOperator.EQ, stationPath.substring(16,21));
+			var comFil = new sap.ui.model.Filter([oFilter]);
+			var oList1 = sap.ui.getCore().byId(this.createId("bikelist1"));
+			oList1.getBinding("tiles").filter(comFil, sap.ui.model.FilterType.Application);
 		},
 
 		_handleRouteMatched: function(oEvent) {
@@ -125,6 +128,12 @@ sap.ui.define([
 			var route = oEvent.getSource().data("route");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo(route);
+		},
+
+		bikeCount: function(oValue) {
+			console.log("counting bikes");
+			console.log(oValue);
+			return 1;
 		}
 
 	});

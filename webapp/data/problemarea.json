@@ -1,0 +1,33 @@
+{
+	"ProblemArea": [{
+		"icon": "resources/img/handle.png",
+		"title": "Handle",
+		"id": "handle",
+		"handle": [{
+			"title": "Handle is not aligned properly",
+			"id": "handleissue1"
+		}, {
+			"title": "Loose handle",
+			"id": "handleissue2"
+		}, {
+			"title": "Handle grip is bad",
+			"id": "handleissue3"
+		}]
+	}, {
+		"icon": "resources/img/wheels.png",
+		"title": "Wheels",
+		"id": "wheels"
+	}, {
+		"icon": "resources/img/gears.png",
+		"title": "Gear/Chain",
+		"id": "gear"
+	}, {
+		"icon": "resources/img/gears.png",
+		"title": "Seat",
+		"id": "seat"
+	}, {
+		"icon": "resources/img/gears.png",
+		"title": "Light",
+		"id": "light"
+	}]
+}

@@ -1,5 +1,6 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.choosebike">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="BikeRentalApp.controller.choosebike">
 	<App>
 		<pages>
 			<Page title="Choose bike">
@@ -14,17 +15,17 @@
 						<Button icon="sap-icon://hint" press="toolbarnav" app:route="information"/>
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://quality-issue" press="toolbarnav" app:route="reportissues"/>
-						<ToolbarSpacer/>					
+						<ToolbarSpacer/>
 						<Button icon="sap-icon://account" press="toolbarnav" app:route="useraccount"/>
 						<ToolbarSpacer/>
 					</Toolbar>
 				</customHeader>
 				<content>
 					<Page showHeader="false" enableScrolling="true">
-						<TileContainer id="container" tiles="{/BikeTypes}" class="biketypetilecontainer">
-							<StandardTile type="{type}" number="{number}" app:bikecount="{number}" numberUnit="{numberUnit}" class="customtiles" press="tilepress" title="{title}" info="{info}" infoState="{infoState}"/>
-						 </TileContainer> 
-					
+						<TileContainer id="bikelist1" tiles="{/FreeBikesSet}" class="biketypetilecontainer">
+							<StandardTile type="{type}" number="{BikeId}" app:bikecount="{number}" 
+							numberUnit="{numberUnit}" class="customtiles" press="tilepress" title="{BikeName}" info="{info}" infoState="{infoState}"/>
+						</TileContainer>
 					</Page>
 				</content>
 			</Page>

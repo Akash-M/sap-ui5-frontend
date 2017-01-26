@@ -7,7 +7,7 @@
 					<Toolbar id="navtoolbar">
 						<Button press="nav" app:route="tariff" text="Tariff"/>
 						<ToolbarSpacer/>
-						<Button press="nav" app:route="dashboard" text="Register Here"/>
+						<Button press="nav" app:route="registration" text="Register Here"/>
 						<Button press="login" app:route="dashboard" text="Login"/>
 					</Toolbar>	
 				</customHeader>
