@@ -20,7 +20,8 @@ sap.ui.define([
 
 		_onObjectMatched: function(oEvent) {
 			this.getView().bindElement({
-				path: "/" + oEvent.getParameter("arguments").stationPath
+				path: "/" + oEvent.getParameter("arguments").stationPath,
+				model: "BikeTypes"
 			});
 		},
 
