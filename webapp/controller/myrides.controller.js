@@ -13,10 +13,17 @@ sap.ui.define([
 		onInit: function() {
 			var oModel = new sap.ui.model.json.JSONModel("data/mockLocations.json");
 			this.getView().setModel(oModel);
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.getRoute("myrides").attachPatternMatched(this._onObjectMatched, this);
 			window.bikingState = undefined;
 			window.startTime = undefined;
 			window.stopTime = undefined;
 			window.resumeTime = undefined;
+		},
+		
+		_onObjectMatched: function(oEvent) {
+			window.rentedBikeId = oEvent.getParameter("arguments").rentedBikeId;
+			console.log(window.rentedBikeId);
 		},
 
 		updatePosition: function(position) {

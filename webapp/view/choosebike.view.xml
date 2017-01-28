@@ -22,9 +22,12 @@
 				</customHeader>
 				<content>
 					<Page showHeader="false" enableScrolling="true">
+						<content>
+							<MessageStrip text="Information message" showIcon="true" id="stationStrip"/>
+						</content>
 						<TileContainer id="bikelist1" tiles="{/FreeBikesSet}" class="biketypetilecontainer">
-							<StandardTile type="{type}" number="{BikeId}" app:bikecount="{number}" 
-							numberUnit="{numberUnit}" class="customtiles" press="tilepress" title="{BikeName}" info="{info}" infoState="{infoState}"/>
+							<StandardTile type="{type}" number="{BikeId}" app:bikecount="{number}" numberUnit="{numberUnit}" class="customtiles" press="tilepress"
+								title="{BikeName}" info="{info}" infoState="{infoState}"/>
 						</TileContainer>
 					</Page>
 				</content>

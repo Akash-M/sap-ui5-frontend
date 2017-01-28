@@ -22,15 +22,8 @@
 				</customHeader>
 				<content>
 					<VBox>
-						<!--<Toolbar id="currentRideToolbar">
-							<ToolbarSpacer/>						
-							<Button icon="sap-icon://media-play" press="onPlayBtnPress" class="playBtn"/>
-							<Button icon="sap-icon://media-pause" press="onPauseBtnPress" class="pauseBtn"/>
-							<Button icon="sap-icon://stop" press="onStopBtnPress" class="stopBtn"/>
-						</Toolbar>-->
 						<FlexBox id="btnsFlexContainer" direction="RowReverse" alignItems="Start" class="btnFlexBox">
 							<items>
-								<!--<Button id="ridebtn"/>-->
 								<Button icon="sap-icon://stop" id="stopbtn" press="onStopBtnPress" class="stopBtn" enabled="false" lite="true"/>
 								<Button icon="sap-icon://media-pause" id="pausebtn" press="onPauseBtnPress" class="pauseBtn" enabled="false"/>
 								<Button icon="sap-icon://media-play" id="playBtn" press="onPlayBtnPress" class="playBtn"/>

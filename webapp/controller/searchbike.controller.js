@@ -72,14 +72,12 @@ sap.ui.define([
 			var mapId = this.createId("map");
 
 			var oModel = this.getView().getModel();
-			console.log(oModel);
 
 			var oParentRouter = sap.ui.core.UIComponent.getRouterFor(this);
 
 			var onMarkerClick = function(oEvent) {
 				var oContext = oEvent.getSource().getBindingContext();
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-				console.log(oContext.getPath().substr(1));
 				var modelProperty = oContext.getModel().getProperty(oContext.sPath);
 				if (modelProperty.info !== "Current Location") {
 					this.infoWindowClose();
@@ -89,7 +87,7 @@ sap.ui.define([
 				} else {
 					this.removeListeners();
 				}
-			}
+			};
 
 			var getLocationCallback = function(oPos) {
 
@@ -138,8 +136,7 @@ sap.ui.define([
 				});
 				
 				currentLocationMarker.setMap(oMap.createMap());
-				currentLocationMarker.setMarker();*/
-				console.log(oMap);
+				currentLocationMarker.setMarker()*/
 
 				return util.objToLatLng(oPos);
 
