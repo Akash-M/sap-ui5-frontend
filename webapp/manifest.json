@@ -109,7 +109,7 @@
 				"name": "choosebike",
 				"target": "choosebike"
 			}, {
-				"pattern": "myrides/{rentedBikeId}",
+				"pattern": "myrides/{:rentedBikeId}",
 				"name": "myrides",
 				"target": "myrides"
 			}, {

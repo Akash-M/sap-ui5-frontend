@@ -17,7 +17,7 @@ sap.ui.define([
 
 		_onObjectMatched: function(oEvent) {
 
-			var oModel = this.getView().getModel();;
+			var oModel = this.getView().getModel();
 
 			if (oEvent.getParameter("arguments") !== undefined) {
 				var stationPath = oEvent.getParameter("arguments").stationPath;
