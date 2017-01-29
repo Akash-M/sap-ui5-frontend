@@ -73,6 +73,9 @@ html.sap-phone .sapMStdTileTitle {
     color: #c0392b;
 }
 
+.biketypeFilter {
+	width:100%;
+}
 
 /*.playBtnNew{
 	icon: "sap-icon://media-play",

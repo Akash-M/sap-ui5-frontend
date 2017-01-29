@@ -16,15 +16,31 @@ sap.ui.define([
 		},
 
 		_onObjectMatched: function(oEvent) {
-			var stationPath = oEvent.getParameter("arguments").stationPath;
-			var oModel = this.getView().getModel();
-			var oMessageStrip = sap.ui.getCore().byId(this.createId("stationStrip"));
-			oMessageStrip.setText(oModel.getProperty("/" + stationPath).Name);
-			//console.log(stationName);
-			var oFilter = new sap.ui.model.Filter("BikeStationId", sap.ui.model.FilterOperator.EQ, stationPath.substring(16, 21));
-			var comFil = new sap.ui.model.Filter([oFilter]);
-			var oList1 = sap.ui.getCore().byId(this.createId("bikelist1"));
-			oList1.getBinding("tiles").filter(comFil, sap.ui.model.FilterType.Application);
+
+			var oModel = this.getView().getModel();;
+
+			if (oEvent.getParameter("arguments") !== undefined) {
+				var stationPath = oEvent.getParameter("arguments").stationPath;
+				var oMessageStrip = sap.ui.getCore().byId(this.createId("stationStrip"));
+				oModel.stationDetails = oModel.getProperty("/" + stationPath);
+				oMessageStrip.setText(oModel.getProperty("/" + stationPath).Name);
+			}
+
+			var oFilter1 = new sap.ui.model.Filter("BikeStationId", sap.ui.model.FilterOperator.EQ, oModel.stationDetails.BikeStationId);
+			var oList = sap.ui.getCore().byId(this.createId("bikelist"));
+			
+			var comFil;
+			
+			if (this.getView().byId("biketypeFilterid").getSelectedItem() === null) {
+				comFil = new sap.ui.model.Filter([oFilter1]);
+				oList.getBinding("items").filter(comFil, sap.ui.model.FilterType.Application);
+			} else {
+				var bikename = this.getView().byId("biketypeFilterid").getSelectedItem().getText();
+				var oFilter2 = new sap.ui.model.Filter("BikeName", sap.ui.model.FilterOperator.EQ, bikename);
+				comFil = new sap.ui.model.Filter({filters: [oFilter1, oFilter2],and: true});
+				oList.getBinding("items").filter(comFil, sap.ui.model.FilterType.Application);
+			}
+
 		},
 
 		/**
@@ -55,7 +71,6 @@ sap.ui.define([
 		tilepress: function(oEvent) {
 			var sPath = oEvent.getSource().getBindingContext().getPath();
 			var oModel = this.getView().getModel();
-			//console.log(sPath)
 			var oModelData = oModel.getProperty(sPath);
 			var oRentBike = {
 				"d": {
@@ -86,9 +101,9 @@ sap.ui.define([
 								});
 							},
 							error: function(oError) {
-								var err_response = JSON.parse(oError.responseText);
-								var err_message = err_response.error.message.value;
-								sap.m.MessageToast.show(err_message);
+								//var err_response = JSON.parse(oError.responseText);
+								//var err_message = err_response.error.message.value;
+								sap.m.MessageToast.show("You have already rented a bike. Please release the bike before booking another one.");
 							}
 						});
 
