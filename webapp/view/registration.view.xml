@@ -2,16 +2,20 @@
 	controllerName="BikeRentalApp.controller.registration">
 	<App>
 		<pages>
-			<Page title="Registration">
+			<Page title="Registration" class="sapUiContentPadding" showNavButton="true" navButtonPress="onNavBack">
 				<content>
 					<VBox width="100%" direction="Column" id="__vbox0">
 						<items>
-							<HBox>
-								<items>
-									<Label text="Label" width="100%" id="__label0"/>
-									<Input width="100%" id="__input0"/>
-								</items>
-							</HBox>
+							<Input width="100%" id="firstname_id" fieldWidth="100%" placeholder="First Name"/>
+							<Input width="100%" id="lastname_id" fieldWidth="100%" placeholder="Last Name"/>
+							<Input width="100%" id="email_id" fieldWidth="100%" placeholder="Email Id" type="Email"/>
+							<Input width="100%" id="password_id" placeholder="Password" type="Password"/>
+							<Input width="100%" id="mobileno_id" fieldWidth="100%" placeholder="Mobile Number" type="Tel"/>
+							<Input width="100%" id="bdate_id" type="Date" placeholder="Birth Date"/>
+							<Select id="select1" width="100%" items="{ path: '/PricingmodSet' }" change="handleSelect1">
+								<core:Item key="{ModelId}" text="{Name}"/>
+							</Select>
+							<Button text="Sign Up" width="100%" id="registerbutton_id" type="Emphasized" press="register"/>
 						</items>
 					</VBox>
 				</content>

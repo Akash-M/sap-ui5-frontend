@@ -39,6 +39,42 @@ sap.ui.define([
 		//	onExit: function() {
 		//
 		//	}
+		onNavBack: function(oEvent){
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("login");
+		},
+		
+		register: function(oEvent) {
+			var oModel = this.getView().getModel();
+			
+			var fname = sap.ui.getCore().byId(this.createId("firstname_id")).getValue();
+			var lname = sap.ui.getCore().byId(this.createId("lastname_id")).getValue();
+			var email = sap.ui.getCore().byId(this.createId("email_id")).getValue();
+			var password = sap.ui.getCore().byId(this.createId("password_id")).getValue();
+			var mobile = sap.ui.getCore().byId(this.createId("mobileno_id")).getValue();
+			var bdate = sap.ui.getCore().byId(this.createId("bdate_id")).getValue();
+			
+			/*var oRegister = {
+				"d": {
+					"BikeId": oModelData.BikeId,
+					"CustomerId": "CUST00003"
+				}
+			};*/
+			/*oModel.create('/RentBikeSet', oRentBike, {
+				success: function(oData, oResponse) {
+					sap.m.MessageToast.show("Bike Rented Successfully!");
+					var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
+					oRouter.navTo("myrides", {
+						rentedBikeId: oModelData.BikeId
+					});
+				},
+				error: function(oError) {
+					//var err_response = JSON.parse(oError.responseText);
+					//var err_message = err_response.error.message.value;
+					sap.m.MessageToast.show("You have already rented a bike. Please release the bike before booking another one.");
+				}
+			});*/
+		}
 
 	});
 

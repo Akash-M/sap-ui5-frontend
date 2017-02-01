@@ -90,8 +90,8 @@
 			},
 			"routes": [{
 				"pattern": "",
-				"name": "appLogin",
-				"target": "dashboard"
+				"name": "login",
+				"target": "login"
 			}, {
 				"pattern": "registration",
 				"name": "registration",
