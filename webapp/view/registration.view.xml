@@ -7,11 +7,12 @@
 						<items>
 							<Input width="100%" id="firstname_id" fieldWidth="100%" placeholder="First Name"/>
 							<Input width="100%" id="lastname_id" fieldWidth="100%" placeholder="Last Name"/>
+							<Input width="100%" id="username_id" fieldWidth="100%" placeholder="User Name"/>
 							<Input width="100%" id="email_id" fieldWidth="100%" placeholder="Email Id" type="Email"/>
 							<Input width="100%" id="password_id" placeholder="Password" type="Password"/>
 							<Input width="100%" id="mobileno_id" fieldWidth="100%" placeholder="Mobile Number" type="Tel"/>
 							<Input width="100%" id="cardno_id" fieldWidth="100%" placeholder="Card Number" type="Number"/>
-							<DatePicker width="100%" id="birthdate_id" valueFormat="yyyy-MM-ddTKK:mm:ss"/>
+							<Input width="100%" id="birthdate_id" fieldWidth="100%" type="Date" placeholder="Birth Date"/>
 							<Select id="pricingModelSelect" width="100%" items="{ path: '/PricingmodSet' }" change="handleSelect1">
 								<core:Item key="{ModelId}" text="{Name}"/>
 							</Select>

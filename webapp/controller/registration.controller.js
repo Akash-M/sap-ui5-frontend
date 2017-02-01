@@ -49,35 +49,30 @@ sap.ui.define([
 
 			var fname = sap.ui.getCore().byId(this.createId("firstname_id")).getValue();
 			var lname = sap.ui.getCore().byId(this.createId("lastname_id")).getValue();
+			var username = sap.ui.getCore().byId(this.createId("username_id")).getValue();
 			var email = sap.ui.getCore().byId(this.createId("email_id")).getValue();
 			var password = sap.ui.getCore().byId(this.createId("password_id")).getValue();
 			var mobile = sap.ui.getCore().byId(this.createId("mobileno_id")).getValue();
-			var bdate = sap.ui.getCore().byId(this.createId("birthdate_id")).getDateValue();
+			var bdate = sap.ui.getCore().byId(this.createId("birthdate_id")).getValue();
 			var cardno = sap.ui.getCore().byId(this.createId("cardno_id")).getValue();
-			var pricingModel = this.getView().byId("pricingModelSelect").getSelectedItem().getText();
-
-			var oFormatDate = sap.ui.core.format.DateFormat.getDateTimeInstance({
-				pattern: "yyyy-MM-ddTKK:mm:ss"
-			});
-
-			console.log(pricingModel);
-
+			var pricingModel = this.getView().byId("pricingModelSelect").getSelectedItem().getKey();
+			
+			password = btoa(password);
+			bdate = bdate+"T00:00:00";
 			var oRegister = {
 				"d": {
+					"CustomerId": username,
 					"FirstName": fname,
 					"LastName": lname,
-					//"Bdate": bdate,
+					"Bdate": bdate,
 					"Password": password,
 					"MobilePhoneNumber": mobile,
 					"Email": email,
 					"CardNo": cardno,
-					"Name": pricingModel
+					"ModelId": pricingModel
 				}
 			};
-
-			//console.log(oRegister);
-
-			/*oModel.create('/CustomerRegisterSet', oRegister, {
+			oModel.create('/CustomerRegisterSet', oRegister, {
 				success: function(oData, oResponse) {
 					sap.m.MessageToast.show("Registered succesfully");
 				},
@@ -85,10 +80,9 @@ sap.ui.define([
 					var err_response = JSON.parse(oError.responseText);
 					var err_message = err_response.error.message.value;
 					sap.m.MessageToast.show(err_response);
-					console.log(err_response);
-					console.log(err_message);
 				}
-			});*/
+			});
+
 		}
 
 	});

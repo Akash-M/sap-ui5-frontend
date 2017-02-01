@@ -1,9 +1,8 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" id="loginfragment">
 	<Popover title="{Name}" placement="Bottom" showHeader="false">
-		
 		<VBox>
-			<TextArea placeholder="Username"></TextArea>
-			<TextArea placeholder="Password"></TextArea>
+			<Input placeholder="Username" id="username" ></Input>
+			<Input placeholder="Password" id="password" type="Password"></Input>
 			<Button text="Login"></Button>
 		</VBox>
 	</Popover>
