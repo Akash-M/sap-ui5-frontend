@@ -53,10 +53,10 @@ sap.ui.define([
 		},
 
 		handlepopoverpress: function(oEvent) {
-			if(this._oPopover) {
+			if (this._oPopover) {
 				this._oPopover.destroy();
 			}
-			
+
 			// create popover
 			if (!this._oPopover) {
 				this._oPopover = sap.ui.xmlfragment("BikeRentalApp.view.useraccount", this);

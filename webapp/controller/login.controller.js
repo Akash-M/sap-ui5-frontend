@@ -11,7 +11,7 @@ sap.ui.define([
 
 		login: function(oEvent) {
 			var that = this;
-			var dialog = new sap.m.Dialog('logindialog_id',{
+			var dialog = new sap.m.Dialog('logindialog_id', {
 				title: 'Login',
 				type: 'Message',
 				content: [new sap.m.Input({
@@ -30,18 +30,22 @@ sap.ui.define([
 						password = btoa(password);
 						var oModel = that.getView().getModel();
 						var oLogin = {
-							"d":{
-								"CustomerId" : username,
-								"Password" : password
+							"d": {
+								"CustomerId": username,
+								"Password": password
 							}
 						};
 						oModel.create('/customerLoginSet', oLogin, {
 							success: function(oData, oResponse) {
 								sap.m.MessageToast.show("Login succesfully");
+								var csrfToken = that.getView().getModel().oHeaders;
+								csrfToken["UToken"]=oData.UToken;
+								var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
+								oRouter.navTo("dashboard");
 							},
 							error: function(oError) {
 								var err_response = JSON.parse(oError.responseText);
-								sap.m.MessageToast.show(err_response);
+								sap.m.MessageToast.show("Invalid login credentials");
 							}
 						});
 					}
