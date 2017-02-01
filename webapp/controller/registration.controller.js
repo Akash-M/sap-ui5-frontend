@@ -39,55 +39,54 @@ sap.ui.define([
 		//	onExit: function() {
 		//
 		//	}
-		onNavBack: function(oEvent){
+		onNavBack: function(oEvent) {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("login");
 		},
-		
+
 		register: function(oEvent) {
 			var oModel = this.getView().getModel();
-			
+
 			var fname = sap.ui.getCore().byId(this.createId("firstname_id")).getValue();
 			var lname = sap.ui.getCore().byId(this.createId("lastname_id")).getValue();
 			var email = sap.ui.getCore().byId(this.createId("email_id")).getValue();
 			var password = sap.ui.getCore().byId(this.createId("password_id")).getValue();
 			var mobile = sap.ui.getCore().byId(this.createId("mobileno_id")).getValue();
-			//var bdate = sap.ui.getCore().byId(this.createId("bdate_id")).getValue();
-			
 			var bdate = sap.ui.getCore().byId(this.createId("birthdate_id")).getDateValue();
-			console.log(dateformat);
-			
+			var cardno = sap.ui.getCore().byId(this.createId("cardno_id")).getValue();
+			var pricingModel = this.getView().byId("pricingModelSelect").getSelectedItem().getText();
+
+			var oFormatDate = sap.ui.core.format.DateFormat.getDateTimeInstance({
+				pattern: "yyyy-MM-ddTKK:mm:ss"
+			});
+
+			console.log(pricingModel);
+
 			var oRegister = {
 				"d": {
-					"FirstName" : fname,
-					"LastName" : lname,
-					"Bdate" : bdate,
-					"MobilePhoneNumber" : mobile,
-					"Email" : email,
-					
+					"FirstName": fname,
+					"LastName": lname,
+					//"Bdate": bdate,
+					"Password": password,
+					"MobilePhoneNumber": mobile,
+					"Email": email,
+					"CardNo": cardno,
+					"Name": pricingModel
 				}
-			}
-			
-			
-			
-			/*var oRegister = {
-				"d": {
-					"BikeId": oModelData.BikeId,
-					"CustomerId": "CUST00003"
-				}
-			};*/
-			/*oModel.create('/RentBikeSet', oRentBike, {
+			};
+
+			//console.log(oRegister);
+
+			/*oModel.create('/CustomerRegisterSet', oRegister, {
 				success: function(oData, oResponse) {
-					sap.m.MessageToast.show("Bike Rented Successfully!");
-					var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
-					oRouter.navTo("myrides", {
-						rentedBikeId: oModelData.BikeId
-					});
+					sap.m.MessageToast.show("Registered succesfully");
 				},
 				error: function(oError) {
-					//var err_response = JSON.parse(oError.responseText);
-					//var err_message = err_response.error.message.value;
-					sap.m.MessageToast.show("You have already rented a bike. Please release the bike before booking another one.");
+					var err_response = JSON.parse(oError.responseText);
+					var err_message = err_response.error.message.value;
+					sap.m.MessageToast.show(err_response);
+					console.log(err_response);
+					console.log(err_message);
 				}
 			});*/
 		}

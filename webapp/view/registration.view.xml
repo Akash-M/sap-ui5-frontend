@@ -12,7 +12,7 @@
 							<Input width="100%" id="mobileno_id" fieldWidth="100%" placeholder="Mobile Number" type="Tel"/>
 							<Input width="100%" id="cardno_id" fieldWidth="100%" placeholder="Card Number" type="Number"/>
 							<DatePicker width="100%" id="birthdate_id" valueFormat="yyyy-MM-ddTKK:mm:ss"/>
-							<Select id="select1" width="100%" items="{ path: '/PricingmodSet' }" change="handleSelect1">
+							<Select id="pricingModelSelect" width="100%" items="{ path: '/PricingmodSet' }" change="handleSelect1">
 								<core:Item key="{ModelId}" text="{Name}"/>
 							</Select>
 							<Button text="Sign Up" width="100%" id="registerbutton_id" type="Emphasized" press="register"/>
