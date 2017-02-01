@@ -22,7 +22,7 @@
 					<MessageStrip text="Information message" showIcon="false" id="stationStrip"/>
 					<Page showHeader="false" enableScrolling="true">
 						<content>
-							<Select selectedItem="Element sap.ui.core.ListItem#__item1" selectedItemId="__item1" id="biketypeFilterid" class="biketypeFilter" autoAdjustWidth="true" change="_onObjectMatched" forceSelection="false" name="bike_name_filter">
+							<Select selectedItem="Element sap.ui.core.ListItem#__item1" selectedItemId="__item1" selectedKey="item0" id="biketypeFilterid" class="biketypeFilter" autoAdjustWidth="true" change="_onObjectMatched" forceSelection="false" name="bike_name_filter">
 								<items>
 									<core:ListItem text="Choose bike type" key="item0" id="__item0"/>
 									<core:ListItem text="DELUXE TOURING BIKE (BLACK) " key="item1" id="__item1"/>

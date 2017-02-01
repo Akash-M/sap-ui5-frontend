@@ -52,7 +52,23 @@ sap.ui.define([
 			var email = sap.ui.getCore().byId(this.createId("email_id")).getValue();
 			var password = sap.ui.getCore().byId(this.createId("password_id")).getValue();
 			var mobile = sap.ui.getCore().byId(this.createId("mobileno_id")).getValue();
-			var bdate = sap.ui.getCore().byId(this.createId("bdate_id")).getValue();
+			//var bdate = sap.ui.getCore().byId(this.createId("bdate_id")).getValue();
+			
+			var bdate = sap.ui.getCore().byId(this.createId("birthdate_id")).getDateValue();
+			console.log(dateformat);
+			
+			var oRegister = {
+				"d": {
+					"FirstName" : fname,
+					"LastName" : lname,
+					"Bdate" : bdate,
+					"MobilePhoneNumber" : mobile,
+					"Email" : email,
+					
+				}
+			}
+			
+			
 			
 			/*var oRegister = {
 				"d": {

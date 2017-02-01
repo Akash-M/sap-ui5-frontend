@@ -1,5 +1,4 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
-	controllerName="BikeRentalApp.controller.registration">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.registration">
 	<App>
 		<pages>
 			<Page title="Registration" class="sapUiContentPadding" showNavButton="true" navButtonPress="onNavBack">
@@ -11,7 +10,8 @@
 							<Input width="100%" id="email_id" fieldWidth="100%" placeholder="Email Id" type="Email"/>
 							<Input width="100%" id="password_id" placeholder="Password" type="Password"/>
 							<Input width="100%" id="mobileno_id" fieldWidth="100%" placeholder="Mobile Number" type="Tel"/>
-							<Input width="100%" id="bdate_id" type="Date" placeholder="Birth Date"/>
+							<Input width="100%" id="cardno_id" fieldWidth="100%" placeholder="Card Number" type="Number"/>
+							<DatePicker width="100%" id="birthdate_id" valueFormat="yyyy-MM-ddTKK:mm:ss"/>
 							<Select id="select1" width="100%" items="{ path: '/PricingmodSet' }" change="handleSelect1">
 								<core:Item key="{ModelId}" text="{Name}"/>
 							</Select>
