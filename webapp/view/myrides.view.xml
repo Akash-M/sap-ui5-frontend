@@ -21,7 +21,7 @@
 					</Toolbar>
 				</customHeader>
 				<content>
-					<VBox>
+					<VBox id="myRidesVBox">
 						<FlexBox id="btnsFlexContainer" direction="RowReverse" alignItems="Start" class="btnFlexBox">
 							<items>
 								<Button icon="sap-icon://stop" id="stopbtn" press="onStopBtnPress" class="stopBtn" enabled="false" lite="true"/>
@@ -29,7 +29,7 @@
 								<Button icon="sap-icon://media-play" id="playBtn" press="onPlayBtnPress" class="playBtn"/>
 							</items>
 						</FlexBox>
-						<gmaps:Map id="map1" lat="{/pastrides/0/end/lat}" lng="{/pastrides/0/end/lng}" zoom="11" zoomControl="true">
+						<!--<gmaps:Map id="map1" lat="{/pastrides/0/end/lat}" lng="{/pastrides/0/end/lng}" zoom="11" zoomControl="true">
 							<gmaps:markers>
 								<gmaps:Marker icon="resources/img/map-marker-icon.png" path="{/pastrides/0/start}" lat="{/pastrides/0/start/lat}"
 									lng="{/pastrides/0/start/lng}" info="{/pastrides/0/start/name}"/>
@@ -50,7 +50,7 @@
 								</Toolbar>
 							</headerToolbar>
 							<StandardListItem title="{start/name}" description="{end/name}" icon="sap-icon://map-3" press="handlePress" detailPress="handleDetailPress"/>
-						</List>
+						</List>-->
 					</VBox>
 				</content>
 			</Page>

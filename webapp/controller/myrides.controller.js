@@ -24,36 +24,24 @@ sap.ui.define([
 		_onObjectMatched: function(oEvent) {
 			window.rentedBikeId = oEvent.getParameter("arguments").rentedBikeId.substr(1);
 			console.log(window.rentedBikeId);
-			jQuery.sap.require("sap.ui.core.ws.WebSocket");
-			jQuery.sap.require("sap.ui.core.ws.SapPcpWebSocket");
-			var csrfToken = this.getView().getModel().oHeaders;
-			var wsUrl = 'ws://i67lp1.informatik.tu-muenchen.de:8000/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i';
-			var webSocket = new sap.ui.core.ws.SapPcpWebSocket(wsUrl);
-			
-			webSocket.onerror = function(event) {
-				console.log("WS Error");
-				console.log(event);
-			};
-			webSocket.onopen = function(event) {
-				console.log("WS Open");
-				console.log(event);
-			};
-			webSocket.onmessage = function(event) {
-				console.log("WS Message");
-				console.log(event);
-			};
+
 		},
 
 		updatePosition: function(position) {
-			var oModel = this.getView().getModel();
-			oModel.setProperty("/current/lat", position.coords.latitude);
-			oModel.setProperty("/current/lng", position.coords.longitude);
-			oModel.setProperty("/current/info", "Current");
+			var oModel = sap.ui.getCore().getModel("currentLocModel");
+			oModel.setProperty("/currentLocation/0/lat", position.coords.latitude);
+			oModel.setProperty("/currentLocation/0/lng", position.coords.longitude);
+			var newLocation = {
+				lat: position.coords.latitude,
+				lng: position.coords.longitude
+			}
+			oModel.getProperty("/previousLocations").push(newLocation);
+			console.log(oModel);
 		},
 
 		watchPostion: function() {
 			if (navigator.geolocation) {
-				var watchID = navigator.geolocation.watchPosition(this.updatePosition.bind(this));
+				return navigator.geolocation.watchPosition(this.updatePosition.bind(this));
 			} else {
 				var dialog = new sap.m.Dialog({
 					title: 'Error',
@@ -74,6 +62,7 @@ sap.ui.define([
 				});
 				this.getView().addDependent(dialog);
 				dialog.open();
+				return undefined;
 			}
 		},
 
@@ -214,6 +203,13 @@ sap.ui.define([
 
 		},
 
+		/*getLocationCallback: function(oPos, oMap) {
+			window.currentPostion = oPos;
+			return oPos;
+			oMap.setLng(oPos.Lng);
+			oMap.setLat(o)
+		},*/
+
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
 		 * (NOT before the first rendering! onInit() is used for that one!).
@@ -229,6 +225,99 @@ sap.ui.define([
 		 * @memberOf BikeRentalApp.view.myrides
 		 */
 		onAfterRendering: function() {
+			if (window.rentedBikeId !== undefined) {
+				jQuery.sap.require('openui5.googlemaps.MapUtils');
+				var util = openui5.googlemaps.MapUtils;
+				var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
+				var oCurrentLocationModel = new sap.ui.model.json.JSONModel();
+				var oCurrentLocationContext = new sap.ui.model.Context(oCurrentLocationModel, "/currentLocation");
+
+				var getLocationCallback = function(oPos) {
+
+					var currentLocation = {
+						currentLocation: {
+							info: "Current Location",
+							lat: oPos.lat,
+							lng: oPos.lng
+						},
+						startPoint: {
+							lat: (oPos.lat-0.002),
+							lng: (oPos.lng)
+						},
+						previousLocations: [{
+								lat: (oPos.lat-0.002),
+								lng: (oPos.lng)
+							}, {
+								lat: (oPos.lat-0.001),
+								lng: (oPos.lng)
+							}
+						]
+					};
+
+					oCurrentLocationModel.setData(currentLocation);
+					sap.ui.getCore().setModel(oCurrentLocationModel, "currentLocModel");
+					
+					var oPolylines = new openui5.googlemaps.Polyline({
+						path: "{/previousLocations}",
+						//strokeColor: "black"
+					});
+
+					var oMarkers = new openui5.googlemaps.Marker({
+						info: '{info}',
+						lat: '{lat}',
+						lng: '{lng}',
+						icon: "resources/img/point-16.png"
+					});
+					
+					var startMarker = new openui5.googlemaps.Marker({
+						lat: '{/startPoint/lat}',
+						lng: '{/startPoint/lng}',
+						icon: "resources/img/map-marker-icon.png"
+					});
+					
+					var currentMarker = new openui5.googlemaps.Marker({
+						lat: '{/currentLocation/lat}',
+						lng: '{/currentLocation/lng}',
+						icon: "resources/img/point-16.png"
+					});
+
+					/*var aData = oModel.getProperty("/ZWS16T1BIKESTNSet");
+					console.log(aData);
+					aData.push.apply(aData, currentLocation);
+					oModel.setProperty("/stations", aData);*/
+					//console.log(oModel)
+
+					var oMap = new openui5.googlemaps.Map("myRidesMap", {
+						lat: oPos.lat,
+						lng: oPos.lng,
+						zoom: 15,
+						markers: [currentMarker, startMarker],
+						polylines: [oPolylines]
+					});
+
+					oMap.setModel(oCurrentLocationModel);
+					oMap.setBindingContext(oCurrentLocationContext, "currentLocModel");
+					//console.log(oMap);
+					myridevbox.addItem(oMap);
+
+					return util.objToLatLng(oPos);
+
+				};
+
+				var updateLocation = function(sLocation) {
+					/*var aData = oModel.getProperty("/stations");
+					oModel.setProperty("/stations/"+aData.length+"/info", sLocation);
+					console.log(oModel);*/
+				};
+
+				util.currentPosition()
+					.then(getLocationCallback)
+					.then(util.geocodePosition)
+					.done(updateLocation);
+
+				setInterval(this.watchPostion(), 1)
+
+			}
 
 		},
 
