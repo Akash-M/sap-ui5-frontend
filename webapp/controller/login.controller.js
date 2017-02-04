@@ -23,22 +23,7 @@ sap.ui.define([
 				beginButton: new sap.m.Button({
 					text: 'Login',
 					press: function() {
-						jQuery.sap.require("sap.ui.core.ws.WebSocket");
-						jQuery.sap.require("sap.ui.core.ws.SapPcpWebSocket");
-						var wsUrl = 'ws://i67lp1.informatik.tu-muenchen.de:8000/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i';
-						var webSocket = new sap.ui.core.ws.SapPcpWebSocket(wsUrl);
-						webSocket.onerror = function(event) {
-							console.log("WS Error");
-							console.log(event);
-						};
-						webSocket.onopen = function(event) {
-							console.log("WS Open");
-							console.log(event);
-						};
-						webSocket.onmessage = function(event) {
-							console.log("WS Message");
-							console.log(event);
-						};
+
 						var dialog = sap.ui.getCore().byId("logindialog_id");
 						dialog = dialog.getContent();
 						var username = dialog[0].getValue();
@@ -82,7 +67,24 @@ sap.ui.define([
 			this.getView().addDependent(vBox);
 			dialog.open();
 		},
-
+		connect: function(oEvent) {
+			jQuery.sap.require("sap.ui.core.ws.WebSocket");
+			jQuery.sap.require("sap.ui.core.ws.SapPcpWebSocket");
+			var wsUrl = 'wss://i67lp1.informatik.tu-muenchen.de:8000/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i';
+			var webSocket = new sap.ui.core.ws.SapPcpWebSocket(wsUrl);
+			webSocket.onerror = function(event) {
+				console.log("WS Error");
+				console.log(event);
+			};
+			webSocket.onopen = function(event) {
+				console.log("WS Open");
+				console.log(event);
+			};
+			webSocket.onmessage = function(event) {
+				console.log("WS Message");
+				console.log(event);
+			};
+		},
 		nav: function(oEvent) {
 			var route = oEvent.getSource().data("route");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
