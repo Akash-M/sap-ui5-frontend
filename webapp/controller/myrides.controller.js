@@ -11,8 +11,8 @@ sap.ui.define([
 		 * @memberOf BikeRentalApp.view.myrides
 		 */
 		onInit: function() {
-			var oModel = new sap.ui.model.json.JSONModel("data/mockLocations.json");
-			this.getView().setModel(oModel);
+			//var oModel = new sap.ui.model.json.JSONModel("data/mockLocations.json");
+			//this.getView().setModel(oModel);
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.getRoute("myrides").attachPatternMatched(this._onObjectMatched, this);
 			window.bikingState = undefined;
@@ -20,10 +20,28 @@ sap.ui.define([
 			window.stopTime = undefined;
 			window.resumeTime = undefined;
 		},
-		
+
 		_onObjectMatched: function(oEvent) {
-			window.rentedBikeId = oEvent.getParameter("arguments").rentedBikeId;
+			window.rentedBikeId = oEvent.getParameter("arguments").rentedBikeId.substr(1);
 			console.log(window.rentedBikeId);
+			jQuery.sap.require("sap.ui.core.ws.WebSocket");
+			jQuery.sap.require("sap.ui.core.ws.SapPcpWebSocket");
+			var csrfToken = this.getView().getModel().oHeaders;
+			var wsUrl = 'ws://i67lp1.informatik.tu-muenchen.de:8000/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i';
+			var webSocket = new sap.ui.core.ws.SapPcpWebSocket(wsUrl);
+			
+			webSocket.onerror = function(event) {
+				console.log("WS Error");
+				console.log(event);
+			};
+			webSocket.onopen = function(event) {
+				console.log("WS Open");
+				console.log(event);
+			};
+			webSocket.onmessage = function(event) {
+				console.log("WS Message");
+				console.log(event);
+			};
 		},
 
 		updatePosition: function(position) {
@@ -125,11 +143,75 @@ sap.ui.define([
 
 		onStopBtnPress: function() {
 			window.stopTime = new Date().toISOString();
-			var gmap = sap.ui.getCore().byId(this.createId("map1"));
-			var btnContainer = sap.ui.getCore().byId(this.createId("btnsFlexContainer"));
-			btnContainer.destroy();
-			gmap.destroy();
-			window.bikingState = "Stop";
+			var oSelectItemTemplate = new sap.ui.core.Item({
+				text: '{Name}',
+				key: '{BikeStationId}'
+			})
+			var oSelectStation = new sap.m.Select("stationSelect", {
+				items: {
+					path: "/BikeStationSet",
+					template: oSelectItemTemplate
+				} //,
+				//selectedKey: '{/BikeStationSet/0/BikeStationId}',
+				//selectedId: '{/BikeStationSet/0/BikeStationId}'
+			});
+			oSelectStation.attachChange(function(oEvent) {
+				window.selectedStation = oSelectStation.getSelectedKey();
+			})
+			var oModel = this.getView().getModel();
+			var oContext = new sap.ui.model.Context(oModel);
+			oSelectStation.setBindingContext(oContext);
+			//var bikecount = oEvent.getSource().data("bikecount");
+			var that = this;
+			var oModel = this.getView().getModel();
+			var dialog = new sap.m.Dialog("confirmRent", {
+				title: 'Select Drop Station',
+				type: 'Message',
+				content: [oSelectStation],
+				beginButton: new sap.m.Button({
+					text: 'OK',
+					press: function() {
+						dialog.close();
+						var oFreeBike = {
+							"d": {
+								"BikeId": window.rentedBikeId,
+								"BikeStationId": window.selectedStation
+							}
+						};
+						oModel.create('/FreeBikesSet', oFreeBike, {
+							success: function(oData, oResponse) {
+								sap.m.MessageToast.show("Bike Freed Successfully!");
+								//var gmap = sap.ui.getCore().byId(this.createId("map1"));
+								//var btnContainer = sap.ui.getCore().byId(this.createId("btnsFlexContainer"));
+								//btnContainer.destroy();
+								//gmap.destroy();
+								window.bikingState = "Stop";
+							},
+							error: function(oError) {
+								//var err_response = JSON.parse(oError.responseText);
+								//var err_message = err_response.error.message.value;
+								sap.m.MessageToast.show("There seems to be a problem please try again");
+							}
+						});
+
+					}
+				}),
+				endButton: new sap.m.Button({
+					text: 'Close',
+					press: function() {
+						dialog.close();
+					}
+				}),
+				afterClose: function() {
+					dialog.destroy();
+				}
+			});
+			var vBox = new sap.m.VBox({
+				items: [dialog]
+			});
+			this.getView().addDependent(vBox);
+			dialog.open();
+
 		},
 
 		/**
