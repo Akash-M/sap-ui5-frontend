@@ -1,0 +1,40 @@
+{
+	"InformationList": [
+		{
+		"title": "Bike details",
+		"text": "View detailed information about all the bikes here",
+		"id": "bikedetails",
+		"icon": "resources/img/bike-icon.png"
+		},
+		{
+		"title": "Pricing details",
+		"text": "View detailed information about all the pricing models here",
+		"id": "pricingdetails",
+		"icon": "sap-icon://{log}"
+		},
+		{
+		"title": "Facebook",
+		"text": "Access our facebook page here",
+		"id": "facebookdetails",
+		"icon": "resources/img/facebook-icon.png"
+		},
+		{
+		"title": "Twitter",
+		"text": "Access our twitter page here",
+		"id": "twitterdetails",
+		"icon": "resources/img/twitter-icon.png"
+		},
+		{
+		"title": "Bike details",
+		"text": "View detailed information about all the bikes here",
+		"id": "bikedetails",
+		"icon": "log"
+		},
+		{
+		"title": "Bike details",
+		"text": "View detailed information about all the bikes here",
+		"id": "bikedetails",
+		"icon": "log"
+		}
+	]
+}

@@ -41,6 +41,7 @@ sap.ui.define([
 								sap.m.MessageToast.show("Login succesfully");
 								var csrfToken = that.getView().getModel().oHeaders;
 								csrfToken["UToken"] = oData.UToken;
+								window.localStorage.setItem('customerId', oData.CustomerId);
 								var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
 								oRouter.navTo("dashboard");
 							},

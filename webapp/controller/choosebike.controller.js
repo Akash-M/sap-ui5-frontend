@@ -76,13 +76,13 @@ sap.ui.define([
 			var oRentBike = {
 				"d": {
 					"BikeId": oModelData.BikeId,
-					"CustomerId": "CUST00003"
+					"CustomerId": window.localStorage.getItem('customerId')
 				}
 			};
 			//var bikecount = oEvent.getSource().data("bikecount");
 			var that = this;
 			var dialog = new sap.m.Dialog("confirmRent", {
-				title: 'Confirm your booking',
+				title: 'Confirm your booking for bike '+ oModelData.BikeId,
 				type: 'Message',
 				content: [new sap.m.Text({
 					text: 'You will be redirected to manage your ride on confirmation.',
@@ -103,15 +103,16 @@ sap.ui.define([
 								});
 							},
 							error: function(oError) {
-								//var err_response = JSON.parse(oError.responseText);
-								//var err_message = err_response.error.message.value;
+								var err_response = JSON.parse(oError.responseText);
+								var err_message = err_response.error.message.value;
 								sap.m.MessageToast.show("You have already rented a bike. Please release the bike before booking another one.");
+								sap.m.MessageToast.show(err_message);
 							}
 						});
 					}
 				}),new sap.m.Button({
 					text: 'Report Issue',
-					type: 'Emphasized',
+					type: 'Transparent',
 					press: function() {
 						dialog.close();
 						window.localStorage.setItem('problemBikeId', oModelData.BikeId);

@@ -15,31 +15,31 @@ sap.ui.define([
 				var bikeId = window.localStorage.getItem('problemBikeId');
 				var oMessageStrip = sap.ui.getCore().byId(this.createId("reportissuesmessagestrip_id"));
 				oMessageStrip.setText("Bike ID : " + bikeId);
-
 			} else {
 				//redirect to choose bike controller
-				console.log("not set...");
 				//window.localStorage.setItem('problemBikeId', "sample data");
 			}
 		},
 		submitIssue: function() {
-			
+
 			var issueId = this.getView().byId(this.createId("issuesList")).getSelectedKey();
 			var probDesc = this.getView().byId(this.createId("reportissuestextarea_id")).getValue();
-			
+
 			var oProblemBike = {
 				"d": {
 					"BikeId": window.localStorage.getItem('problemBikeId'),
 					"PartId": issueId,
-					"ProblemDesc":probDesc
+					"ProblemDesc": probDesc
 				}
-			}
-			
+			};
+
 			var oModel = this.getView().getModel();
-			
-			oModel.create('/⁠⁠⁠ReportBikeSet', oProblemBike, {
+
+			oModel.create('/ReportBikeSet', oProblemBike, {
 				success: function(oData, oResponse) {
-					sap.m.MessageToast.show("Bike Rented Successfully!");
+					sap.m.MessageToast.show("Problem reported. We apologize for the inconvenience.");
+					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+					oRouter.navTo("searchbike");
 				},
 				error: function(oError) {
 					sap.m.MessageToast.show("Unable to submit issue report. Please try again later..");

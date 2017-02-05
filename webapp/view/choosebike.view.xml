@@ -30,18 +30,20 @@
 									<core:ListItem text="Choose bike type" key="item0" id="__item0"/>
 									<core:ListItem text="DELUXE TOURING BIKE (BLACK) " key="item1" id="__item1"/>
 									<core:ListItem text="DELUXE TOURING BIKE (SILVER) " key="item2" id="__item2"/>
-									<core:ListItem text="PROFESSIONAL TOURING BIKE (BLACK)" key="item3" id="__item3"/></items>
+									<core:ListItem text="PROFESSIONAL TOURING BIKE (RED)" key="item3" id="__item3"/>
+									<core:ListItem text="MEN'S OFF ROAD BIKE" key="item4" id="__item4"/>
+									<core:ListItem text="WOMEN'S OFF ROAD BIKE" key="item5" id="__item5"/>
+									<core:ListItem text="PROFESSIONAL TOURING BIKE (BLACK)" key="item6" id="__item6"/>
+									<core:ListItem text="PROFESSIONAL TOURING BIKE (SILVER)" key="item7" id="__item7"/>
+									<core:ListItem text="PROFESSIONAL TOURING BIKE (RED)" key="item8" id="__item8"/>
+									</items>
 							</Select>
 							<List id="bikelist" items="{/FreeBikesSet}">
 								<items>
-									<ActionListItem text="{BikeName}" press="tilepress"/>
+									<ActionListItem text="{BikeName} {BikeId}" press="tilepress" />
 								</items>
 							</List>
 						</content>
-						<!--<TileContainer id="bikelist" tiles="{/FreeBikesSet}" class="biketypetilecontainer">
-							<StandardTile type="{type}" number="{BikeId}" app:bikecount="{number}" numberUnit="{numberUnit}" class="customtiles" press="tilepress"
-								title="{BikeName}" info="{info}" infoState="{infoState}"/>
-						</TileContainer>-->
 					</Page>
 				</content>
 			</Page>

@@ -1,25 +1,38 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="BikeRentalApp.controller.clientaccount"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="BikeRentalApp.controller.clientaccount">
 	<App>
 		<pages>
-			<Page title="Manage your account">
+			<Page title="Manage your account" class="sapUiContentPadding">
 				<customHeader>
 					<Toolbar id="navtoolbar">
 						<Button icon="sap-icon://home" press="toolbarnav" app:route="dashboard"/>
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://functional-location" press="toolbarnav" app:route="searchbike"/>
 						<ToolbarSpacer/>
-						<Button icon="sap-icon://customer-history" press="toolbarnav" app:route="myrides" class="currentUrl"/>
+						<Button icon="sap-icon://customer-history" press="toolbarnav" app:route="myrides"/>
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://hint" press="toolbarnav" app:route="information"/>
 						<ToolbarSpacer/>
-						<Button icon="sap-icon://account" press="toolbarnav" app:route="clientaccount"/>
+						<Button icon="sap-icon://account" press="toolbarnav" class="currentUrl" app:route="clientaccount"/>
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://log" press="toolbarnav" app:route="login"/>
 						<ToolbarSpacer/>
 					</Toolbar>
 				</customHeader>
-				<content></content>
+				<content>
+					<Page showHeader="false" enableScrolling="true">
+						<content>
+							<VBox width="100%" direction="Column" id="customerprofilevbox_id">
+								<items>
+									<MessageStrip text="Customer Profile" showIcon="true" id="__strip0"/>
+									<Label text="First Name" width="100%" id="__label1"/>
+									<Input width="100%" id="__input0"/>
+								</items>
+							</VBox>
+						</content>
+					</Page>
+				</content>
 			</Page>
 		</pages>
 	</App>

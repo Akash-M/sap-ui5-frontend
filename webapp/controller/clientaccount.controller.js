@@ -10,9 +10,12 @@ sap.ui.define([
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 		 * @memberOf BikeRentalApp.view.clientaccount
 		 */
-		//	onInit: function() {
-		//
-		//	},
+		onInit: function() {
+			var oModel = this.getView().getModel();
+			var oForm = sap.ui.getCore().byId(this.createId("customerprofilevbox_id"));
+			console.log(oForm);
+			
+		},
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
@@ -39,7 +42,11 @@ sap.ui.define([
 		//	onExit: function() {
 		//
 		//	}
-
+		toolbarnav: function(oEvent) {
+			var route = oEvent.getSource().data("route");
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo(route);
+		}
 	});
 
 });
