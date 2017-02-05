@@ -64,6 +64,8 @@ sap.ui.define([
 		 * @memberOf BikeRentalApp.view.searchbike
 		 */
 		onAfterRendering: function() {
+			
+			jQuery.sap.require('openui5.googlemaps.MapUtils');	
 
 			var util = openui5.googlemaps.MapUtils;
 			var id = this.createId("mapVbox");
