@@ -128,6 +128,22 @@
 				"pattern": "clientaccount",
 				"name": "clientaccount",
 				"target": "clientaccount"
+			}, {
+				"pattern": "info_bikes",
+				"name": "info_bikes",
+				"target": "info_bikes"
+			}, {
+				"pattern": "info_faq",
+				"name": "info_faq",
+				"target": "info_faq"
+			}, {
+				"pattern": "info_pricing",
+				"name": "info_pricing",
+				"target": "info_pricing"
+			}, {
+				"pattern": "customersubscription",
+				"name": "customersubscription",
+				"target": "customersubscription"
 			}],
 			"targets": {
 				"login": {
@@ -168,6 +184,22 @@
 				},
 				"clientaccount": {
 					"viewName": "clientaccount",
+					"viewLevel": 1
+				},
+				"info_bikes": {
+					"viewName": "info_bikes",
+					"viewLevel": 1
+				},
+				"info_pricing": {
+					"viewName": "info_pricing",
+					"viewLevel": 1
+				},
+				"info_faq": {
+					"viewName": "info_faq",
+					"viewLevel": 1
+				},
+				"customersubscription": {
+					"viewName": "customersubscription",
 					"viewLevel": 1
 				}
 			}

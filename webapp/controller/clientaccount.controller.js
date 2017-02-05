@@ -11,15 +11,6 @@ sap.ui.define([
 		 * @memberOf BikeRentalApp.view.clientaccount
 		 */
 		onInit: function() {
-			/*var oModel = sap.ui.getCore().getModel();
-			var oVBox = sap.ui.getCore().byId(this.createId("customerprofilevbox_id"));
-			//console.log(oModel.getProperties("/CustomerSet('BAGR')"));
-			//oVbox.setModel(oModel, "/CustomerSet('BAGR')");
-			oVBox.setModel(oModel);
-			//oVBox.bindProperty("/CustomerSet('BAGR')")
-			console.log(oVBox);
-			console.log(oModel);*/
-
 		},
 
 		/**

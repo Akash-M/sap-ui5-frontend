@@ -1,0 +1,60 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.customersubscription">
+	<App>
+		<pages>
+			<Page title="Subscription Details" class="sapUiContentPadding">
+				<customHeader>
+					<Toolbar id="navtoolbar">
+						<Button icon="sap-icon://home" press="toolbarnav" app:route="dashboard"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://functional-location" press="toolbarnav" app:route="searchbike"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://customer-history" press="toolbarnav" app:route="myrides"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://hint" press="toolbarnav" app:route="information"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://timesheet" press="toolbarnav" class="currentUrl" app:route="customersubscription"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://account" press="toolbarnav" app:route="clientaccount"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://log" press="toolbarnav" app:route="login"/>
+						<ToolbarSpacer/>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<ObjectHeader title="SUBSCRIPTION DETAILS" introActive="true" titleActive="true" id="__header0" class="customHeader"/>
+					
+					<List id="custsubsvbox_id1" items="{/CustPModelSet}">
+						<items>
+							<StandardListItem type="Active" title="Customer ID : " description="{CustomerId}" icon="{icon}"/>
+						</items>
+					</List>
+					
+					<List id="custsubsvbox_id2" items="{/CustPModelSet}">
+						<items>
+							<StandardListItem type="Active" title="Current Subscription Model : " description="{Name}" icon="{icon}"/>
+						</items>
+					</List>
+					
+					<List id="custsubsvbox_id3" items="{/CustPModelSet}">
+						<items>
+							<StandardListItem type="Active" title="Number of Free Minutes left :  " description="{FreeMinutes}" icon="{icon}"/>
+						</items>
+					</List>
+					
+					<List id="custsubsvbox_id4" items="{/CustPModelSet}">
+						<items>
+							<StandardListItem type="Active" title="Number of Free Rides left : " description="{FreeRides}" icon="{icon}"/>
+						</items>
+					</List>
+					
+					<List id="custsubsvbox_id5" items="{/CustPModelSet}">
+						<items>
+							<StandardListItem type="Active" title="Activation Date : " description="{ActvDate}" icon="{icon}"/>
+						</items>
+					</List>
+				
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

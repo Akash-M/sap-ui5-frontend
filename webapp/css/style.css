@@ -12,17 +12,34 @@ html * {
     opacity: 0.9;
 }
 
+.customTile{
+	background-color:white !important;
+}
+
 .firstElement {
 	margin-top:20px;
 }
 
-.sapMOH .sapMOHBgTransparent {
+.customHeader .sapMOH .sapMOHBgTransparent {
 	padding:0px !important;
 	border-bottom: 2px solid #d9d9d9 !important;
 }
 
+.custombiketypeHeader .sapMOH .sapMOHBgTransparent {
+	padding:5px !important;
+	border-bottom: 5px solid #d9d9d9 !important;
+}
+
+.customersubscriptionheader .firstElement .sapMOH .sapMOHBgTransparent {
+	padding:0px !important;
+}
+
+.customersubscriptiondetails{
+	padding:5px;
+}
+
 .customHeader{
-	padding:0px;
+	padding:0px !important;
 	border-bottom: 2px solid #d9d9d9;
 }
 

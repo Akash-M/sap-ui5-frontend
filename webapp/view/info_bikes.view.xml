@@ -1,0 +1,35 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.info_bikes">
+	<App>
+		<pages>
+			<Page title="Bikes Information" class="sapUiContentPadding" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					<VBox width="100%" direction="Column" id="__vbox0" fitContainer="true" backgroundDesign="Translucent">
+						<items>
+							<Label text="Deluxe Touring Bike (Black)" width="100%" id="__label1" design="Bold" textAlign="Center"/>
+							<Image width="100%" height="200px" id="__image1" src="resources/img/dtbblack.png"/>
+							<ObjectHeader title="" class="custombiketypeHeader"/>
+							<Label text="Deluxe Touring Bike(Silver)" width="100%" id="__label2" design="Bold" textAlign="Center"/>
+							<Image width="100%" height="200px" id="__image2" src="resources/img/dtbsilver.png"/>
+							<ObjectHeader title="" class="custombiketypeHeader"/>
+							<Label text="Professional Touring Bike(Red)" width="100%" id="__label4" design="Bold" textAlign="Center"/>
+							<Image width="100%" height="200px" id="__image4" src="resources/img/dtbred.png"/>
+							<ObjectHeader title="" class="custombiketypeHeader"/>
+							<Label text="Men's Off Road Bike" width="100%" id="__label5" design="Bold" textAlign="Center"/>
+							<Image width="100%" height="200px" id="__image5" src="resources/img/mensbike.png"/>
+							<ObjectHeader title="" class="custombiketypeHeader"/>
+							<Label text="Women's Off Road Bike" width="100%" id="__label6" design="Bold" textAlign="Center"/>
+							<Image width="100%" height="200px" id="__image6" src="resources/img/womensbike.png"/>
+							<ObjectHeader title="" class="custombiketypeHeader"/>
+							<Label text="Professional Touring Bike(Black)" width="100%" id="__label7" design="Bold" textAlign="Center"/>
+							<Image width="100%" height="200px" id="__image7" src="resources/img/ptbblack.png"/>
+							<ObjectHeader title="" class="custombiketypeHeader"/>
+							<Label text="Professional Touring Bike(Silver)" width="100%" id="__label8" design="Bold" textAlign="Center"/>
+							<Image width="100%" height="200px" id="__image8" src="resources/img/ptbsilver.png"/>
+							<ObjectHeader title="" class="custombiketypeHeader"/>
+						</items>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

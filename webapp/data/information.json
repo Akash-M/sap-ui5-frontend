@@ -3,14 +3,20 @@
 		{
 		"title": "Bike details",
 		"text": "View detailed information about all the bikes here",
-		"id": "bikedetails",
+		"id": "info_bikes",
 		"icon": "resources/img/bike-icon.png"
 		},
 		{
 		"title": "Pricing details",
 		"text": "View detailed information about all the pricing models here",
-		"id": "pricingdetails",
-		"icon": "sap-icon://{log}"
+		"id": "info_pricing",
+		"icon": "resources/img/pricing-icon.png"
+		},
+		{
+		"title": "FAQs",
+		"text": "Check answers to some frequently answered questions here",
+		"id": "info_faq",
+		"icon": "resources/img/faq-icon.png"
 		},
 		{
 		"title": "Facebook",
@@ -23,18 +29,6 @@
 		"text": "Access our twitter page here",
 		"id": "twitterdetails",
 		"icon": "resources/img/twitter-icon.png"
-		},
-		{
-		"title": "Bike details",
-		"text": "View detailed information about all the bikes here",
-		"id": "bikedetails",
-		"icon": "log"
-		},
-		{
-		"title": "Bike details",
-		"text": "View detailed information about all the bikes here",
-		"id": "bikedetails",
-		"icon": "log"
 		}
 	]
 }

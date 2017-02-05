@@ -1,0 +1,39 @@
+{
+	"FaqList": [
+		{
+		"title": "How to book a bike? ",
+		"text1": "Please navigate to choose bike option.",
+		"text2": "This is the second icon in the navigation menu.",
+		"id": "1",
+		"icon": "sap-icon://functional-location"
+		},
+		{
+		"title": "When can I report an issue? ",
+		"text1": "You can report a problem while renting a bike",
+		"text2": "or during your ride",
+		"id": "2",
+		"icon": "sap-icon://quality-issue"
+		},
+		{
+		"title": "Where do I check my current subscription details?",
+		"text1": "Please navigate subscription details.",
+		"text2": "This is the fifth icon the the navigation menu.",
+		"id": "3",
+		"icon": "sap-icon://timesheet"
+		},
+		{
+		"title": "Can I edit my profile?",
+		"text1": "Yes. Please navigate to edit profile",
+		"text2": "This is the sixth icon the the navigation menu.",
+		"id": "4",
+		"icon": "sap-icon://account"
+		},
+		{
+		"title": "Where can I check bike details?",
+		"text1": "Please navigate to information section.",
+		"text2": "This is the fourth icon the the navigation menu.",
+		"id": "5",
+		"icon": "sap-icon://hint"
+		}
+	]
+}

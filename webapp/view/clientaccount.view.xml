@@ -12,6 +12,8 @@
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://hint" press="toolbarnav" app:route="information"/>
 						<ToolbarSpacer/>
+						<Button icon="sap-icon://timesheet" press="toolbarnav" app:route="customersubscription"/>
+						<ToolbarSpacer/>
 						<Button icon="sap-icon://account" press="toolbarnav" class="currentUrl" app:route="clientaccount"/>
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://log" press="toolbarnav" app:route="login"/>
@@ -67,7 +69,7 @@
 								<Input width="100%" id="input9" value="{Balance}" editable="false" enabled="false"/>
 							</VBox>
 							
-							<HBox width="100%" fitContainer="true">
+							<HBox width="100%" fitContainer="true" justifyContent="SpaceAround">
 								<Button text="Save" width="100px" id="__button6" type="Accept" press="save"/>
 								<Button text="Cancel" width="100px" id="__button7" type="Reject" press="onBeforeRendering"/>
 							</HBox>

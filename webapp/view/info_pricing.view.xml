@@ -1,0 +1,20 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="BikeRentalApp.controller.info_pricing">
+	<App>
+		<pages>
+			<Page title="Pricing Model Details" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					<List items="{/PricingmodSet}">
+						<ObjectListItem type="Active" title="{Name}" number="{PriceAMinute}" numberUnit="per/min">
+							<attributes>
+								<ObjectAttribute text="Free Rides: {FreeRides}"/>
+								<ObjectAttribute text="Free Minutes: {FreeMinutes}"/>
+								<ObjectAttribute text="Fixed Costs: {FixCosts}"/>
+							</attributes>
+						</ObjectListItem>
+					</List>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

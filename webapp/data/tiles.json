@@ -21,6 +21,11 @@
       "id" : "clientaccount"
     },
     {
+      "icon" : "timesheet",
+      "title" : "Subscription",
+      "id" : "subscription"
+    },
+    {
       "icon" : "log",
       "title" : "Logout",
       "id" : "logout"

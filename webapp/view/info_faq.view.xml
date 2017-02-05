@@ -1,0 +1,20 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="BikeRentalApp.controller.info_faq"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Frequently Asked Questions" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					<List items="{/FaqList}">
+						<ObjectListItem type="Active" title="{title}" number="{id}" 
+							numberUnit="question" icon="{icon}">
+							<attributes>
+								<ObjectAttribute text="{text1}"/>
+								<ObjectAttribute text="{text2}"/>
+							</attributes>
+						</ObjectListItem>
+					</List>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

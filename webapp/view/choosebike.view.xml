@@ -14,6 +14,8 @@
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://hint" press="toolbarnav" app:route="information"/>
 						<ToolbarSpacer/>
+						<Button icon="sap-icon://timesheet" press="toolbarnav" app:route="customersubscription"/>
+						<ToolbarSpacer/>
 						<Button icon="sap-icon://account" press="toolbarnav" app:route="clientaccount"/>
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://log" press="toolbarnav" app:route="login"/>
@@ -35,7 +37,6 @@
 									<core:ListItem text="WOMEN'S OFF ROAD BIKE" key="item5" id="__item5"/>
 									<core:ListItem text="PROFESSIONAL TOURING BIKE (BLACK)" key="item6" id="__item6"/>
 									<core:ListItem text="PROFESSIONAL TOURING BIKE (SILVER)" key="item7" id="__item7"/>
-									<core:ListItem text="PROFESSIONAL TOURING BIKE (RED)" key="item8" id="__item8"/>
 									</items>
 							</Select>
 							<List id="bikelist" items="{/FreeBikesSet}">

@@ -12,20 +12,23 @@
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://hint" press="toolbarnav" class="currentUrl" app:route="information"/>
 						<ToolbarSpacer/>
+						<Button icon="sap-icon://timesheet" press="toolbarnav" app:route="customersubscription"/>
+						<ToolbarSpacer/>
 						<Button icon="sap-icon://account" press="toolbarnav" app:route="clientaccount"/>
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://log" press="toolbarnav" app:route="login"/>
 						<ToolbarSpacer/>
 					</Toolbar>
 				</customHeader>
-			<content>
-			    <MessageStrip text="Information and FAQs" showIcon="true" id="__strip0"/>
-			    <List noDataText="Drop list items here" id="__list1" items="{/InformationList}">
-			        <items>
-			            <StandardListItem type="Navigation" title="{title}" description="{text}" icon="{icon}"/>
-			            </items>
-			    </List>
-			</content>
+				<content>
+					<ObjectHeader title="INFORMATION AND FAQs" introActive="true" titleActive="true" id="__header0" class="customHeader"/>
+					<List noDataText="Drop list items here" id="__list1" items="{/InformationList}">
+						<items>
+							<StandardListItem type="Navigation" title="{title}" description="{text}" 
+							icon="{icon}" press="showinfo" app:info="{id}"/>
+						</items>
+					</List>
+				</content>
 			</Page>
 		</pages>
 	</App>

@@ -13,6 +13,8 @@
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://hint" press="toolbarnav" app:route="information"/>
 						<ToolbarSpacer/>
+						<Button icon="sap-icon://timesheet" press="toolbarnav" app:route="customersubscription"/>
+						<ToolbarSpacer/>
 						<Button icon="sap-icon://account" press="toolbarnav" app:route="clientaccount"/>
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://log" press="toolbarnav" app:route="login"/>
