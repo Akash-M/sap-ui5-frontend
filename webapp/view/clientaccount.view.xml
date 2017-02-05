@@ -1,6 +1,4 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
-	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:html="http://www.w3.org/1999/xhtml"
-	controllerName="BikeRentalApp.controller.clientaccount">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.clientaccount">
 	<App>
 		<pages>
 			<Page title="Manage your account" class="sapUiContentPadding">
@@ -21,15 +19,59 @@
 					</Toolbar>
 				</customHeader>
 				<content>
-					<Page showHeader="false" enableScrolling="true">
+					<ObjectHeader title="CUSTOMER PROFILE" introActive="true" titleActive="true" id="__header0" class="customHeader"/>
+					<Page showHeader="false" enableScrolling="false">
 						<content>
-							<VBox width="100%" direction="Column" id="customerprofilevbox_id">
-								<items>
-									<MessageStrip text="Customer Profile" showIcon="true" id="__strip0"/>
-									<Label text="First Name" width="100%" id="__label1"/>
-									<Input width="100%" id="__input0"/>
-								</items>
+							<Label text="User Name" width="100%" id="__label1" class="firstElement"/>
+							<VBox width="100%" direction="Column" id="customerprofilevbox_id1" items="{/CustomerSet}">
+								<Input width="100%" id="input1" value="{CustomerId}" enabled="false" editable="false"/>
 							</VBox>
+							
+							<Label text="First Name" width="100%" id="__label2"/>
+							<VBox width="100%" direction="Column" id="customerprofilevbox_id2" items="{/CustomerSet}">
+								<Input width="100%" id="fname_id" value="{FirstName}"/>
+							</VBox>
+							
+							<Label text="Last Name" width="100%" id="__label3"/>
+							<VBox width="100%" direction="Column" id="customerprofilevbox_id3" items="{/CustomerSet}">
+								<Input width="100%" id="input3" value="{LastName}"/>
+							</VBox>
+							
+							<!--<Label text="Birth Date" width="100%" id="__label4"/>
+							<VBox width="100%" direction="Column" id="customerprofilevbox_id4" items="{/CustomerSet}">
+								<Input width="100%" id="__input4" value="{Bdate}"/>
+							</VBox>-->
+							
+							<Label text="Mobile Number" width="100%" id="__label5"/>
+							<VBox width="100%" direction="Column" id="customerprofilevbox_id5" items="{/CustomerSet}">
+								<Input width="100%" id="input5" value="{MobilePhoneNumber}"/>
+							</VBox>
+							
+							<Label text="EMail" width="100%" id="__label6"/>
+							<VBox width="100%" direction="Column" id="customerprofilevbox_id6" items="{/CustomerSet}">
+								<Input width="100%" id="input6" value="{Email}"/>
+							</VBox>
+							
+							<Label text="Card Number" width="100%" id="__label7"/>
+							<VBox width="100%" direction="Column" id="customerprofilevbox_id7" items="{/CustomerSet}">
+								<Input width="100%" id="input7" value="{CardNo}"/>
+							</VBox>
+							
+							<Label text="Free Rides" width="100%" id="__label8"/>
+							<VBox width="100%" direction="Column" id="customerprofilevbox_id8" items="{/CustomerSet}">
+								<Input width="100%" id="input8" value="{FreeRides}" enabled="false" editable="false"/>
+							</VBox>
+							
+							<Label text="Balance" width="100%" id="__label9"/>
+							<VBox width="100%" direction="Column" id="customerprofilevbox_id9" items="{/CustomerSet}">
+								<Input width="100%" id="input9" value="{Balance}" editable="false" enabled="false"/>
+							</VBox>
+							
+							<HBox width="100%" fitContainer="true">
+								<Button text="Save" width="100px" id="__button6" type="Accept" press="save"/>
+								<Button text="Cancel" width="100px" id="__button7" type="Reject" press="onBeforeRendering"/>
+							</HBox>
+							
 						</content>
 					</Page>
 				</content>

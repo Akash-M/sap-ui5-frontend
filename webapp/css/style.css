@@ -12,6 +12,20 @@ html * {
     opacity: 0.9;
 }
 
+.firstElement {
+	margin-top:20px;
+}
+
+.sapMOH .sapMOHBgTransparent {
+	padding:0px !important;
+	border-bottom: 2px solid #d9d9d9 !important;
+}
+
+.customHeader{
+	padding:0px;
+	border-bottom: 2px solid #d9d9d9;
+}
+
 .customtiles {
     border-radius: 0px;
     background-color: #fafafa;

@@ -16,7 +16,7 @@ sap.ui.define([
 		},
 
 		_onObjectMatched: function(oEvent) {
-
+		
 			var oModel = this.getView().getModel();
 
 			if (oEvent.getParameter("arguments") !== undefined) {
