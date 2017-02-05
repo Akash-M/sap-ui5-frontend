@@ -65,26 +65,7 @@ sap.ui.define([
 		 */
 		onAfterRendering: function() {
 
-			jQuery.sap.require('openui5.googlemaps.MapUtils');
-			
-			jQuery.sap.require("sap.ui.core.ws.WebSocket");
-			jQuery.sap.require("sap.ui.core.ws.SapPcpWebSocket");
-			var wsUrl = 'ws://i67lp1.informatik.tu-muenchen.de:8000/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i';
-			var webSocket = new sap.ui.core.ws.SapPcpWebSocket(wsUrl);
-			webSocket.onerror = function(event) {
-				console.log("WS Error");
-				console.log(event);
-			};
-			webSocket.onopen = function(event) {
-				console.log("WS Open");
-				console.log(event);
-			};
-			webSocket.onmessage = function(event) {
-				console.log("WS Message");
-				console.log(event);
-			};
 			var util = openui5.googlemaps.MapUtils;
-
 			var id = this.createId("mapVbox");
 			var mapId = this.createId("map");
 
