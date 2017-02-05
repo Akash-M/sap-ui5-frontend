@@ -1,0 +1,26 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="BikeRentalApp.controller.clientaccount"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Manage your account">
+				<customHeader>
+					<Toolbar id="navtoolbar">
+						<Button icon="sap-icon://home" press="toolbarnav" app:route="dashboard"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://functional-location" press="toolbarnav" app:route="searchbike"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://customer-history" press="toolbarnav" app:route="myrides" class="currentUrl"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://hint" press="toolbarnav" app:route="information"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://account" press="toolbarnav" app:route="clientaccount"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://log" press="toolbarnav" app:route="login"/>
+						<ToolbarSpacer/>
+					</Toolbar>
+				</customHeader>
+				<content></content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

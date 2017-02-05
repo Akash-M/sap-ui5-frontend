@@ -10,9 +10,42 @@ sap.ui.define([
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 		 * @memberOf BikeRentalApp.view.reportissues
 		 */
-		//	onInit: function() {
-		//
-		//	},
+		onInit: function() {
+			if (window.localStorage.getItem('problemBikeId') !== null) {
+				var bikeId = window.localStorage.getItem('problemBikeId');
+				var oMessageStrip = sap.ui.getCore().byId(this.createId("reportissuesmessagestrip_id"));
+				oMessageStrip.setText("Bike ID : " + bikeId);
+
+			} else {
+				//redirect to choose bike controller
+				console.log("not set...");
+				//window.localStorage.setItem('problemBikeId', "sample data");
+			}
+		},
+		submitIssue: function() {
+			
+			var issueId = this.getView().byId(this.createId("issuesList")).getSelectedKey();
+			var probDesc = this.getView().byId(this.createId("reportissuestextarea_id")).getValue();
+			
+			var oProblemBike = {
+				"d": {
+					"BikeId": window.localStorage.getItem('problemBikeId'),
+					"PartId": issueId,
+					"ProblemDesc":probDesc
+				}
+			}
+			
+			var oModel = this.getView().getModel();
+			
+			oModel.create('/⁠⁠⁠ReportBikeSet', oProblemBike, {
+				success: function(oData, oResponse) {
+					sap.m.MessageToast.show("Bike Rented Successfully!");
+				},
+				error: function(oError) {
+					sap.m.MessageToast.show("Unable to submit issue report. Please try again later..");
+				}
+			});
+		}
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

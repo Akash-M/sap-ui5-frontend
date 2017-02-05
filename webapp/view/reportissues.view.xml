@@ -1,9 +1,16 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="BikeRentalApp.controller.reportissues"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.reportissues">
 	<App>
 		<pages>
-			<Page title="Report Issues">
-				<content></content>
+			<Page title="Report Issues" class="sapUiContentPadding">
+				<content>
+					<MessageStrip showIcon="true" id="reportissuesmessagestrip_id"/>
+					<Label text="Choose a part : " id="reportissueschoosepartlabel_id"/>
+					<Select id="issuesList" width="100%" items="{ path: '/BikePartsSet' }">
+						<core:Item key="{BikePartId}" text="{BikePartDescr}"/>
+					</Select>
+					<TextArea id="reportissuestextarea_id" placeholder="Please describe your issue." growing="true" width="100%"/>
+					<Button text="Submit Issue" width="100%" id="reportissuesbutton_id" type="Emphasized" press="submitIssue"/>
+				</content>
 			</Page>
 		</pages>
 	</App>

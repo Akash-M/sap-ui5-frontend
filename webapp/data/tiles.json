@@ -11,19 +11,19 @@
       "id" : "myrides"
     },
     {
-      "icon" : "account",
-      "title" : "User Account",
-      "id" : "useraccount"
-    },
-    {
       "icon" : "hint",
       "title" : "Information",
       "id" : "information"
     },
     {
-      "icon" : "quality-issue",
-      "title" : "Report Problem",
-      "id" : "reportissues"
+      "icon" : "account",
+      "title" : "User Account",
+      "id" : "useraccount"
+    },
+    {
+      "icon" : "log",
+      "title" : "Logout",
+      "id" : "logout"
     }
   ]
 }

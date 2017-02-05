@@ -124,6 +124,10 @@
 				"pattern": "reportissues",
 				"name": "reportissues",
 				"target": "reportissues"
+			}, {
+				"pattern": "clientaccount",
+				"name": "clientaccount",
+				"target": "clientaccount"
 			}],
 			"targets": {
 				"login": {
@@ -160,6 +164,10 @@
 				},
 				"reportissues": {
 					"viewName": "reportissues",
+					"viewLevel": 1
+				},
+				"clientaccount": {
+					"viewName": "clientaccount",
 					"viewLevel": 1
 				}
 			}

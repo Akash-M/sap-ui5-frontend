@@ -13,9 +13,9 @@
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://hint" press="toolbarnav" app:route="information"/>
 						<ToolbarSpacer/>
-						<Button icon="sap-icon://quality-issue" press="toolbarnav" app:route="reportissues"/>
-						<ToolbarSpacer/>					
-						<Button icon="sap-icon://account" press="toolbarnav" app:route="useraccount"/>
+						<Button icon="sap-icon://account" press="toolbarnav" app:route="clientaccount"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://log" press="toolbarnav" app:route="login"/>
 						<ToolbarSpacer/>
 					</Toolbar>
 				</customHeader>
