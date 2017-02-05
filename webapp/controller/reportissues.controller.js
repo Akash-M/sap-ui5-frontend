@@ -20,6 +20,12 @@ sap.ui.define([
 				//window.localStorage.setItem('problemBikeId', "sample data");
 			}
 		},
+		
+		onNavBack: function(oEvent) {
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("searchbike");
+		},
+
 		submitIssue: function() {
 
 			var issueId = this.getView().byId(this.createId("issuesList")).getSelectedKey();

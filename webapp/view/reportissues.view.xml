@@ -1,7 +1,7 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.reportissues">
 	<App>
 		<pages>
-			<Page title="Report Issues" class="sapUiContentPadding">
+			<Page title="Report Issues" class="sapUiContentPadding" showNavButton="true" navButtonPress="onNavBack">
 				<content>
 					<MessageStrip showIcon="true" id="reportissuesmessagestrip_id"/>
 					<Label text="Choose a part : " id="reportissueschoosepartlabel_id"/>
