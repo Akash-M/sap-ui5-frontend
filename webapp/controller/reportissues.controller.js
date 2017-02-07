@@ -20,7 +20,7 @@ sap.ui.define([
 				//window.localStorage.setItem('problemBikeId', "sample data");
 			}
 		},
-		
+
 		onNavBack: function(oEvent) {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("searchbike");
@@ -51,7 +51,7 @@ sap.ui.define([
 					sap.m.MessageToast.show("Unable to submit issue report. Please try again later..");
 				}
 			});
-		}
+		},
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
@@ -67,9 +67,10 @@ sap.ui.define([
 		 * This hook is the same one that SAPUI5 controls get after being rendered.
 		 * @memberOf BikeRentalApp.view.reportissues
 		 */
-		//	onAfterRendering: function() {
-		//
-		//	},
+		onAfterRendering: function() {
+			var csrfToken = this.getView().getModel().oHeaders;
+			csrfToken["UToken"] = window.localStorage.getItem('UToken');
+		},
 
 		/**
 		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.

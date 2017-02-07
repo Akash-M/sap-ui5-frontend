@@ -239,6 +239,8 @@ sap.ui.define([
 			return rideDate.subString(1, 4);
 		},
 		onAfterRendering: function() {
+			var csrfToken = this.getView().getModel().oHeaders;
+			csrfToken["UToken"] = window.localStorage.getItem('UToken');
 			var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
 			if (window.rentedBikeId !== undefined && window.bikingState !== "stop") {
 				jQuery.sap.require('openui5.googlemaps.MapUtils');

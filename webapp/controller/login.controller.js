@@ -42,6 +42,7 @@ sap.ui.define([
 								var csrfToken = that.getView().getModel().oHeaders;
 								csrfToken["UToken"] = oData.UToken;
 								window.localStorage.setItem('customerId', oData.CustomerId);
+								window.localStorage.setItem('UToken',oData.UToken);
 								var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
 								oRouter.navTo("dashboard");
 							},

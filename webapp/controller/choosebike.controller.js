@@ -16,7 +16,7 @@ sap.ui.define([
 		},
 
 		_onObjectMatched: function(oEvent) {
-		
+
 			var oModel = this.getView().getModel();
 
 			if (oEvent.getParameter("arguments") !== undefined) {
@@ -28,17 +28,20 @@ sap.ui.define([
 
 			var oFilter1 = new sap.ui.model.Filter("BikeStationId", sap.ui.model.FilterOperator.EQ, oModel.stationDetails.BikeStationId);
 			var oList = sap.ui.getCore().byId(this.createId("bikelist"));
-			
+
 			var comFil;
-			
-			if (this.getView().byId("biketypeFilterid").getSelectedItem() === null || 
+
+			if (this.getView().byId("biketypeFilterid").getSelectedItem() === null ||
 				this.getView().byId("biketypeFilterid").getSelectedItem().getText() === 'Choose bike type') {
 				comFil = new sap.ui.model.Filter([oFilter1]);
 				oList.getBinding("items").filter(comFil, sap.ui.model.FilterType.Application);
 			} else {
 				var bikename = this.getView().byId("biketypeFilterid").getSelectedItem().getText();
 				var oFilter2 = new sap.ui.model.Filter("BikeName", sap.ui.model.FilterOperator.EQ, bikename);
-				comFil = new sap.ui.model.Filter({filters: [oFilter1, oFilter2],and: true});
+				comFil = new sap.ui.model.Filter({
+					filters: [oFilter1, oFilter2],
+					and: true
+				});
 				oList.getBinding("items").filter(comFil, sap.ui.model.FilterType.Application);
 			}
 
@@ -58,9 +61,10 @@ sap.ui.define([
 		 * This hook is the same one that SAPUI5 controls get after being rendered.
 		 * @memberOf BikeRentalApp.view.choosebike
 		 */
-		//	onAfterRendering: function() {
-		//
-		//	},
+		onAfterRendering: function() {
+			var csrfToken = this.getView().getModel().oHeaders;
+			csrfToken["UToken"] = window.localStorage.getItem('UToken');
+		},
 
 		/**
 		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
@@ -82,7 +86,7 @@ sap.ui.define([
 			//var bikecount = oEvent.getSource().data("bikecount");
 			var that = this;
 			var dialog = new sap.m.Dialog("confirmRent", {
-				title: 'Confirm your booking for bike '+ oModelData.BikeId,
+				title: 'Confirm your booking for bike ' + oModelData.BikeId,
 				type: 'Message',
 				content: [new sap.m.Text({
 					text: 'You will be redirected to manage your ride on confirmation.',
@@ -91,7 +95,7 @@ sap.ui.define([
 				})],
 				buttons: [new sap.m.Button({
 					text: 'OK',
-					type:'Accept',
+					type: 'Accept',
 					press: function() {
 						dialog.close();
 						oModel.create('/RentBikeSet', oRentBike, {
@@ -110,7 +114,7 @@ sap.ui.define([
 							}
 						});
 					}
-				}),new sap.m.Button({
+				}), new sap.m.Button({
 					text: 'Report Issue',
 					type: 'Transparent',
 					press: function() {
@@ -121,7 +125,7 @@ sap.ui.define([
 					}
 				}), new sap.m.Button({
 					text: 'Close',
-					type:'Reject',
+					type: 'Reject',
 					press: function() {
 						dialog.close();
 					}

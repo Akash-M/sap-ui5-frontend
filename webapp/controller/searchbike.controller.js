@@ -34,6 +34,9 @@ sap.ui.define([
 		 * @memberOf BikeRentalApp.view.searchbike
 		 */
 		onBeforeRendering: function() {
+			var csrfToken = this.getView().getModel().oHeaders;
+			csrfToken["UToken"] = window.localStorage.getItem('UToken');
+			
 			jQuery.sap.require('openui5.googlemaps.MapUtils');
 
 			var util = openui5.googlemaps.MapUtils;

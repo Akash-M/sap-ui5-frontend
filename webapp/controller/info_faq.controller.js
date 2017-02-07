@@ -29,9 +29,10 @@ sap.ui.define([
 		 * This hook is the same one that SAPUI5 controls get after being rendered.
 		 * @memberOf BikeRentalApp.view.info_faq
 		 */
-		//	onAfterRendering: function() {
-		//
-		//	},
+		onAfterRendering: function() {
+			var csrfToken = this.getView().getModel().oHeaders;
+			csrfToken["UToken"] = window.localStorage.getItem('UToken');
+		},
 
 		/**
 		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
@@ -40,7 +41,7 @@ sap.ui.define([
 		//	onExit: function() {
 		//
 		//	}
-			onNavBack: function() {
+		onNavBack: function() {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("information");
 		}

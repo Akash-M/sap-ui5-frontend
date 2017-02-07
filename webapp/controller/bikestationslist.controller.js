@@ -32,6 +32,7 @@ sap.ui.define([
 		 * @memberOf BikeRentalApp.view.bikestationslist
 		 */
 		onAfterRendering: function() {
+			console.log("inside bikestation list");
 			var oModel = this.getView().getModel();
 			console.log(oModel);
 			

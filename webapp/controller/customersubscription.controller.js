@@ -21,8 +21,8 @@ sap.ui.define([
 		 * @memberOf BikeRentalApp.view.customersubscription
 		 */
 		onBeforeRendering: function() {
-			
-			//console.log(oModel.getProperty(oModel,"/CustPModelSet('BAGR')"));
+			var csrfToken = this.getView().getModel().oHeaders;
+			csrfToken["UToken"] = window.localStorage.getItem('UToken');
 		},
 
 		/**
