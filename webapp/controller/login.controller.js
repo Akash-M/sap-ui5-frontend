@@ -72,8 +72,14 @@ sap.ui.define([
 		connect: function(oEvent) {
 			jQuery.sap.require("sap.ui.core.ws.WebSocket");
 			jQuery.sap.require("sap.ui.core.ws.SapPcpWebSocket");
-			var wsUrl = 'ws://i67lp1.informatik.tu-muenchen.de:8000/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i';
-			var webSocket = new sap.ui.core.ws.SapPcpWebSocket(wsUrl, sap.ui.core.ws.SapPcpWebSocket.SUPPORTED_PROTOCOLS.v10);
+			
+			
+			var wsUrl = 'wss://i67lp1.informatik.tu-muenchen.de:8443/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i';
+			//var webSocket = new sap.ui.core.ws.SapPcpWebSocket(wsUrl, sap.ui.core.ws.SapPcpWebSocket.SUPPORTED_PROTOCOLS.v10);
+			var webSocket = new WebSocket(wsUrl);
+			
+			//var wsUrl = 'ws://i67lp1.informatik.tu-muenchen.de:8000/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i';
+			//var webSocket = new sap.ui.core.ws.SapPcpWebSocket(wsUrl, sap.ui.core.ws.SapPcpWebSocket.SUPPORTED_PROTOCOLS.v10);
 			webSocket.onerror = function(event) {
 				console.log("WS Error");
 				console.log(event);
