@@ -5,36 +5,224 @@ sap.ui.define([
 
 	return Controller.extend("BikeRentalApp.controller.myrides", {
 
+		//Creates model or If Model exist Updates and returns model
+		getOrElseCreateLocModel: function(oPos) {
+			console.log("getOrElseCreateLocModel Called");
+			if (sap.ui.getCore().getModel("currentLocModel") !== undefined) {
+				var positions = {
+					coords: {
+						latitude: oPos.lat,
+						longitude: oPos.lng
+					}
+				};
+				this.updatePosition(positions);
+				return sap.ui.getCore().getModel("currentLocModel");
+			} else {
+				var currentLocation = {
+					currentLocation: {
+						info: "Current Location",
+						lat: oPos.lat,
+						lng: oPos.lng
+					},
+					startPoint: {
+						lat: (oPos.lat - 0.002),
+						lng: (oPos.lng)
+					},
+					previousLocations: [{
+						lat: (oPos.lat - 0.002),
+						lng: (oPos.lng)
+					}, {
+						lat: (oPos.lat - 0.001),
+						lng: (oPos.lng)
+					}]
+				};
+				//Create Model to Store Locations Data
+				var oCurrentLocationModel = new sap.ui.model.json.JSONModel();
+				var oCurrentLocationContext = new sap.ui.model.Context(oCurrentLocationModel, "/currentLocation");
+
+				oCurrentLocationModel.setData(currentLocation);
+				sap.ui.getCore().setModel(oCurrentLocationModel, "currentLocModel");
+				return sap.ui.getCore().getModel("currentLocModel");
+			}
+		},
+
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 		 * @memberOf BikeRentalApp.view.myrides
 		 */
 		onInit: function() {
+			console.log("Init Called");
+			jQuery.sap.require('openui5.googlemaps.MapUtils');
+			var util = openui5.googlemaps.MapUtils;
+
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.getRoute("myrides").attachPatternMatched(this._onObjectMatched, this);
+
 			window.bikingState = undefined;
 			window.startTime = undefined;
 			window.stopTime = undefined;
 			window.resumeTime = undefined;
 			window.pauseCounter = undefined;
+			window.selectedStation = undefined;
+
+			//Get Container
+			var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
+			var myridehistory = sap.ui.getCore().byId(this.createId("myRidesHistory"));
+
+			//Update Function set May be the text of The Current Postion
+			var updateLocation = function(sLocation) {};
+
+			var that = this;
+
+			util.currentPosition()
+				.then(this.geoLocationCallBack.bind(this))
+				.then(util.geocodePosition)
+				.done(updateLocation);
+
+			var oObjectHeader = new sap.m.ObjectHeader({
+				title: "My Past Rides"
+			});
+
+			var oPrevRidesList = this.getOrElseCreatePrevRidesList();
+
+			if (myridehistory.indexOfItem(oObjectHeader) === -1) {
+				myridehistory.addItem(oObjectHeader);
+			}
+			
+			if (myridehistory.indexOfItem(oPrevRidesList) === -1) {
+				myridehistory.addItem(oPrevRidesList);
+			}
+
+			if (window.localStorage.getItem('rentedBikeId')) {
+				var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
+				myridevbox.setVisible(true);
+			}
+
+		},
+
+		setBtnsContainerVisibility: function(oVisibility) {
+			var btnsFlexContainer = sap.ui.getCore().byId(this.createId("btnsFlexContainer"));
+			btnsFlexContainer.setVisible(oVisibility);
+		},
+
+		geoLocationCallBack: function(oPos) {
+			console.log("geoLocationCallBack Called")
+			jQuery.sap.require('openui5.googlemaps.MapUtils');
+			var util = openui5.googlemaps.MapUtils;
+
+			var oCurrentLocationModel = this.getOrElseCreateLocModel(oPos);
+
+			var oMap = this.getOrElseCreateMap(oPos);
+			var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
+
+			oMap.setModel(oCurrentLocationModel);
+			myridevbox.addItem(oMap);
+
+			return util.objToLatLng(oPos);
+		},
+
+		getOrElseCreateMap: function(oPos) {
+			if (sap.ui.getCore().byId("myRidesMap") !== undefined) {
+				return sap.ui.getCore().byId("myRidesMap");
+			} else {
+				var oPolylines = new openui5.googlemaps.Polyline({
+					path: "{/previousLocations}",
+					strokeColor: "black"
+				});
+
+				var oMarkers = new openui5.googlemaps.Marker({
+					info: '{info}',
+					lat: '{lat}',
+					lng: '{lng}',
+					icon: "resources/img/point-16.png"
+				});
+
+				var startMarker = new openui5.googlemaps.Marker({
+					lat: '{/startPoint/lat}',
+					lng: '{/startPoint/lng}',
+					icon: "resources/img/map-marker-icon.png",
+					info: "Start Point"
+				});
+
+				var currentMarker = new openui5.googlemaps.Marker({
+					lat: '{/currentLocation/lat}',
+					lng: '{/currentLocation/lng}',
+					icon: "resources/img/point-16.png",
+					info: "Current Location"
+				});
+
+				var oMap = new openui5.googlemaps.Map("myRidesMap", {
+					lat: oPos.lat,
+					lng: oPos.lng,
+					zoom: 15,
+					markers: [currentMarker, startMarker],
+					polylines: [oPolylines]
+				});
+
+				return oMap;
+			}
+		},
+
+		getOrElseCreatePrevRidesList: function() {
+			var custId = window.localStorage.getItem("customerId");
+			if (sap.ui.getCore().byId("prevRidesList") !== undefined) {
+				return sap.ui.getCore().byId("prevRidesList");
+			} else {
+				var oListItemTemplate = new sap.m.StandardListItem({
+					title: {
+						path: 'HistoryId',
+						formatter: function(historyId) {
+							return "Ride ID: " + historyId;
+						}
+					},
+					info: {
+						path: 'BikeId',
+						formatter: function(BikeID) {
+							return "Bike ID: " + BikeID;
+						}
+					},
+					description: {
+						path: 'RideStart',
+						formatter: function(rideDate) {
+							return "Date: " + rideDate.substring(6, 8) + "." + rideDate.substring(4, 6) + "." + rideDate.substring(0, 4);
+						}
+					},
+					infoState: sap.ui.core.ValueState.Success
+				});
+				var oPrevRidesList = new sap.m.List("prevRidesList", {
+					items: {
+						path: "/CustomerSet('" + custId + "')/CustHistorySet",
+						template: oListItemTemplate
+					}
+				});
+				return oPrevRidesList;
+			}
 		},
 
 		_onObjectMatched: function(oEvent) {
-			window.rentedBikeId = oEvent.getParameter("arguments").rentedBikeId.substr(1);
-			
-			if(window.rentedBikeId.length < 1){
+			console.log("on Pattern Match Called");
+			//window.localStorage.setItem('rentedBikeId', oEvent.getParameter("arguments").rentedBikeId.substr(1));
+			window.rentedBikeId = window.localStorage.getItem('rentedBikeId');
+			//var webSckt = this.connectWS();
+			if (window.rentedBikeId.length < 1) {
 				window.rentedBikeId = undefined;
 				window.localStorage.setItem('problemBikeId', "00001");
-			}
-			else{
+				var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
+				myridevbox.setVisible(false);
+			} else {
 				window.localStorage.setItem('problemBikeId', window.rentedBikeId);
 			}
 			
-			console.log(window.rentedBikeId);
+			if (window.localStorage.getItem('rentedBikeId')) {
+				var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
+				myridevbox.setVisible(true);
+			}
+
 		},
 
 		updatePosition: function(position) {
+			console.log("updatePosition Called");
 			var oModel = sap.ui.getCore().getModel("currentLocModel");
 			oModel.setProperty("/currentLocation/0/lat", position.coords.latitude);
 			oModel.setProperty("/currentLocation/0/lng", position.coords.longitude);
@@ -44,8 +232,9 @@ sap.ui.define([
 					lat: position.coords.latitude,
 					lng: position.coords.longitude
 				}
-				oModel.getProperty("/previousLocations").push(newLocation);
-				//console.log(oModel);
+				if (window.rentedBikeId !== undefined) {
+					oModel.getProperty("/previousLocations").push(newLocation);
+				}
 			}
 		},
 
@@ -75,6 +264,26 @@ sap.ui.define([
 				return undefined;
 			}
 		},
+
+		/*ConnectWS: function() {
+			jQuery.sap.require("sap.ui.core.ws.WebSocket");
+			var wsUrl = 'wss://i67lp1.informatik.tu-muenchen.de:8443/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i';
+			var webSocket = new WebSocket(wsUrl);
+			webSocket.onerror = function(event) {
+				console.log("WS Error");
+				console.log(event);
+			};
+			webSocket.onopen = function(event) {
+				console.log("WS Open");
+				console.log(event);
+			};
+			webSocket.onmessage = function(event) {
+				console.log("WS Message");
+				console.log(event);
+			};
+			
+			return webSocket;
+		},*/
 
 		onPlayBtnPress: function(oEvent) {
 			var stopbtn = sap.ui.getCore().byId(this.createId("stopbtn"));
@@ -133,7 +342,7 @@ sap.ui.define([
 		onPauseBtnPress: function() {
 			var stopbtn = sap.ui.getCore().byId(this.createId("stopbtn"));
 			var pausebtn = sap.ui.getCore().byId(this.createId("pausebtn"));
-			var playbtn = sap.ui.getCore().byId(this.createId("playBtn"));
+			var playbtn = sap.ui.getCore().byId(this.createId("playbtn"));
 			playbtn.setEnabled(true);
 			stopbtn.setEnabled(false);
 			pausebtn.setEnabled(false);
@@ -171,35 +380,31 @@ sap.ui.define([
 				beginButton: new sap.m.Button({
 					text: 'OK',
 					press: function() {
-						dialog.close();
-						var oFreeBike = {
-							"d": {
-								"BikeId": window.rentedBikeId,
-								"BikeStationId": window.selectedStation
-							}
-						};
-						window.bikingState = "Stop";
-						var myridevbox = sap.ui.getCore().byId(that.createId("myRidesVBox"));
-						var gmap = sap.ui.getCore().byId("myRidesMap");
-						myridevbox.removeItem(gmap);
-						var btnsFlexContainer = sap.ui.getCore().byId(this.createId("btnsFlexContainer"));
-						btnsFlexContainer.setVisibile(false);
-						/*oModel.create('/FreeBikesSet', oFreeBike, {
-							success: function(oData, oResponse) {
-								sap.m.MessageToast.show("Bike Freed Successfully!");
-								//var gmap = sap.ui.getCore().byId(this.createId("map1"));
-								//var btnContainer = sap.ui.getCore().byId(this.createId("btnsFlexContainer"));
-								//btnContainer.destroy();
-								//gmap.destroy();
-								window.bikingState = "Stop";
-							},
-							error: function(oError) {
-								//var err_response = JSON.parse(oError.responseText);
-								//var err_message = err_response.error.message.value;
-								sap.m.MessageToast.show("There seems to be a problem please try again");
-							}
-						});*/
-
+						if (window.selectedStation === undefined && window.rentedBikeId === undefined) {
+							sap.m.MessageToast.show("Please Select a Station");
+						} else {
+							var oFreeBike = {
+								"d": {
+									"BikeId": window.rentedBikeId,
+									"BikeStationId": window.selectedStation
+								}
+							};
+							oModel.create('/FreeBikesSet', oFreeBike, {
+								success: function(oData, oResponse) {
+									dialog.close();
+									sap.m.MessageToast.show("Bike Freed Successfully!");
+									window.bikingState = "Stop";
+									var myridevbox = sap.ui.getCore().byId(that.createId("myRidesVBox"));
+									myridevbox.setVisible(false);
+									navigator.geolocation.clearWatch(window.watchId);
+									window.rentedBikeId = undefined;
+									window.localStorage.removeItem('rentedBikeId');
+								},
+								error: function(oError) {
+									sap.m.MessageToast.show("There seems to be a problem please try again");
+								}
+							});
+						}
 					}
 				}),
 				endButton: new sap.m.Button({
@@ -225,185 +430,51 @@ sap.ui.define([
 		 * (NOT before the first rendering! onInit() is used for that one!).
 		 * @memberOf BikeRentalApp.view.myrides
 		 */
-		//	onBeforeRendering: function() {
-		//
-		//	},
+		onBeforeRendering: function() {
+			console.log("onBeforeRendering Called");
+			if (window.localStorage.getItem('rentedBikeId')) {
+				var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
+				myridevbox.setVisible(true);
+			}
+
+		},
 
 		/**
 		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
 		 * This hook is the same one that SAPUI5 controls get after being rendered.
 		 * @memberOf BikeRentalApp.view.myrides
 		 */
-		rideText: function(rideDate) {
-			console.log(rideDate);
-			return rideDate.subString(1, 4);
-		},
 		onAfterRendering: function() {
 			var csrfToken = this.getView().getModel().oHeaders;
 			csrfToken["UToken"] = window.localStorage.getItem('UToken');
-			var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
+			console.log("onAfterRendering Called");
 			if (window.rentedBikeId !== undefined && window.bikingState !== "stop") {
-				jQuery.sap.require('openui5.googlemaps.MapUtils');
-				var util = openui5.googlemaps.MapUtils;
 
-				var oCurrentLocationModel = new sap.ui.model.json.JSONModel();
-				var oCurrentLocationContext = new sap.ui.model.Context(oCurrentLocationModel, "/currentLocation");
-				var oObjectHeader = new sap.m.ObjectHeader({
-					title: "My Rides"
-				});
+				var playbtn = sap.ui.getCore().byId(this.createId("playBtn"));
+				playbtn.setEnabled(false);
 
-				var oListItemTemplate = new sap.m.StandardListItem({
-					title: {
-						path: 'HistoryId',
-						formatter: function(historyId) {
-							return "Ride ID: "+historyId;
-						}
-					},
-					info: {
-						path: 'BikeId',
-						formatter: function(BikeID) {
-							return "Bike ID: "+BikeID;
-						}
-					},
-					description: {
-						path: 'RideStart',
-						formatter: function(rideDate) {
-							return "Date: "+rideDate.substring(6, 8)+"." +rideDate.substring(4, 6)+"."+rideDate.substring(0, 4);
-						}
-					},
-					infoState: sap.ui.core.ValueState.Success
-				});
+				var pausebtn = sap.ui.getCore().byId(this.createId("pausebtn"));
+				pausebtn.setEnabled(true);
 
-				var oPrevRidesList = new sap.m.List("prevRidesList", {
-					items: {
-						path: "/CustomerSet('CUST00001')/CustHistory",
-						template: oListItemTemplate
-					}
-				});
+				var stopbtn = sap.ui.getCore().byId(this.createId("stopbtn"));
+				stopbtn.setEnabled(true);
 
-				var getLocationCallback = function(oPos) {
+				var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
+				myridevbox.setVisible(true);
 
-					var currentLocation = {
-						currentLocation: {
-							info: "Current Location",
-							lat: oPos.lat,
-							lng: oPos.lng
-						},
-						startPoint: {
-							lat: (oPos.lat - 0.002),
-							lng: (oPos.lng)
-						},
-						previousLocations: [{
-							lat: (oPos.lat - 0.002),
-							lng: (oPos.lng)
-						}, {
-							lat: (oPos.lat - 0.001),
-							lng: (oPos.lng)
-						}]
-					};
+				window.watchId = this.watchPostion();
 
-					oCurrentLocationModel.setData(currentLocation);
-					sap.ui.getCore().setModel(oCurrentLocationModel, "currentLocModel");
-
-					var oPolylines = new openui5.googlemaps.Polyline({
-						path: "{/previousLocations}",
-						strokeColor: "black"
-					});
-
-					var oMarkers = new openui5.googlemaps.Marker({
-						info: '{info}',
-						lat: '{lat}',
-						lng: '{lng}',
-						icon: "resources/img/point-16.png"
-					});
-
-					var startMarker = new openui5.googlemaps.Marker({
-						lat: '{/startPoint/lat}',
-						lng: '{/startPoint/lng}',
-						icon: "resources/img/map-marker-icon.png"
-					});
-
-					var currentMarker = new openui5.googlemaps.Marker({
-						lat: '{/currentLocation/lat}',
-						lng: '{/currentLocation/lng}',
-						icon: "resources/img/point-16.png"
-					});
-
-					var oMap = new openui5.googlemaps.Map("myRidesMap", {
-						lat: oPos.lat,
-						lng: oPos.lng,
-						zoom: 15,
-						markers: [currentMarker, startMarker],
-						polylines: [oPolylines]
-					});
-
-					oMap.setModel(oCurrentLocationModel);
-					myridevbox.addItem(oMap);
-					myridevbox.addItem(oObjectHeader);
-					myridevbox.addItem(oPrevRidesList);
-
-					return util.objToLatLng(oPos);
-
-				};
-
-				var updateLocation = function(sLocation) {
-					console.log(sLocation);
-				};
-
-				util.currentPosition()
-					.then(getLocationCallback)
-					.then(util.geocodePosition)
-					.done(updateLocation);
-
-				this.watchPostion();
-
-			} else {
-				var btnsFlexContainer = sap.ui.getCore().byId(this.createId("btnsFlexContainer"));
-				btnsFlexContainer.setVisible(false);
-				var oObjectHeader = new sap.m.ObjectHeader({
-					title: "My Rides"
-				});
-
-				var oListItemTemplate = new sap.m.StandardListItem({
-					title: {
-						path: 'HistoryId',
-						formatter: function(historyId) {
-							return "Ride ID: "+historyId;
-						}
-					},
-					info: {
-						path: 'BikeId',
-						formatter: function(BikeID) {
-							return "Bike ID: "+BikeID;
-						}
-					},
-					description: {
-						path: 'RideStart',
-						formatter: function(rideDate) {
-							return "Date: "+rideDate.substring(6, 8)+"." +rideDate.substring(4, 6)+"."+rideDate.substring(0, 4);
-						}
-					},
-					infoState: sap.ui.core.ValueState.Success
-				});
-				var oPrevRidesList = new sap.m.List("prevRidesList", {
-					items: {
-						path: "/CustHistorySet",
-						template: oListItemTemplate
-					}
-				}); 
-				myridevbox.addItem(oObjectHeader);
-				myridevbox.addItem(oPrevRidesList);
 			}
-
 		},
 
 		/**
 		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
 		 * @memberOf BikeRentalApp.view.myrides
 		 */
-		//	onExit: function() {
-		//
-		//	}
+		/*onExit: function() {
+			
+		},
+*/
 		toolbarnav: function(oEvent) {
 			var route = oEvent.getSource().data("route");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);

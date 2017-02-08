@@ -32,6 +32,9 @@
 							</items>
 						</FlexBox>
 					</VBox>
+					<VBox id="myRidesHistory">
+						
+					</VBox>
 				</content>
 			</Page>
 		</pages>

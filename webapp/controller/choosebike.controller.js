@@ -100,6 +100,7 @@ sap.ui.define([
 						dialog.close();
 						oModel.create('/RentBikeSet', oRentBike, {
 							success: function(oData, oResponse) {
+								window.localStorage.setItem('rentedBikeId',oModelData.BikeId );
 								sap.m.MessageToast.show("Bike Rented Successfully!");
 								var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
 								oRouter.navTo("myrides", {
@@ -109,7 +110,6 @@ sap.ui.define([
 							error: function(oError) {
 								var err_response = JSON.parse(oError.responseText);
 								var err_message = err_response.error.message.value;
-								sap.m.MessageToast.show("You have already rented a bike. Please release the bike before booking another one.");
 								sap.m.MessageToast.show(err_message);
 							}
 						});

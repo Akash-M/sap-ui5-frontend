@@ -38,13 +38,14 @@ sap.ui.define([
 						};
 						oModel.create('/customerLoginSet', oLogin, {
 							success: function(oData, oResponse) {
-								sap.m.MessageToast.show("Login succesfully");
+								console.log(oData);
 								var csrfToken = that.getView().getModel().oHeaders;
 								csrfToken["UToken"] = oData.UToken;
 								window.localStorage.setItem('customerId', oData.CustomerId);
-								window.localStorage.setItem('UToken',oData.UToken);
+								window.localStorage.setItem('UToken', oData.UToken);
 								var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
 								oRouter.navTo("dashboard");
+								sap.m.MessageToast.show("Login succesfully");
 							},
 							error: function(oError) {
 								var err_response = JSON.parse(oError.responseText);
@@ -69,30 +70,46 @@ sap.ui.define([
 			this.getView().addDependent(vBox);
 			dialog.open();
 		},
+
 		connect: function(oEvent) {
 			jQuery.sap.require("sap.ui.core.ws.WebSocket");
 			jQuery.sap.require("sap.ui.core.ws.SapPcpWebSocket");
-			
-			
+
 			var wsUrl = 'wss://i67lp1.informatik.tu-muenchen.de:8443/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i';
 			//var webSocket = new sap.ui.core.ws.SapPcpWebSocket(wsUrl, sap.ui.core.ws.SapPcpWebSocket.SUPPORTED_PROTOCOLS.v10);
 			var webSocket = new WebSocket(wsUrl);
-			
+
 			//var wsUrl = 'ws://i67lp1.informatik.tu-muenchen.de:8000/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i';
 			//var webSocket = new sap.ui.core.ws.SapPcpWebSocket(wsUrl, sap.ui.core.ws.SapPcpWebSocket.SUPPORTED_PROTOCOLS.v10);
 			webSocket.onerror = function(event) {
 				console.log("WS Error");
 				console.log(event);
 			};
-			webSocket.onopen = function(event) {
+			webSocket.open = function(event) {
 				console.log("WS Open");
 				console.log(event);
+
 			};
-			webSocket.onmessage = function(event) {
+			webSocket.message = function(event) {
 				console.log("WS Message");
 				console.log(event);
 			};
+
+			var data = {
+				"CustomerId": window.localStorage.getItem("CustomerId")
+			};
+
+			webSocket.send(data);
+
+			webSocket.message = function(event) {
+				console.log("WS Message");
+				console.log(event);
+			};
+
+			webSocket.close();
+
 		},
+
 		nav: function(oEvent) {
 			var route = oEvent.getSource().data("route");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
