@@ -44,7 +44,7 @@
 					</List>
 					<List id="custsubsvbox_id5" items="{/CustPModelSet}">
 						<items>
-							<StandardListItem type="Active" title="Activation Date : " description="{ActvDate}" icon="{icon}"/>
+							<StandardListItem type="Active" title="Activation Date : " description="{ActvDate}" icon="{icon}" id="actvdate_id"/>
 						</items>
 					</List>
 					<ObjectHeader title="CHANGE SUBSCRIPTION" introActive="true" titleActive="true" class="customHeader"/>

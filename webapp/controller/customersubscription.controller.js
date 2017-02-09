@@ -102,25 +102,6 @@ sap.ui.define([
 			this.getView().addDependent(vBox);
 			dialog.open();
 
-			/*var pricingModel = this.getView().byId("pricingModelSelect").getSelectedItem().getKey();
-			var oPricingModel = {
-				"d": {
-					"CustomerId": window.localStorage.getItem("customerId"),
-					"ModelId": pricingModel
-				}
-			}
-			var oModel = this.getView().getModel();
-			var url = "/CustPModelSet('" + window.localStorage.getItem("customerId") + "')";
-			oModel.update(url, oPricingModel, {
-				success: function(oData, oResponse) {
-					sap.m.MessageToast.show("Subscription changed succesfully");
-				},
-				error: function(oError) {
-					var err_response = JSON.parse(oError.responseText);
-					var err_message = err_response.error.message.value;
-					sap.m.MessageToast.show(err_message);
-				}
-			});*/
 		},
 
 		/**

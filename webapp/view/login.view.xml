@@ -9,7 +9,6 @@
 						<ToolbarSpacer/>
 						<Button press="nav" app:route="registration" text="Register Here"/>
 						<Button press="login" app:route="dashboard" text="Login"/>
-						<Button press="connect" text="Connect"/>
 					</Toolbar>	
 				</customHeader>
 				<content>

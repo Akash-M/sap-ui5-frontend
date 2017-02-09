@@ -71,7 +71,7 @@ sap.ui.define([
 			dialog.open();
 		},
 
-		connect: function(oEvent) {
+		/*connect: function(oEvent) {
 			jQuery.sap.require("sap.ui.core.ws.WebSocket");
 			jQuery.sap.require("sap.ui.core.ws.SapPcpWebSocket");
 
@@ -107,7 +107,7 @@ sap.ui.define([
 
 				//webSocket.close();
 			};
-		},
+		},*/
 
 		nav: function(oEvent) {
 			var route = oEvent.getSource().data("route");

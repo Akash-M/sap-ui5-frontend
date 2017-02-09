@@ -1,15 +1,20 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.tariff">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="BikeRentalApp.controller.tariff">
 	<App>
 		<pages>
 			<Page title="Tariff" navButtonText="Back" showNavButton="true" navButtonPress="nav">
-			<content>
-			    <Carousel activePage="__image0" showBusyIndicator="false" busyIndicatorSize="" id="__carousel0">
-			        <pages>
-			            <Image src="resources/img/pricing1.png" width="70%" height="600px" id="__image0"/>
-			            <Image src="resources/img/pricing2.png" width="70%" height="600px" id="__image1"/>
-			            <Image src="resources/img/pricing3.png" width="70%" height="600px" id="__image2"/></pages>
-			    </Carousel>
-			</content>
+				<content>
+					<List items="{/PricingmodSet}">
+						<ObjectListItem type="Active" title="{Name}" number="{PriceAMinute}" numberUnit="per/min">
+							<attributes>
+								<ObjectAttribute text="Free Rides: {FreeRides}"/>
+								<ObjectAttribute text="Free Minutes: {FreeMinutes}"/>
+								<ObjectAttribute text="Fixed Costs: {FixCosts}"/>
+							</attributes>
+						</ObjectListItem>
+					</List>
+				</content>
 			</Page>
 		</pages>
 	</App>
