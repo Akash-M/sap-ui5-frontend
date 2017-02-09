@@ -75,39 +75,38 @@ sap.ui.define([
 			jQuery.sap.require("sap.ui.core.ws.WebSocket");
 			jQuery.sap.require("sap.ui.core.ws.SapPcpWebSocket");
 
-			var wsUrl = 'wss://i67lp1.informatik.tu-muenchen.de:8443/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i';
+			var wsUrl =
+				'wss://i67lp1.informatik.tu-muenchen.de:8443/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i?CUSTOMER_ID=SRAY&BIKE_ID=00008';
 			//var webSocket = new sap.ui.core.ws.SapPcpWebSocket(wsUrl, sap.ui.core.ws.SapPcpWebSocket.SUPPORTED_PROTOCOLS.v10);
 			var webSocket = new WebSocket(wsUrl);
 
-			//var wsUrl = 'ws://i67lp1.informatik.tu-muenchen.de:8000/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i';
-			//var webSocket = new sap.ui.core.ws.SapPcpWebSocket(wsUrl, sap.ui.core.ws.SapPcpWebSocket.SUPPORTED_PROTOCOLS.v10);
 			webSocket.onerror = function(event) {
 				console.log("WS Error");
 				console.log(event);
+
 			};
-			webSocket.open = function(event) {
+			
+			webSocket.onmessage = function(event) {
+				console.log("WS Message");
+				console.log(event);
+			};
+
+			webSocket.onopen = function(event) {
 				console.log("WS Open");
 				console.log(event);
+				var data = {
+					U_TOKEN: "ABC",
+					BIKE_ID: "client1",
+					CUSTOMER_ID: "123",
+					LATITUDE: "0.5",
+					LONGITUDE: "0.5"
+				};
+				console.log(data);
 
+				var returnResult = webSocket.send(JSON.stringify(data));
+				
+				//webSocket.close();
 			};
-			webSocket.message = function(event) {
-				console.log("WS Message");
-				console.log(event);
-			};
-
-			var data = {
-				"CustomerId": window.localStorage.getItem("CustomerId")
-			};
-
-			webSocket.send(data);
-
-			webSocket.message = function(event) {
-				console.log("WS Message");
-				console.log(event);
-			};
-
-			webSocket.close();
-
 		},
 
 		nav: function(oEvent) {

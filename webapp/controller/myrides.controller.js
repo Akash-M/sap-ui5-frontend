@@ -5,6 +5,41 @@ sap.ui.define([
 
 	return Controller.extend("BikeRentalApp.controller.myrides", {
 
+		oWebSocket: null,
+		oWatchId: null,
+
+		getOrCreateWebSocketObject: function() {
+			jQuery.sap.require("sap.ui.core.ws.WebSocket");
+			var BikeId = window.localStorage.getItem('rentedBikeId');
+			var CustId = window.localStorage.getItem('customerId');
+			var wsUrl = 'wss://i67lp1.informatik.tu-muenchen.de:8443/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i?CUSTOMER_ID=' + CustId +
+				'&BIKE_ID=' + BikeId;
+			if (this.oWebSocket !== null) {
+				if (this.oWebSocket.readyState === 1) {
+					console.log(this.oWebSocket);
+					return this.oWebSocket;
+				}
+			} else {
+				var webSocket = new WebSocket(wsUrl);
+				if (webSocket.readyState === 1) {
+					webSocket.onerror = function(event) {
+						console.log("WS Error");
+						console.log(event);
+					};
+					webSocket.onopen = function(event) {
+						console.log("WS Open");
+						console.log(event);
+					};
+					webSocket.onmessage = function(event) {
+						console.log("WS Message");
+						console.log(event);
+					};
+					this.oWebSocket = webSocket;
+					return webSocket;
+				}
+			}
+		},
+
 		//Creates model or If Model exist Updates and returns model
 		getOrElseCreateLocModel: function(oPos) {
 			console.log("getOrElseCreateLocModel Called");
@@ -89,14 +124,47 @@ sap.ui.define([
 			if (myridehistory.indexOfItem(oObjectHeader) === -1) {
 				myridehistory.addItem(oObjectHeader);
 			}
-			
+
 			if (myridehistory.indexOfItem(oPrevRidesList) === -1) {
 				myridehistory.addItem(oPrevRidesList);
 			}
 
 			if (window.localStorage.getItem('rentedBikeId')) {
-				var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
 				myridevbox.setVisible(true);
+			} else {
+				myridevbox.setVisible(false);
+			}
+
+		},
+
+		_onObjectMatched: function(oEvent) {
+			console.log("on Pattern Match Called");
+			window.rentedBikeId = oEvent.getParameter("arguments").rentedBikeId.substr(1);
+			var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
+			if (window.rentedBikeId !== undefined) {
+				if (window.rentedBikeId.length < 1) {
+					window.rentedBikeId = undefined;
+					window.localStorage.setItem('problemBikeId', "00001");
+					window.localStorage.setItem('rentedBikeId', window.rentedBikeId);
+					myridevbox.setVisible(false);
+				} else {
+					window.localStorage.setItem('problemBikeId', window.rentedBikeId);
+
+					//Disable Play Button
+					var playbtn = sap.ui.getCore().byId(this.createId("playBtn"));
+					playbtn.setEnabled(false);
+
+					//Enable Pause Button
+					var pausebtn = sap.ui.getCore().byId(this.createId("pausebtn"));
+					pausebtn.setEnabled(true);
+
+					//Enable Stop Button
+					var stopbtn = sap.ui.getCore().byId(this.createId("stopbtn"));
+					stopbtn.setEnabled(true);
+
+					myridevbox.setVisible(true);
+					this.oWatchId = this.watchPostion();
+				}
 			}
 
 		},
@@ -200,27 +268,6 @@ sap.ui.define([
 			}
 		},
 
-		_onObjectMatched: function(oEvent) {
-			console.log("on Pattern Match Called");
-			//window.localStorage.setItem('rentedBikeId', oEvent.getParameter("arguments").rentedBikeId.substr(1));
-			window.rentedBikeId = window.localStorage.getItem('rentedBikeId');
-			//var webSckt = this.connectWS();
-			if (window.rentedBikeId.length < 1) {
-				window.rentedBikeId = undefined;
-				window.localStorage.setItem('problemBikeId', "00001");
-				var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
-				myridevbox.setVisible(false);
-			} else {
-				window.localStorage.setItem('problemBikeId', window.rentedBikeId);
-			}
-			
-			if (window.localStorage.getItem('rentedBikeId')) {
-				var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
-				myridevbox.setVisible(true);
-			}
-
-		},
-
 		updatePosition: function(position) {
 			console.log("updatePosition Called");
 			var oModel = sap.ui.getCore().getModel("currentLocModel");
@@ -233,6 +280,14 @@ sap.ui.define([
 					lng: position.coords.longitude
 				}
 				if (window.rentedBikeId !== undefined) {
+					var data = {
+						U_TOKEN: window.localStorage.getItem('UToken'),
+						BIKE_ID: window.localStorage.getItem('rentedBikeId'),
+						CUSTOMER_ID: window.localStorage.getItem('customerId'),
+						LATITUDE: position.coords.latitude,
+						LONGITUDE: position.coords.longitude
+					};
+					this.oWebSocket.send(JSON.stringify(data));
 					oModel.getProperty("/previousLocations").push(newLocation);
 				}
 			}
@@ -264,26 +319,6 @@ sap.ui.define([
 				return undefined;
 			}
 		},
-
-		/*ConnectWS: function() {
-			jQuery.sap.require("sap.ui.core.ws.WebSocket");
-			var wsUrl = 'wss://i67lp1.informatik.tu-muenchen.de:8443/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i';
-			var webSocket = new WebSocket(wsUrl);
-			webSocket.onerror = function(event) {
-				console.log("WS Error");
-				console.log(event);
-			};
-			webSocket.onopen = function(event) {
-				console.log("WS Open");
-				console.log(event);
-			};
-			webSocket.onmessage = function(event) {
-				console.log("WS Message");
-				console.log(event);
-			};
-			
-			return webSocket;
-		},*/
 
 		onPlayBtnPress: function(oEvent) {
 			var stopbtn = sap.ui.getCore().byId(this.createId("stopbtn"));
@@ -385,7 +420,7 @@ sap.ui.define([
 						} else {
 							var oFreeBike = {
 								"d": {
-									"BikeId": window.rentedBikeId,
+									"BikeId": window.localStorage.getItem('rentedBikeId'),
 									"BikeStationId": window.selectedStation
 								}
 							};
@@ -396,7 +431,7 @@ sap.ui.define([
 									window.bikingState = "Stop";
 									var myridevbox = sap.ui.getCore().byId(that.createId("myRidesVBox"));
 									myridevbox.setVisible(false);
-									navigator.geolocation.clearWatch(window.watchId);
+									navigator.geolocation.clearWatch(this.oWatchId);
 									window.rentedBikeId = undefined;
 									window.localStorage.removeItem('rentedBikeId');
 								},
@@ -432,10 +467,10 @@ sap.ui.define([
 		 */
 		onBeforeRendering: function() {
 			console.log("onBeforeRendering Called");
-			if (window.localStorage.getItem('rentedBikeId')) {
+			/*if (window.localStorage.getItem('rentedBikeId')) {
 				var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
 				myridevbox.setVisible(true);
-			}
+			}*/
 
 		},
 
@@ -448,23 +483,14 @@ sap.ui.define([
 			var csrfToken = this.getView().getModel().oHeaders;
 			csrfToken["UToken"] = window.localStorage.getItem('UToken');
 			console.log("onAfterRendering Called");
-			if (window.rentedBikeId !== undefined && window.bikingState !== "stop") {
-
-				var playbtn = sap.ui.getCore().byId(this.createId("playBtn"));
-				playbtn.setEnabled(false);
-
-				var pausebtn = sap.ui.getCore().byId(this.createId("pausebtn"));
-				pausebtn.setEnabled(true);
-
-				var stopbtn = sap.ui.getCore().byId(this.createId("stopbtn"));
-				stopbtn.setEnabled(true);
+			/*if (window.rentedBikeId !== undefined && window.bikingState !== "stop") {
 
 				var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
 				myridevbox.setVisible(true);
 
 				window.watchId = this.watchPostion();
 
-			}
+			}*/
 		},
 
 		/**
