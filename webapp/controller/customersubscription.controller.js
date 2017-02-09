@@ -12,7 +12,6 @@ sap.ui.define([
 		 */
 		onInit: function() {
 			var oModel = this.getView().getModel();
-			console.log(oModel);
 		},
 
 		/**
@@ -50,12 +49,14 @@ sap.ui.define([
 		},
 
 		changeSubscription: function(oEvent) {
-			
-			/*var dialog = new sap.m.Dialog("confirmRent", {
-				title: 'Confirm your booking for bike ' + oModelData.BikeId,
+
+			var that = this;
+
+			var dialog = new sap.m.Dialog("confirmPricingModelChange", {
+				title: 'Confirm change to your pricing model.',
 				type: 'Message',
 				content: [new sap.m.Text({
-					text: 'You will be redirected to manage your ride on confirmation.',
+					text: 'Please confirm that you want to change your existing plan. Current balance will be reset and you will lost all your existing credit.',
 					wrapping: true,
 					maxLines: 8
 				})],
@@ -63,15 +64,18 @@ sap.ui.define([
 					text: 'OK',
 					type: 'Accept',
 					press: function() {
-						dialog.close();
-						oModel.create('/RentBikeSet', oRentBike, {
+						var pricingModel = that.getView().byId("pricingModelSelect").getSelectedItem().getKey();
+						var oPricingModel = {
+							"d": {
+								"CustomerId": window.localStorage.getItem("customerId"),
+								"ModelId": pricingModel
+							}
+						}
+						var oModel = that.getView().getModel();
+						var url = "/CustPModelSet('" + window.localStorage.getItem("customerId") + "')";
+						oModel.update(url, oPricingModel, {
 							success: function(oData, oResponse) {
-								window.localStorage.setItem('rentedBikeId',oModelData.BikeId );
-								sap.m.MessageToast.show("Bike Rented Successfully!");
-								var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
-								oRouter.navTo("myrides", {
-									rentedBikeId: oModelData.BikeId
-								});
+								sap.m.MessageToast.show("Subscription changed succesfully");
 							},
 							error: function(oError) {
 								var err_response = JSON.parse(oError.responseText);
@@ -79,6 +83,7 @@ sap.ui.define([
 								sap.m.MessageToast.show(err_message);
 							}
 						});
+						dialog.close();
 					}
 				}), new sap.m.Button({
 					text: 'Close',
@@ -95,31 +100,27 @@ sap.ui.define([
 				items: [dialog]
 			});
 			this.getView().addDependent(vBox);
-			dialog.open();*/
-			
-			var pricingModel = this.getView().byId("pricingModelSelect").getSelectedItem().getKey();
+			dialog.open();
+
+			/*var pricingModel = this.getView().byId("pricingModelSelect").getSelectedItem().getKey();
 			var oPricingModel = {
 				"d": {
 					"CustomerId": window.localStorage.getItem("customerId"),
 					"ModelId": pricingModel
 				}
 			}
-			console.log(oPricingModel);
 			var oModel = this.getView().getModel();
-			var url = "/CustPModelSet('"+window.localStorage.getItem("customerId")+"')";
-			console.log(url);
+			var url = "/CustPModelSet('" + window.localStorage.getItem("customerId") + "')";
 			oModel.update(url, oPricingModel, {
 				success: function(oData, oResponse) {
-					console.log(oData);
-					console.log(oResponse);
 					sap.m.MessageToast.show("Subscription changed succesfully");
 				},
 				error: function(oError) {
 					var err_response = JSON.parse(oError.responseText);
 					var err_message = err_response.error.message.value;
-					sap.m.MessageToast.show(err_response);
+					sap.m.MessageToast.show(err_message);
 				}
-			});
+			});*/
 		},
 
 		/**
