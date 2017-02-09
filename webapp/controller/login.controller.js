@@ -38,18 +38,18 @@ sap.ui.define([
 						};
 						oModel.create('/customerLoginSet', oLogin, {
 							success: function(oData, oResponse) {
-								console.log(oData);
 								var csrfToken = that.getView().getModel().oHeaders;
 								csrfToken["UToken"] = oData.UToken;
 								window.localStorage.setItem('customerId', oData.CustomerId);
 								window.localStorage.setItem('UToken', oData.UToken);
 								var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
 								oRouter.navTo("dashboard");
-								sap.m.MessageToast.show("Login succesfully");
+								sap.m.MessageToast.show("Logged in succesfully.");
 							},
 							error: function(oError) {
 								var err_response = JSON.parse(oError.responseText);
-								sap.m.MessageToast.show("Invalid login credentials");
+								var err_message = err_response.error.message.value;
+								sap.m.MessageToast.show(err_message);
 							}
 						});
 					}
@@ -85,7 +85,7 @@ sap.ui.define([
 				console.log(event);
 
 			};
-			
+
 			webSocket.onmessage = function(event) {
 				console.log("WS Message");
 				console.log(event);
@@ -104,7 +104,7 @@ sap.ui.define([
 				console.log(data);
 
 				var returnResult = webSocket.send(JSON.stringify(data));
-				
+
 				//webSocket.close();
 			};
 		},

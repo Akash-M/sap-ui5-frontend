@@ -79,7 +79,7 @@ sap.ui.define([
 				error: function(oError) {
 					var err_response = JSON.parse(oError.responseText);
 					var err_message = err_response.error.message.value;
-					sap.m.MessageToast.show(err_response);
+					sap.m.MessageToast.show(err_message);
 				}
 			});
 
