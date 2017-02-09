@@ -30,8 +30,7 @@ sap.ui.define([
 		 * @memberOf BikeRentalApp.view.information
 		 */
 		onAfterRendering: function() {
-			var csrfToken = this.getView().getModel().oHeaders;
-			csrfToken["UToken"] = window.localStorage.getItem('UToken');
+			
 		},
 
 		/**

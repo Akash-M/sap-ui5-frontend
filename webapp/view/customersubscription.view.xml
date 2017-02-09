@@ -22,37 +22,36 @@
 				</customHeader>
 				<content>
 					<ObjectHeader title="SUBSCRIPTION DETAILS" introActive="true" titleActive="true" id="__header0" class="customHeader"/>
-					
 					<List id="custsubsvbox_id1" items="{/CustPModelSet}">
 						<items>
 							<StandardListItem type="Active" title="Customer ID : " description="{CustomerId}" icon="{icon}"/>
 						</items>
 					</List>
-					
 					<List id="custsubsvbox_id2" items="{/CustPModelSet}">
 						<items>
 							<StandardListItem type="Active" title="Current Subscription Model : " description="{Name}" icon="{icon}"/>
 						</items>
 					</List>
-					
 					<List id="custsubsvbox_id3" items="{/CustPModelSet}">
 						<items>
-							<StandardListItem type="Active" title="Number of Free Minutes left :  " description="{FreeMinutes}" icon="{icon}"/>
+							<StandardListItem type="Active" title="Number of Free Minutes left : " description="{FreeMinutes}" icon="{icon}"/>
 						</items>
 					</List>
-					
 					<List id="custsubsvbox_id4" items="{/CustPModelSet}">
 						<items>
 							<StandardListItem type="Active" title="Number of Free Rides left : " description="{FreeRides}" icon="{icon}"/>
 						</items>
 					</List>
-					
 					<List id="custsubsvbox_id5" items="{/CustPModelSet}">
 						<items>
 							<StandardListItem type="Active" title="Activation Date : " description="{ActvDate}" icon="{icon}"/>
 						</items>
 					</List>
-				
+					<ObjectHeader title="CHANGE SUBSCRIPTION" introActive="true" titleActive="true" class="customHeader"/>
+					<Select id="pricingModelSelect" width="100%" items="{ path: '/PricingmodSet' }" change="handleModelChange">
+						<core:Item key="{ModelId}" text="{Name}"/>
+					</Select>
+					<Button press="changeSubscription" text="Change/Renew Subscription" width="100%" type="Emphasized"/>
 				</content>
 			</Page>
 		</pages>

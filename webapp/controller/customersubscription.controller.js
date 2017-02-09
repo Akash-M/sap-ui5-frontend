@@ -37,7 +37,7 @@ sap.ui.define([
 			var oVBox3 = sap.ui.getCore().byId(this.createId("custsubsvbox_id3"));
 			var oVBox4 = sap.ui.getCore().byId(this.createId("custsubsvbox_id4"));
 			var oVBox5 = sap.ui.getCore().byId(this.createId("custsubsvbox_id5"));
-			
+
 			var oFilter = new sap.ui.model.Filter("CustomerId", sap.ui.model.FilterOperator.EQ, window.localStorage.getItem("customerId"));
 			var comFil = new sap.ui.model.Filter({
 				filters: [oFilter]
@@ -49,6 +49,79 @@ sap.ui.define([
 			oVBox5.getBinding("items").filter(comFil, sap.ui.model.FilterType.Application);
 		},
 
+		changeSubscription: function(oEvent) {
+			
+			/*var dialog = new sap.m.Dialog("confirmRent", {
+				title: 'Confirm your booking for bike ' + oModelData.BikeId,
+				type: 'Message',
+				content: [new sap.m.Text({
+					text: 'You will be redirected to manage your ride on confirmation.',
+					wrapping: true,
+					maxLines: 8
+				})],
+				buttons: [new sap.m.Button({
+					text: 'OK',
+					type: 'Accept',
+					press: function() {
+						dialog.close();
+						oModel.create('/RentBikeSet', oRentBike, {
+							success: function(oData, oResponse) {
+								window.localStorage.setItem('rentedBikeId',oModelData.BikeId );
+								sap.m.MessageToast.show("Bike Rented Successfully!");
+								var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
+								oRouter.navTo("myrides", {
+									rentedBikeId: oModelData.BikeId
+								});
+							},
+							error: function(oError) {
+								var err_response = JSON.parse(oError.responseText);
+								var err_message = err_response.error.message.value;
+								sap.m.MessageToast.show(err_message);
+							}
+						});
+					}
+				}), new sap.m.Button({
+					text: 'Close',
+					type: 'Reject',
+					press: function() {
+						dialog.close();
+					}
+				})],
+				afterClose: function() {
+					dialog.destroy();
+				}
+			});
+			var vBox = new sap.m.VBox({
+				items: [dialog]
+			});
+			this.getView().addDependent(vBox);
+			dialog.open();*/
+			
+			var pricingModel = this.getView().byId("pricingModelSelect").getSelectedItem().getKey();
+			var oPricingModel = {
+				"d": {
+					"CustomerId": window.localStorage.getItem("customerId"),
+					"ModelId": pricingModel
+				}
+			}
+			console.log(oPricingModel);
+			var oModel = this.getView().getModel();
+			var url = "/CustPModelSet('"+window.localStorage.getItem("customerId")+"')";
+			console.log(url);
+			oModel.update(url, oPricingModel, {
+				success: function(oData, oResponse) {
+					console.log(oData);
+					console.log(oResponse);
+					sap.m.MessageToast.show("Subscription changed succesfully");
+				},
+				error: function(oError) {
+					var err_response = JSON.parse(oError.responseText);
+					var err_message = err_response.error.message.value;
+					sap.m.MessageToast.show(err_response);
+				}
+			});
+		},
+
 		/**
 		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
 		 * @memberOf BikeRentalApp.view.customersubscription
@@ -56,7 +129,7 @@ sap.ui.define([
 		//	onExit: function() {
 		//
 		//	}
-		
+
 		toolbarnav: function(oEvent) {
 			var route = oEvent.getSource().data("route");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);

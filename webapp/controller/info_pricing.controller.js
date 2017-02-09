@@ -29,8 +29,7 @@ sap.ui.define([
 		 * @memberOf BikeRentalApp.view.info_pricing
 		 */
 		onAfterRendering: function() {
-			var csrfToken = this.getView().getModel().oHeaders;
-			csrfToken["UToken"] = window.localStorage.getItem('UToken');
+			
 		},
 
 		/**
