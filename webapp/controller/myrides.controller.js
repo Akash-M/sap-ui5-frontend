@@ -9,37 +9,35 @@ sap.ui.define([
 		oWatchId: null,
 
 		getOrCreateWebSocketObject: function() {
+			console.log("getOrCreateWebSocketObject called! ");
 			jQuery.sap.require("sap.ui.core.ws.WebSocket");
 			var BikeId = window.localStorage.getItem('rentedBikeId');
 			var CustId = window.localStorage.getItem('customerId');
 			var wsUrl = 'wss://i67lp1.informatik.tu-muenchen.de:8443/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i?CUSTOMER_ID=' + CustId +
 				'&BIKE_ID=' + BikeId;
+				
 			if (this.oWebSocket !== null) {
-				if (this.oWebSocket.readyState === 1) {
-					console.log(this.oWebSocket);
-					return this.oWebSocket;
-				}
+				return this.oWebSocket;
 			} else {
 				var webSocket = new WebSocket(wsUrl);
-				if (webSocket.readyState === 1) {
-					webSocket.onerror = function(event) {
-						console.log("WS Error");
-						console.log(event);
-					};
-					webSocket.onopen = function(event) {
-						console.log("WS Open");
-						console.log(event);
-					};
-					webSocket.onmessage = function(event) {
-						console.log("WS Message");
-						console.log(event);
-					};
-					this.oWebSocket = webSocket;
-					return webSocket;
-				}
+				webSocket.onerror = function(event) {
+					console.log("WS Error");
+					console.log(event);
+				};
+				webSocket.onopen = function(event) {
+					console.log("WS Open");
+					console.log(event);
+						this.oWebSocket = webSocket;
+				};
+				webSocket.onmessage = function(event) {
+					console.log("WS Message");
+					console.log(event);
+				};
+				this.oWebSocket = webSocket;
+				return webSocket;
 			}
 		},
-
+		
 		//Creates model or If Model exist Updates and returns model
 		getOrElseCreateLocModel: function(oPos) {
 			console.log("getOrElseCreateLocModel Called");
@@ -141,6 +139,8 @@ sap.ui.define([
 			console.log("on Pattern Match Called");
 			window.rentedBikeId = oEvent.getParameter("arguments").rentedBikeId.substr(1);
 			var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
+			var oWatchId = this.oWatchId;
+			var oWeb
 			if (window.rentedBikeId !== undefined) {
 				if (window.rentedBikeId.length < 1) {
 					window.rentedBikeId = undefined;
@@ -164,6 +164,7 @@ sap.ui.define([
 
 					myridevbox.setVisible(true);
 					this.oWatchId = this.watchPostion();
+					this.getOrCreateWebSocketObject();
 				}
 			}
 
@@ -269,6 +270,8 @@ sap.ui.define([
 		},
 
 		updatePosition: function(position) {
+			var oWebSocket = this.oWebSocket;
+			console.log(oWebSocket);
 			console.log("updatePosition Called");
 			var oModel = sap.ui.getCore().getModel("currentLocModel");
 			oModel.setProperty("/currentLocation/0/lat", position.coords.latitude);
@@ -431,7 +434,7 @@ sap.ui.define([
 									window.bikingState = "Stop";
 									var myridevbox = sap.ui.getCore().byId(that.createId("myRidesVBox"));
 									myridevbox.setVisible(false);
-									navigator.geolocation.clearWatch(this.oWatchId);
+									navigator.geolocation.clearWatch(that.oWatchId);
 									window.rentedBikeId = undefined;
 									window.localStorage.removeItem('rentedBikeId');
 								},
