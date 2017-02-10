@@ -5,6 +5,29 @@ sap.ui.define([
 
 	return Controller.extend("BikeRentalApp.controller.myrides", {
 
+		 
+		oWebSocket: null,
+	  	
+		   getWebsocket : function(myFunc){
+			var BikeId = window.localStorage.getItem('rentedBikeId');
+			var CustId = window.localStorage.getItem('customerId');
+			var webSocket = this.oWebSocket;
+			var wsUrl = 'wss://i67lp1.informatik.tu-muenchen.de:8443/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i?CUSTOMER_ID=' + CustId +
+				'&BIKE_ID=' + BikeId;
+			if (webSocket === null) {
+				webSocket = new WebSocket(wsUrl);
+				this.oWebSocket = webSocket;
+				webSocket.onopen = function(){
+				console.log("Socket is opened");
+					myFunc(webSocket);	
+				};
+			}else {
+				console.log("Socket is allready open");
+				myFunc(webSocket);
+			}	
+		
+		},
+		
 		//oWebSocket: null,
 		oWatchId: null,
 
@@ -74,6 +97,9 @@ sap.ui.define([
 				return sap.ui.getCore().getModel("currentLocModel");
 			}
 		},
+		
+	
+		
 
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
@@ -162,7 +188,7 @@ sap.ui.define([
 					myridevbox.setVisible(true);
 					reportIssues.setVisible(true);
 					this.oWatchId = this.watchPostion();
-					this.getOrCreateWebSocketObject();
+					//this.getOrCreateWebSocketObject();
 				}
 			}
 		},
@@ -280,13 +306,17 @@ sap.ui.define([
 					lng: position.coords.longitude
 				}
 				if (window.rentedBikeId !== undefined) {
-				/*	var data = {
+					var data = {
 						U_TOKEN: window.localStorage.getItem('UToken'),
 						BIKE_ID: window.localStorage.getItem('rentedBikeId'),
 						CUSTOMER_ID: window.localStorage.getItem('customerId'),
 						LATITUDE: position.coords.latitude,
 						LONGITUDE: position.coords.longitude
-					};*/
+					};
+					this.getWebsocket(function(websocket){
+						jQuery.sap.log.info('Send new messages to web socket');
+						websocket.send(JSON.stringify(data));
+					});
 					//this.oWebSocket.send(JSON.stringify(data));
 					oModel.getProperty("/previousLocations").push(newLocation);
 				}
@@ -416,6 +446,11 @@ sap.ui.define([
 				beginButton: new sap.m.Button({
 					text: 'OK',
 					press: function() {
+						
+							that.getWebsocket(function(websocket){
+										console.log('Close web socket');
+										websocket.close();
+									});
 
 						if (window.selectedStation === undefined && window.rentedBikeId === undefined) {
 							sap.m.MessageToast.show("Please Select a Station");
@@ -459,8 +494,8 @@ sap.ui.define([
 
 							oModel.create('/FreeBikesSet', oFreeBike, {
 								success: function(oData, oResponse) {
+									
 									dialog.close();
-
 									window.bikingState = "Stop";
 									var myridevbox = sap.ui.getCore().byId(that.createId("myRidesVBox"));
 									myridevbox.setVisible(false);
@@ -468,6 +503,8 @@ sap.ui.define([
 									window.rentedBikeId = undefined;
 									window.localStorage.removeItem('rentedBikeId');
 									sap.m.MessageToast.show("Bike Freed Successfully!");
+							
+									
 								},
 								error: function(oError) {
 									sap.m.MessageToast.show("There seems to be a problem please try again");
