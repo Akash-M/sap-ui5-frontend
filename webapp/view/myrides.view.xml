@@ -1,6 +1,4 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps"
-	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" controllerName="BikeRentalApp.controller.myrides"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="BikeRentalApp.controller.myrides">
 	<App>
 		<pages>
 			<Page title="My Rides">
@@ -14,7 +12,7 @@
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://hint" press="toolbarnav" app:route="information"/>
 						<ToolbarSpacer/>
-						<Button icon="sap-icon://quality-issue" press="toolbarnav" app:route="reportissues"/>
+						<Button icon="sap-icon://timesheet" press="toolbarnav" app:route="customersubscription"/>
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://account" press="toolbarnav" app:route="clientaccount"/>
 						<ToolbarSpacer/>
@@ -32,9 +30,13 @@
 							</items>
 						</FlexBox>
 					</VBox>
+					<VBox id="reportIssuesBox">
+						<Button text="Report Issue" type="Reject" press="onReportIssuePress" width="100%"/>
+					</VBox>
 					<VBox id="myRidesHistory">
 						
 					</VBox>
+					
 				</content>
 			</Page>
 		</pages>

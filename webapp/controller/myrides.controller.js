@@ -15,7 +15,7 @@ sap.ui.define([
 			var CustId = window.localStorage.getItem('customerId');
 			var wsUrl = 'wss://i67lp1.informatik.tu-muenchen.de:8443/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i?CUSTOMER_ID=' + CustId +
 				'&BIKE_ID=' + BikeId;
-				
+
 			if (this.oWebSocket !== null) {
 				return this.oWebSocket;
 			} else {
@@ -27,7 +27,7 @@ sap.ui.define([
 				webSocket.onopen = function(event) {
 					console.log("WS Open");
 					console.log(event);
-						this.oWebSocket = webSocket;
+					this.oWebSocket = webSocket;
 				};
 				webSocket.onmessage = function(event) {
 					console.log("WS Message");
@@ -37,7 +37,7 @@ sap.ui.define([
 				return webSocket;
 			}
 		},
-		
+
 		//Creates model or If Model exist Updates and returns model
 		getOrElseCreateLocModel: function(oPos) {
 			console.log("getOrElseCreateLocModel Called");
@@ -139,6 +139,7 @@ sap.ui.define([
 			console.log("on Pattern Match Called");
 			window.rentedBikeId = oEvent.getParameter("arguments").rentedBikeId.substr(1);
 			var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
+			var reportIssues = sap.ui.getCore().byId(this.createId("reportIssuesBox"));
 			var oWatchId = this.oWatchId;
 			var oWeb
 			if (window.rentedBikeId !== undefined) {
@@ -147,6 +148,7 @@ sap.ui.define([
 					window.localStorage.setItem('problemBikeId', "00001");
 					window.localStorage.setItem('rentedBikeId', window.rentedBikeId);
 					myridevbox.setVisible(false);
+					reportIssues.setVisible(false);
 				} else {
 					window.localStorage.setItem('problemBikeId', window.rentedBikeId);
 
@@ -163,11 +165,11 @@ sap.ui.define([
 					stopbtn.setEnabled(true);
 
 					myridevbox.setVisible(true);
+					reportIssues.setVisible(true);
 					this.oWatchId = this.watchPostion();
 					this.getOrCreateWebSocketObject();
 				}
 			}
-
 		},
 
 		setBtnsContainerVisibility: function(oVisibility) {
@@ -347,6 +349,7 @@ sap.ui.define([
 							stopbtn.setEnabled(true);
 							pausebtn.setEnabled(true);
 							window.startTime = new Date();
+							console.log(window.startTime);
 							window.bikingState = "Riding";
 							dialog.close();
 						}
@@ -389,7 +392,7 @@ sap.ui.define([
 		},
 
 		onStopBtnPress: function() {
-			window.stopTime = new Date().toISOString();
+
 			var oSelectItemTemplate = new sap.ui.core.Item({
 				text: '{Name}',
 				key: '{BikeStationId}'
@@ -418,6 +421,7 @@ sap.ui.define([
 				beginButton: new sap.m.Button({
 					text: 'OK',
 					press: function() {
+
 						if (window.selectedStation === undefined && window.rentedBikeId === undefined) {
 							sap.m.MessageToast.show("Please Select a Station");
 						} else {
@@ -427,16 +431,48 @@ sap.ui.define([
 									"BikeStationId": window.selectedStation
 								}
 							};
+							window.stopTime = new Date();
+							var stopTime = window.stopTime;
+							var startTime = window.startTime;
+							var oStopDate = stopTime.getFullYear().toString() + "0" + stopTime.getMonth().toString() + stopTime.getDate().toString() +
+								stopTime.getHours().toString() + stopTime.getMinutes().toString() +
+								stopTime.getSeconds().toString();
+							var oStartDate = startTime.getFullYear().toString() + "0" + startTime.getMonth().toString() + startTime.getDate().toString() +
+								startTime.getHours().toString() + startTime.getMinutes().toString() +
+								startTime.getSeconds().toString();
+								
+							var oRideHistory ={
+								"d": {
+									"CustomerId": window.localStorage.getItem('customerId'),
+									"BikeId" : window.localStorage.getItem('rentedBikeId'),
+									"SartTimestamp" : oStartDate,
+									"ReleaseTimeStamp": oStopDate
+								}
+							};
+							oModel.update('/balancecustSet', oRideHistory, {
+								success: function(oData, oResponse) {
+									dialog.close();
+									console.log(oData);
+									console.log(oResponse);
+								},
+								error: function(oError) {
+									sap.m.MessageToast.show("There seems to be a problem please try again");
+								}
+							});
+							//var diffMs = window.stopTime - window.startTime;
+							//var diffMins = Math.floor((diffMs / 1000) / 60);
+
 							oModel.create('/FreeBikesSet', oFreeBike, {
 								success: function(oData, oResponse) {
 									dialog.close();
-									sap.m.MessageToast.show("Bike Freed Successfully!");
+
 									window.bikingState = "Stop";
 									var myridevbox = sap.ui.getCore().byId(that.createId("myRidesVBox"));
 									myridevbox.setVisible(false);
 									navigator.geolocation.clearWatch(that.oWatchId);
 									window.rentedBikeId = undefined;
 									window.localStorage.removeItem('rentedBikeId');
+									sap.m.MessageToast.show("Bike Freed Successfully!");
 								},
 								error: function(oError) {
 									sap.m.MessageToast.show("There seems to be a problem please try again");
@@ -504,6 +540,62 @@ sap.ui.define([
 			
 		},
 */
+		onReportIssuePress: function() {
+			var oModel = this.getView().getModel();
+			var oContext = new sap.ui.model.Context(oModel);
+			var oText = new sap.m.Text({
+				text: 'Your current ride will be stop and you are expected to release bike at a station',
+				wrapping: true,
+				maxLines: 8
+			});
+			var that = this;
+			var oModel = this.getView().getModel();
+			var dialog = new sap.m.Dialog("confirmRent", {
+				title: 'Select Drop Station',
+				type: 'Message',
+				content: [oText],
+				beginButton: new sap.m.Button({
+					text: 'OK',
+					press: function() {
+						/*	var oFreeBike = {
+								"d": {
+									"BikeId": window.localStorage.getItem('rentedBikeId'),
+									"BikeStationId": window.selectedStation
+								}
+							};
+							oModel.create('/FreeBikesSet', oFreeBike, {
+								success: function(oData, oResponse) {
+									dialog.close();
+									sap.m.MessageToast.show("Bike Freed Successfully!");
+									window.bikingState = "Stop";
+									var myridevbox = sap.ui.getCore().byId(that.createId("myRidesVBox"));
+									myridevbox.setVisible(false);
+									navigator.geolocation.clearWatch(that.oWatchId);
+									window.rentedBikeId = undefined;
+									window.localStorage.removeItem('rentedBikeId');
+								},
+								error: function(oError) {
+									sap.m.MessageToast.show("There seems to be a problem please try again");
+								}
+							});*/
+					}
+				}),
+				endButton: new sap.m.Button({
+					text: 'Close',
+					press: function() {
+						dialog.close();
+					}
+				}),
+				afterClose: function() {
+					dialog.destroy();
+				}
+			});
+			var vBox = new sap.m.VBox({
+				items: [dialog]
+			});
+			this.getView().addDependent(vBox);
+			dialog.open();
+		},
 		toolbarnav: function(oEvent) {
 			var route = oEvent.getSource().data("route");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
