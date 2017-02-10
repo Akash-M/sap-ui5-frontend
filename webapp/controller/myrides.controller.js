@@ -5,10 +5,10 @@ sap.ui.define([
 
 	return Controller.extend("BikeRentalApp.controller.myrides", {
 
-		oWebSocket: null,
+		//oWebSocket: null,
 		oWatchId: null,
 
-		getOrCreateWebSocketObject: function() {
+/*		getOrCreateWebSocketObject: function() {
 			console.log("getOrCreateWebSocketObject called! ");
 			jQuery.sap.require("sap.ui.core.ws.WebSocket");
 			var BikeId = window.localStorage.getItem('rentedBikeId');
@@ -16,27 +16,23 @@ sap.ui.define([
 			var wsUrl = 'wss://i67lp1.informatik.tu-muenchen.de:8443/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i?CUSTOMER_ID=' + CustId +
 				'&BIKE_ID=' + BikeId;
 
-			if (this.oWebSocket !== null) {
-				return this.oWebSocket;
-			} else {
-				var webSocket = new WebSocket(wsUrl);
-				webSocket.onerror = function(event) {
-					console.log("WS Error");
-					console.log(event);
-				};
-				webSocket.onopen = function(event) {
-					console.log("WS Open");
-					console.log(event);
-					this.oWebSocket = webSocket;
-				};
-				webSocket.onmessage = function(event) {
-					console.log("WS Message");
-					console.log(event);
-				};
+			var webSocket = new WebSocket(wsUrl);
+			webSocket.onerror = function(event) {
+				console.log("WS Error");
+				console.log(event);
+			};
+			webSocket.onopen = function(event) {
+				console.log("WS Open");
+				console.log(event);
 				this.oWebSocket = webSocket;
-				return webSocket;
-			}
-		},
+			};
+			webSocket.onmessage = function(event) {
+				console.log("WS Message");
+				console.log(event);
+			};
+			this.oWebSocket = webSocket;
+			return webSocket;
+		},*/
 
 		//Creates model or If Model exist Updates and returns model
 		getOrElseCreateLocModel: function(oPos) {
@@ -141,7 +137,6 @@ sap.ui.define([
 			var myridevbox = sap.ui.getCore().byId(this.createId("myRidesVBox"));
 			var reportIssues = sap.ui.getCore().byId(this.createId("reportIssuesBox"));
 			var oWatchId = this.oWatchId;
-			var oWeb
 			if (window.rentedBikeId !== undefined) {
 				if (window.rentedBikeId.length < 1) {
 					window.rentedBikeId = undefined;
@@ -247,12 +242,12 @@ sap.ui.define([
 							return "Ride ID: " + historyId;
 						}
 					},
-					info: {
+					/*info: {
 						path: 'BikeId',
 						formatter: function(BikeID) {
 							return "Bike ID: " + BikeID;
 						}
-					},
+					},*/
 					description: {
 						path: 'RideStart',
 						formatter: function(rideDate) {
@@ -263,7 +258,7 @@ sap.ui.define([
 				});
 				var oPrevRidesList = new sap.m.List("prevRidesList", {
 					items: {
-						path: "/CustomerSet('" + custId + "')/CustHistorySet",
+						path: "/CustomerSet('" + custId + "')/CustHistory",
 						template: oListItemTemplate
 					}
 				});
@@ -272,8 +267,8 @@ sap.ui.define([
 		},
 
 		updatePosition: function(position) {
-			var oWebSocket = this.oWebSocket;
-			console.log(oWebSocket);
+			//var oWebSocket = this.oWebSocket;
+			//console.log(oWebSocket);
 			console.log("updatePosition Called");
 			var oModel = sap.ui.getCore().getModel("currentLocModel");
 			oModel.setProperty("/currentLocation/0/lat", position.coords.latitude);
@@ -285,14 +280,14 @@ sap.ui.define([
 					lng: position.coords.longitude
 				}
 				if (window.rentedBikeId !== undefined) {
-					var data = {
+				/*	var data = {
 						U_TOKEN: window.localStorage.getItem('UToken'),
 						BIKE_ID: window.localStorage.getItem('rentedBikeId'),
 						CUSTOMER_ID: window.localStorage.getItem('customerId'),
 						LATITUDE: position.coords.latitude,
 						LONGITUDE: position.coords.longitude
-					};
-					this.oWebSocket.send(JSON.stringify(data));
+					};*/
+					//this.oWebSocket.send(JSON.stringify(data));
 					oModel.getProperty("/previousLocations").push(newLocation);
 				}
 			}
@@ -387,7 +382,7 @@ sap.ui.define([
 			playbtn.setEnabled(true);
 			stopbtn.setEnabled(false);
 			pausebtn.setEnabled(false);
-			window.pauseTime = new Date();
+			window.pauseStartTime = new Date();
 			window.bikingState = "Paused";
 		},
 
@@ -431,7 +426,7 @@ sap.ui.define([
 									"BikeStationId": window.selectedStation
 								}
 							};
-							window.stopTime = new Date();
+							/*window.stopTime = new Date();
 							var stopTime = window.stopTime;
 							var startTime = window.startTime;
 							var oStopDate = stopTime.getFullYear().toString() + "0" + stopTime.getMonth().toString() + stopTime.getDate().toString() +
@@ -458,7 +453,7 @@ sap.ui.define([
 								error: function(oError) {
 									sap.m.MessageToast.show("There seems to be a problem please try again");
 								}
-							});
+							});*/
 							//var diffMs = window.stopTime - window.startTime;
 							//var diffMins = Math.floor((diffMs / 1000) / 60);
 
