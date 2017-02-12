@@ -12,15 +12,19 @@ sap.ui.define([
 			var BikeId = window.localStorage.getItem('rentedBikeId');
 			var CustId = window.localStorage.getItem('customerId');
 			var webSocket = this.oWebSocket;
-			var wsUrl = 'wss://i67lp1.informatik.tu-muenchen.de:8443/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i?CUSTOMER_ID=' + CustId +
+		//	var wsUrl = 'wss://i67lp1.informatik.tu-muenchen.de:8443/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i?CUSTOMER_ID=' + CustId +
+		//		'&BIKE_ID=' + BikeId;
+		var wsUrl = '/sap/bc/apc/sap/zws16_t1_rental_bike_push_c_i?CUSTOMER_ID=' + CustId +
 				'&BIKE_ID=' + BikeId;
 			if (webSocket === null) {
-				webSocket = new WebSocket(wsUrl);
+				jQuery.sap.require("sap.ui.core.ws.WebSocket"); 
+				//webSocket = new WebSocket(wsUrl);
+				webSocket = new sap.ui.core.ws.WebSocket(wsUrl);
 				this.oWebSocket = webSocket;
-				webSocket.onopen = function(){
+				webSocket.attachOpen(function(e){
 				console.log("Socket is opened");
 					myFunc(webSocket);	
-				};
+				});
 			}else {
 				console.log("Socket is allready open");
 				myFunc(webSocket);
